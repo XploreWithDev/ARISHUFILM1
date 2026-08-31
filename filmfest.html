@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arishu Films · Film Festival</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0,1" />
+  <style>
+    /* ---------- RESET & BASE ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #090909;
+      color: #f5f0eb;
+      font-family: 'Inter', 'Poppins', 'Satoshi', sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; height: auto; }
+
+    /* ---------- UTILITY ---------- */
+    .text-gold { color: #d4af37; }
+    .bg-gold { background: #d4af37; }
+    .border-gold { border-color: #d4af37; }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(212, 175, 55, 0.08);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+
+    /* ---------- SECTION HEADER ---------- */
+    .festival-header {
+      position: relative;
+      padding: 5rem 3rem;
+      border-radius: 32px;
+      overflow: hidden;
+      margin-bottom: 4rem;
+      background: #0c0c0c;
+      box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.05);
+    }
+    .festival-header .bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.25;
+      filter: brightness(0.6) saturate(0.7);
+      transition: opacity 1s;
+    }
+    .festival-header .grain {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .festival-header .content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+    .festival-header .label {
+      font-size: 0.7rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: #d4af37;
+      margin-bottom: 0.5rem;
+    }
+    .festival-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 4.8rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .festival-header h1 span { color: #d4af37; }
+    .festival-header .sub {
+      font-size: 1.1rem;
+      color: rgba(245, 240, 235, 0.6);
+      max-width: 500px;
+      line-height: 1.6;
+    }
+
+    /* ---------- EVENT GRID (2 cards) ---------- */
+    .event-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    @media (min-width: 768px) {
+      .event-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .event-card {
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(212, 175, 55, 0.06);
+      transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1), box-shadow 0.5s, border-color 0.4s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+    .event-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+      border-color: rgba(212, 175, 55, 0.3);
+    }
+
+    .event-card .img-wrap {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      background: #141414;
+    }
+    .event-card .img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .event-card:hover .img-wrap img {
+      transform: scale(1.06);
+    }
+    .event-card .img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 100%);
+      transition: opacity 0.5s;
+    }
+    .event-card:hover .img-overlay {
+      background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%);
+    }
+
+    .event-card .float-arrow {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      width: 3rem;
+      height: 3rem;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(6px);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #d4af37;
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      transition: transform 0.5s, opacity 0.3s;
+      opacity: 0;
+    }
+    .event-card:hover .float-arrow {
+      opacity: 1;
+      transform: rotate(45deg);
+    }
+
+    .status-badge {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: rgba(212, 175, 55, 0.15);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      color: #d4af37;
+      font-weight: 500;
+      transition: transform 0.4s, background 0.3s;
+    }
+    .event-card:hover .status-badge {
+      transform: scale(1.04);
+      background: rgba(212, 175, 55, 0.25);
+    }
+    .status-badge.completed {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.1);
+      color: #aaa;
+    }
+
+    .event-card .body {
+      padding: 1.8rem 2rem 2.2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .event-card .body .title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 0.2rem;
+    }
+    .event-card .body .title .edition {
+      color: #d4af37;
+      font-weight: 400;
+    }
+    .event-card .body .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.8rem;
+      font-size: 0.85rem;
+      color: rgba(245, 240, 235, 0.5);
+      margin: 0.6rem 0 0.8rem;
+    }
+    .event-card .body .meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .event-card .body .desc {
+      color: rgba(245, 240, 235, 0.65);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 0.8rem;
+      flex: 1;
+    }
+    .event-card .body .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 0.8rem;
+      opacity: 0.7;
+      transition: opacity 0.4s, transform 0.4s;
+      transform: translateY(4px);
+    }
+    .event-card:hover .body .btn-row {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .btn-outline-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1.5rem;
+      border-radius: 40px;
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #f5f0eb;
+      transition: background 0.3s, border-color 0.3s, transform 0.2s;
+      cursor: pointer;
+      background: none;
+    }
+    .btn-outline-gold:hover {
+      background: rgba(212, 175, 55, 0.08);
+      border-color: #d4af37;
+      transform: scale(1.02);
+    }
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1.8rem;
+      border-radius: 40px;
+      background: #d4af37;
+      color: #090909;
+      font-weight: 600;
+      font-size: 0.8rem;
+      transition: background 0.3s, transform 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-gold:hover {
+      background: #e6c75a;
+      transform: scale(1.02);
+    }
+
+    /* ====== DETAIL PANEL ====== */
+    .detail-panel {
+      display: none;
+      margin-top: 1.5rem;
+      padding: 2.5rem 2.5rem 3rem;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(212, 175, 55, 0.06);
+      animation: fadeSlide 0.5s ease;
+    }
+    .detail-panel.open { display: block; }
+    @keyframes fadeSlide {
+      0% { opacity: 0; transform: translateY(12px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .detail-panel .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    @media (min-width: 768px) {
+      .detail-panel .detail-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .detail-panel h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .detail-panel .sub-meta {
+      color: rgba(245, 240, 235, 0.4);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+    .detail-panel p {
+      color: rgba(245, 240, 235, 0.7);
+      line-height: 1.8;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+    .detail-panel .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem 2rem;
+      margin: 1rem 0;
+    }
+    .detail-panel .info-grid .item {
+      display: flex;
+      flex-direction: column;
+    }
+    .detail-panel .info-grid .item .label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #d4af37;
+    }
+    .detail-panel .info-grid .item .value {
+      font-weight: 500;
+    }
+
+    .close-detail {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: rgba(245, 240, 235, 0.3);
+      font-size: 0.8rem;
+      margin-top: 1.5rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      transition: color 0.2s;
+    }
+    .close-detail:hover { color: #d4af37; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: rgba(245, 240, 235, 0.2);
+      font-size: 0.8rem;
+      margin-top: 3rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: #d4af37; }
+
+    .requirements-list {
+      list-style: none;
+      padding: 0;
+      color: rgba(245, 240, 235, 0.7);
+      font-size: 0.9rem;
+    }
+    .requirements-list li {
+      padding: 0.3rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .requirements-list li::before {
+      content: "•";
+      color: #d4af37;
+      font-weight: 700;
+    }
+
+    .terms-text {
+      font-size: 0.85rem !important;
+      color: rgba(245, 240, 235, 0.5) !important;
+      line-height: 1.6 !important;
+    }
+
+    .status-closed {
+      display: inline-block;
+      background: rgba(255, 0, 0, 0.1);
+      border: 1px solid rgba(255, 0, 0, 0.2);
+      color: #ff6b6b;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ===== FESTIVAL HERO ===== -->
+  <div class="festival-header">
+    <img class="bg-img" src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1400&q=80" alt="festival background" />
+    <div class="grain"></div>
+    <div class="content">
+      <div class="label">Film Festival</div>
+      <h1>Short <span>Spotlight</span></h1>
+      <p class="sub">Celebrating independent filmmakers through screenings, networking, audience engagement, and meaningful cinematic experiences.</p>
+    </div>
+  </div>
+
+  <!-- ===== EVENT GRID ===== -->
+  <div class="event-grid" id="eventGrid">
+
+    <!-- EVENT CARD 1: Second Edition -->
+    <div class="event-card" data-target="detailSecond">
+      <div class="img-wrap">
+        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80" alt="Short Spotlight Second Edition" loading="lazy" />
+        <div class="img-overlay"></div>
+        <div class="float-arrow"><span class="material-symbols-outlined">north_east</span></div>
+        <span class="status-badge">Now Accepting Submissions</span>
+      </div>
+      <div class="body">
+        <div class="title">Short Spotlight <span class="edition">· Second Edition</span></div>
+        <div class="meta">
+          <span><span class="material-symbols-outlined" style="font-size:1rem;">calendar_today</span> Fri 18 Sept</span>
+          <span><span class="material-symbols-outlined" style="font-size:1rem;">schedule</span> 4:00 – 7:00 PM</span>
+          <span><span class="material-symbols-outlined" style="font-size:1rem;">location_on</span> Midlands Arts Centre</span>
+        </div>
+        <p class="desc">Submissions are now open for Short Spotlight – Second Edition. Join us for another celebration of independent voices on the big screen.</p>
+        <div class="btn-row">
+          <a href="https://filmfreeway.com/ArishuFilms" target="_blank" class="btn-gold"><span class="material-symbols-outlined">send</span> FilmFreeway</a>
+          <span class="btn-outline-gold">Learn More</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EVENT CARD 2: First Edition -->
+    <div class="event-card" data-target="detailFirst">
+      <div class="img-wrap">
+        <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80" alt="Short Spotlight First Edition" loading="lazy" />
+        <div class="img-overlay"></div>
+        <div class="float-arrow"><span class="material-symbols-outlined">north_east</span></div>
+        <span class="status-badge completed">Registration Closed</span>
+      </div>
+      <div class="body">
+        <div class="title">Short Spotlight <span class="edition">· First Edition</span></div>
+        <div class="meta">
+          <span><span class="material-symbols-outlined" style="font-size:1rem;">calendar_today</span> Tue 11 Feb</span>
+          <span><span class="material-symbols-outlined" style="font-size:1rem;">location_on</span> Birmingham</span>
+        </div>
+        <p class="desc">Arishu Short Film Spotlight is the first edition of the Arishu Film Festival, created to showcase independent short films and engage live audiences through cinema screenings and feedback.</p>
+        <div class="btn-row">
+          <span class="btn-outline-gold">See other events</span>
+          <span class="btn-outline-gold">Watch Coverage</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== DETAIL PANELS ===== -->
+
+  <!-- DETAIL: Second Edition -->
+  <div id="detailSecond" class="detail-panel">
+    <div class="detail-grid">
+      <div>
+        <h3>Short Spotlight · Second Edition</h3>
+        <div class="sub-meta">18 Sept 2026 · 4:00 – 7:00 PM · Midlands Arts Centre, Birmingham</div>
+        
+        <h4 style="font-weight:600; margin-top:0.5rem;">About the Film Festival</h4>
+        <p>Submissions are now open for Short Spotlight – Second Edition.</p>
+        <p>After a successful first edition with great audience turnout and positive feedback, we're back to celebrate more independent voices on the big screen in Birmingham, UK.</p>
+        <p>We're inviting short films in <strong>Drama | Horror | Comedy</strong> with a runtime of <strong>1–20 minutes</strong>.</p>
+        <p>If you're an independent filmmaker with a story to tell, we'd love to see your work.</p>
+        <p style="font-size:0.9rem; color:#d4af37;"><strong>Presented by Arishu Films</strong></p>
+
+        <div style="display:flex; gap:1rem; flex-wrap:wrap; margin:1.2rem 0;">
+          <a href="https://filmfreeway.com/ArishuFilms" target="_blank" class="btn-gold"><span class="material-symbols-outlined">send</span> FilmFreeway</a>
+        
+        </div>
+
+        <button class="close-detail" onclick="closeDetail('detailSecond')"><span class="material-symbols-outlined">close</span> Close details</button>
+      </div>
+      <div>
+        <h4 style="font-weight:600; margin-bottom:0.8rem;">Event Details</h4>
+        <div class="info-grid">
+          <div class="item"><span class="label">Date</span><span class="value">18 September 2026</span></div>
+          <div class="item"><span class="label">Time</span><span class="value">4:00 – 7:00 PM</span></div>
+          <div class="item"><span class="label">Venue</span><span class="value">Midlands Arts Centre</span></div>
+          <div class="item"><span class="label">Address</span><span class="value">Cannon Hill Park, Birmingham B12 9QH, UK</span></div>
+          <div class="item"><span class="label">Categories</span><span class="value">Drama · Horror · Comedy</span></div>
+          <div class="item"><span class="label">Runtime</span><span class="value">1 – 20 minutes</span></div>
+        </div>
+        <p style="font-size:0.85rem; color:rgba(245,240,235,0.4); margin-top:0.5rem;">Presented by Arishu Films</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DETAIL: First Edition -->
+  <div id="detailFirst" class="detail-panel">
+    <div class="detail-grid">
+      <div>
+        <h3>Short Spotlight · First Edition</h3>
+        <div class="sub-meta">11 Feb 2025 · 4:00 PM · Birmingham</div>
+        
+        <div style="margin-bottom: 1rem;">
+          <span class="status-closed">Registration Closed</span>
+        </div>
+
+        <h4 style="font-weight:600; margin-top:0.5rem;">About the Film Festival</h4>
+        <p><strong>Terms and Conditions — Short Spotlight by Arishu Film Festival</strong></p>
+        
+        <p><strong>Eligibility:</strong><br />
+        Submissions are open to independent filmmakers of all backgrounds. Films must be original works between 1 and 30 minutes in length.</p>
+        
+        <p><strong>Submission Requirements:</strong><br />
+        All films must include English subtitles if the dialogue is in any other language. Films must be provided in a cinema screen ratio suitable for theatrical projection. Failure to meet these technical requirements may result in disqualification.</p>
+        
+        <p><strong>Rights and Permissions:</strong><br />
+        By submitting, you confirm that you hold all necessary rights for public exhibition and agree to Arishu Films' festival terms.</p>
+        
+        <p style="font-size:0.9rem; color:#d4af37; margin-top:0.5rem;"><strong>Presented by Arishu Films</strong></p>
+
+        <div style="display:flex; gap:1rem; flex-wrap:wrap; margin:1.2rem 0;">
+
+        <button class="close-detail" onclick="closeDetail('detailFirst')"><span class="material-symbols-outlined">close</span> Close details</button>
+      </div>
+      <div>
+        <h4 style="font-weight:600; margin-bottom:0.8rem;">Event Details</h4>
+        <div class="info-grid">
+          <div class="item"><span class="label">Date</span><span class="value">11 February 2025</span></div>
+          <div class="item"><span class="label">Time</span><span class="value">4:00 PM</span></div>
+          <div class="item"><span class="label">Venue</span><span class="value">Birmingham</span></div>
+          <div class="item"><span class="label">Address</span><span class="value">Cannon Hill Park, Birmingham B12 9QH, UK</span></div>
+          <div class="item"><span class="label">Status</span><span class="value" style="color:#ff6b6b;">Registration Closed</span></div>
+          <div class="item"><span class="label">Runtime</span><span class="value">1 – 30 minutes</span></div>
+        </div>
+        <p style="font-size:0.85rem; color:rgba(245,240,235,0.4); margin-top:0.5rem;">Presented by Arishu Films</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- back link -->
+  <a href="#" class="back-link" onclick="closeAllDetails(); return false;">
+    <span class="material-symbols-outlined">arrow_back</span> Back to Festival
+  </a>
+
+</div>
+
+<script>
+  // Open detail on card click
+  document.querySelectorAll('.event-card').forEach(card => {
+    card.addEventListener('click', function(e) {
+      const targetId = this.dataset.target;
+      document.querySelectorAll('.detail-panel').forEach(p => p.classList.remove('open'));
+      const panel = document.getElementById(targetId);
+      if (panel) {
+        panel.classList.add('open');
+        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  function closeDetail(id) {
+    document.getElementById(id).classList.remove('open');
+  }
+
+  function closeAllDetails() {
+    document.querySelectorAll('.detail-panel').forEach(p => p.classList.remove('open'));
+  }
+
+  // Share function
+  function shareEvent(title, details) {
+    if (navigator.share) {
+      navigator.share({
+        title: title,
+        text: `Check out ${title}: ${details}`,
+        url: window.location.href
+      }).catch(() => {});
+    } else {
+      // Fallback: copy to clipboard
+      const text = `${title}\n${details}\n${window.location.href}`;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Event details copied to clipboard! Share it with your friends.');
+      }).catch(() => {
+        prompt('Copy this link to share:', window.location.href);
+      });
+    }
+  }
+</script>
+
+</body>
+</html>

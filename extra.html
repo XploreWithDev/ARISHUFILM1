@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arishu Films · Featured Projects</title>
+  <!-- Google Fonts & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0,1" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0c0c0c;
+      color: #f5f0eb;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; height: auto; }
+
+    .text-gold { color: #d4af37; }
+    .bg-glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(212, 175, 55, 0.10);
+    }
+    .gold-divider {
+      width: 60px;
+      height: 2px;
+      background: #d4af37;
+      margin: 1rem 0;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+
+    /* ----- header ----- */
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+    }
+    .section-header .sub {
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: #d4af37;
+    }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* ----- 3‑col project grid (cards) ----- */
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    @media (min-width: 640px) {
+      .project-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px) {
+      .project-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .project-card {
+      border-radius: 24px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(212, 175, 55, 0.06);
+      transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1), box-shadow 0.4s, border-color 0.3s;
+      cursor: pointer;
+    }
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+      border-color: rgba(212, 175, 55, 0.2);
+    }
+
+    .poster-wrap {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 10 / 14;
+      background: #141414;
+    }
+    .poster-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.5s;
+      filter: brightness(0.90);
+    }
+    .project-card:hover .poster-wrap img {
+      transform: scale(1.06);
+      filter: brightness(1);
+    }
+
+    .hover-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      opacity: 0;
+      transition: opacity 0.5s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1.5rem;
+    }
+    .project-card:hover .hover-overlay {
+      opacity: 1;
+    }
+    .hover-overlay .play-icon {
+      font-size: 3.8rem;
+      color: #d4af37;
+      margin-bottom: 0.5rem;
+      transition: transform 0.4s;
+    }
+    .project-card:hover .hover-overlay .play-icon {
+      transform: scale(1.1);
+    }
+    .hover-overlay h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .hover-overlay .divider {
+      width: 40px;
+      height: 2px;
+      background: #d4af37;
+      margin: 0.5rem auto;
+    }
+    .hover-overlay p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.85rem;
+      max-width: 200px;
+    }
+
+    .arrow-top {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(4px);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s 0.1s;
+      color: #d4af37;
+      border: 1px solid rgba(212, 175, 55, 0.15);
+    }
+    .project-card:hover .arrow-top {
+      opacity: 1;
+    }
+
+    .card-body {
+      padding: 1.2rem 1.2rem 1.5rem;
+    }
+    .card-body .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.2rem;
+    }
+    .card-body .title-row h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+    .card-body .title-row .badge {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #d4af37;
+      font-weight: 500;
+    }
+    .card-body .genre {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(245, 240, 235, 0.35);
+      margin-bottom: 0.3rem;
+    }
+    .card-body .desc {
+      color: rgba(245, 240, 235, 0.6);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin: 0.3rem 0 0.8rem;
+    }
+    .read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      color: #d4af37;
+      font-weight: 500;
+      font-size: 0.85rem;
+      transition: gap 0.2s, color 0.2s;
+    }
+    .project-card:hover .read-more {
+      color: #fff;
+      gap: 0.7rem;
+    }
+
+    /* ====== DETAIL PANEL (expands below card) ====== */
+    .detail-panel {
+      display: none;
+      margin-top: 1.5rem;
+      padding: 2rem 2rem 2.5rem;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(212, 175, 55, 0.08);
+      animation: fadeSlide 0.5s ease;
+    }
+    .detail-panel.open {
+      display: block;
+    }
+    @keyframes fadeSlide {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .detail-panel .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    @media (min-width: 768px) {
+      .detail-panel .detail-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .detail-panel .detail-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+    .detail-panel .detail-text .meta-line {
+      color: rgba(245, 240, 235, 0.4);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.8rem;
+    }
+    .detail-panel .detail-text p {
+      color: rgba(245, 240, 235, 0.75);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .detail-panel .detail-text .quote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: #d4af37;
+      font-size: 1.1rem;
+      border-left: 3px solid #d4af37;
+      padding-left: 1.2rem;
+      margin: 1rem 0;
+    }
+    .detail-panel .cast-crew {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem 2rem;
+      margin: 1rem 0;
+    }
+    .detail-panel .cast-crew .item {
+      display: flex;
+      flex-direction: column;
+    }
+    .detail-panel .cast-crew .item .role {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #d4af37;
+    }
+    .detail-panel .cast-crew .item .name {
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    /* gallery inside detail */
+    .detail-gallery {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+    @media (min-width: 480px) {
+      .detail-gallery { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 768px) {
+      .detail-gallery { grid-template-columns: repeat(3, 1fr); }
+    }
+    .detail-gallery .gallery-img {
+      border-radius: 16px;
+      overflow: hidden;
+      background: #141414;
+      transition: transform 0.3s;
+    }
+    .detail-gallery .gallery-img:hover {
+      transform: scale(1.02);
+    }
+    .detail-gallery .gallery-img img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .detail-gallery .gallery-img .cap {
+      padding: 0.4rem 0.6rem 0.6rem;
+      font-size: 0.75rem;
+      color: rgba(245, 240, 235, 0.5);
+      background: rgba(0,0,0,0.2);
+    }
+
+    .watch-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 1.2rem;
+      padding: 0.7rem 2.2rem;
+      background: #d4af37;
+      color: #0c0c0c;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.3s, transform 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .watch-btn:hover {
+      background: #e6c75a;
+      transform: translateY(-2px);
+    }
+
+    .close-detail {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: rgba(245, 240, 235, 0.4);
+      font-size: 0.8rem;
+      margin-top: 1.5rem;
+      cursor: pointer;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+    }
+    .close-detail:hover {
+      color: #d4af37;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: rgba(245, 240, 235, 0.3);
+      font-size: 0.8rem;
+      margin-top: 2rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover {
+      color: #d4af37;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- header -->
+  <div class="section-header">
+    <span class="sub">Our Filmography</span>
+    <h2>Featured <span class="text-gold">Projects</span></h2>
+  </div>
+
+<!-- ===== PROJECT GRID (3 cards) ===== -->
+<div class="project-grid" id="projectGrid">
+
+  <!-- CARD 1: Four Days Left -->
+  <div class="project-card" data-target="detail1">
+    <div class="poster-wrap">
+      <img src="https://i.postimg.cc/qM5QTMhL/C86E4E99-A1AC-407B-A6E9-AE4D7611A12C.png" alt="Four Days Left" loading="lazy">
+      <div class="hover-overlay">
+        <span class="material-symbols-outlined play-icon">play_circle</span>
+        <h4>View Project</h4>
+        <div class="divider"></div>
+        <p>Explore the story, cast &amp; crew</p>
+      </div>
+      <div class="arrow-top">
+        <span class="material-symbols-outlined" style="font-size:1.3rem;">north_east</span>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="title-row">
+        <h3>Four Days Left</h3>
+        <span class="badge">Featured</span>
+      </div>
+
+      <div class="genre">Drama • Short Film • 2025</div>
+
+      <p class="desc">
+        A deeply personal story about silence, emotional pressure, resilience,
+        and the difficult choices that quietly shape our lives.
+      </p>
+
+      <span class="read-more">
+        Read More
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- CARD 2: If You Say Yes -->
+  <div class="project-card" data-target="detail2">
+    <div class="poster-wrap">
+      <img src="https://i.postimg.cc/ZKCFVt7v/image.png" alt="If You Say Yes" loading="lazy">
+      <div class="hover-overlay">
+        <span class="material-symbols-outlined play-icon">play_circle</span>
+        <h4>View Project</h4>
+        <div class="divider"></div>
+        <p>Explore the story, cast &amp; crew</p>
+      </div>
+      <div class="arrow-top">
+        <span class="material-symbols-outlined" style="font-size:1.3rem;">north_east</span>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="title-row">
+        <h3>If You Say Yes</h3>
+        <span class="badge">Released</span>
+      </div>
+
+      <div class="genre">Screenlife Romantic Drama • 2025</div>
+
+      <p class="desc">
+        A modern romance unfolding through screens, where every message carries
+        the weight of a lifetime.
+      </p>
+
+      <span class="read-more">
+        Read More
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- CARD 3: Just a Ride -->
+  <div class="project-card" data-target="detail3">
+    <div class="poster-wrap">
+      <img src="https://i.postimg.cc/bJy1nKSw/image.png" alt="Just a Ride" loading="lazy">
+      <div class="hover-overlay">
+        <span class="material-symbols-outlined play-icon">play_circle</span>
+        <h4>View Project</h4>
+        <div class="divider"></div>
+        <p>Explore the story, cast &amp; crew</p>
+      </div>
+      <div class="arrow-top">
+        <span class="material-symbols-outlined" style="font-size:1.3rem;">north_east</span>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="title-row">
+        <h3>Just a Ride</h3>
+        <span class="badge">In Development</span>
+      </div>
+
+      <div class="genre">Drama • 2026</div>
+
+      <p class="desc">
+        A raw, emotional journey of self-discovery set against the backdrop of a
+        cross-country road trip.
+      </p>
+
+      <span class="read-more">
+        Read More
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </span>
+    </div>
+  </div>
+
+</div>
+
+  <!-- ===== DETAIL PANELS (hidden initially) ===== -->
+
+<div id="detail1" class="detail-panel">
+    <div class="detail-grid">
+        <div class="detail-text">
+            <h3>Four Days Left</h3>
+            <div class="meta-line">Drama · Short Film · 2025 | Written & Directed by Hariprasath Venkatesan</div>
+            <p><strong>Four Days Left</strong> is a film born from real emotion — the kind that builds slowly, quietly, under the surface of everyday life.</p>
+            <p>It's about the feeling of being stuck between two worlds. The pressure of timelines, rules, and choices that no one prepares you for. The loneliness that comes with keeping it all together while everything feels like it's falling apart.</p>
+            <div class="quote">"This isn't a film filled with spectacle. It's filled with silence, hesitation, unspoken love, and the weight of decisions made in small rooms."</div>
+            <p>I made this film for those navigating uncertain paths. For those who've had to make life-changing decisions with no clear right answer. And for those who understand that sometimes, strength is quiet.</p>
+
+            <h4 style="margin-top:1.2rem; font-weight:600;">Cast</h4>
+            <div class="cast-crew">
+                <div class="item"><span class="role">Illa</span><span class="name">Ahamed Azharudeen Rafeeq Abdulkhader</span></div>
+                <div class="item"><span class="role">Ms Emily</span><span class="name">Max Day</span></div>
+                <div class="item"><span class="role">Karen</span><span class="name">Karen Elizabeth Bucknall</span></div>
+                <div class="item"><span class="role">Ravi</span><span class="name">Shamas Munzoor Khan</span></div>
+                <div class="item"><span class="role">Maran</span><span class="name">Surj Kumar</span></div>
+            </div>
+
+            <h4 style="font-weight:600;">Crew</h4>
+            <div class="cast-crew">
+                <div class="item"><span class="role">Producer</span><span class="name">Arishu Films</span></div>
+                <div class="item"><span class="role">Assistant Director</span><span class="name">Aishwarya Kumana Kumar</span></div>
+                <div class="item"><span class="role">Director of Photography</span><span class="name">James Peakman</span></div>
+                <div class="item"><span class="role">Sound Recordist &amp; Mixer</span><span class="name">Andrew Simpson</span></div>
+                <div class="item"><span class="role">Editor</span><span class="name">Jimu Zhang</span></div>
+                <div class="item"><span class="role">Production Assistant</span><span class="name">Danyan Zhang</span></div>
+                <div class="item"><span class="role">Music</span><span class="name">Pixabay</span></div>
+            </div>
+
+            <!-- UPDATED: Four Days Left Button -->
+            <a href="https://youtu.be/O0oVAz4v6BE?si=MOI9C1E_RpVDeBJ6" target="_blank" class="watch-btn">
+                <span class="material-symbols-outlined">play_circle</span>
+                Click Here To Watch Full Movie
+            </a>
+        </div>
+
+        <div>
+            <h4 style="font-weight:600; margin-bottom:0.8rem;">Gallery</h4>
+            <div class="detail-gallery">
+                <div class="gallery-img"><img src="https://i.postimg.cc/8zTv92tQ/image.png" alt="still 1"><div class="cap">Frame 01 · Quiet tension</div></div>
+                <div class="gallery-img"><img src="https://i.postimg.cc/ZKSvvGGG/image.png" alt="still 2"><div class="cap">Frame 02 · Late night</div></div>
+                <div class="gallery-img"><img src="https://i.postimg.cc/nLgCFgYn/image.png" alt="still 3"><div class="cap">Frame 03 · The weight</div></div>
+            </div>
+            <button class="close-detail" onclick="closeDetail('detail1')"><span class="material-symbols-outlined">close</span> Close details</button>
+        </div>
+    </div>
+</div>
+
+<div id="detail2" class="detail-panel">
+    <div class="detail-grid">
+
+        <div class="detail-text">
+            <h3>If You Say Yes</h3>
+
+            <div class="meta-line">
+                Screenlife Romantic Drama · 2025 | Written & Directed by Hariprasath Venkatesan
+            </div>
+
+            <p><strong>If You Say Yes</strong> is a screenlife romantic short film that unfolds entirely through video calls, chats, and glowing laptop screens. When Sam finally confesses his love to his best friend Max, what starts as a simple text spirals into a tense, funny, and deeply intimate night of waiting.</p>
+
+            <p>As Sam anxiously replays every moment and Max wrestles with her feelings, their friends become silent witnesses to a modern love story shaped by distance, memory, and vulnerability.</p>
+
+            <div class="quote">
+                "Told in real time through digital windows, the film explores the fragile space between friendship and love — the fear of rejection, the comfort of familiarity, and the courage it takes to say yes."
+            </div>
+
+            <p>Quiet, heartfelt, and relatable, <strong>If You Say Yes</strong> captures how today's relationships live and breathe through screens, yet still carry the same timeless emotions.</p>
+
+            <h4 style="margin-top:1.2rem;font-weight:600;">Cast</h4>
+
+            <div class="cast-crew">
+                <div class="item"><span class="role">Sam</span><span class="name">Shamas Khan</span></div>
+                <div class="item"><span class="role">Max</span><span class="name">Maximally Max</span></div>
+                <div class="item"><span class="role">Henry</span><span class="name">Iam Sammehh</span></div>
+                <div class="item"><span class="role">Demi</span><span class="name">Demisavva</span></div>
+            </div>
+
+            <h4 style="font-weight:600;">Crew</h4>
+
+            <div class="cast-crew">
+                <div class="item"><span class="role">Written & Directed</span><span class="name">Hariprasath Venkatesan</span></div>
+                <div class="item"><span class="role">Assistant Director</span><span class="name">Aishu Kumar</span></div>
+                <div class="item"><span class="role">Cinematographer</span><span class="name">Jimatay</span></div>
+                <div class="item"><span class="role">Sound Recordist</span><span class="name">A. Simpson</span></div>
+                <div class="item"><span class="role">Still Photographer</span><span class="name">Arash H.R.C.</span></div>
+                <div class="item"><span class="role">Composer</span><span class="name">Josh Graesser</span></div>
+            </div>
+
+            <!-- UPDATED: If You Say Yes Button -->
+            <a href="https://www.youtube.com/watch?v=v7Mzvcw1Agc&t=190s" target="_blank" class="watch-btn">
+                <span class="material-symbols-outlined">play_circle</span>
+                Click Here To Watch Full Movie
+            </a>
+        </div>
+
+        <div>
+
+            <h4 style="font-weight:600;margin-bottom:0.8rem;">Gallery</h4>
+
+            <div class="detail-gallery">
+
+                <div class="gallery-img">
+                    <img src="https://i.postimg.cc/rFjs0KCb/image.png" alt="Screenlife Frame">
+                    <div class="cap">Screenlife Frame</div>
+                </div>
+
+                <div class="gallery-img">
+                    <img src="https://i.postimg.cc/mrHTwDCx/image.png" alt="Late Night Chat">
+                    <div class="cap">Late Night Chat</div>
+                </div>
+
+                <div class="gallery-img">
+                    <img src="https://i.postimg.cc/ZKbKSJt9/image.png" alt="Emotional Moment">
+                    <div class="cap">Emotional Moment</div>
+                </div>
+
+                <div class="gallery-img">
+                    <img src="https://i.postimg.cc/RCbbMT2t/image.png" alt="Official Certificate">
+                    <div class="cap">Official Certificate</div>
+                </div>
+
+                <div class="gallery-img">
+                    <img src="https://i.postimg.cc/J4FncSvt/Untitled-design-(50).png" alt="Award Badge">
+                    <div class="cap">Award Badge</div>
+                </div>
+
+            </div>
+
+            <button class="close-detail" onclick="closeDetail('detail2')">
+                <span class="material-symbols-outlined">close</span>
+                Close details
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+<div id="detail3" class="detail-panel">
+    <div class="detail-grid">
+
+        <!-- Left -->
+        <div class="detail-text">
+
+            <h3>Just a Ride: Different Roads, Same Heart (Development)</h3>
+
+            <div class="meta-line">
+                Writer: Arishu Films • July 26, 2025 • 1 min read
+            </div>
+
+            <p><strong>by Hariprasath Venkatesan</strong></p>
+
+            <div class="quote">
+                "Some journeys don't need distance — just a change in perspective."
+            </div>
+
+            <p>
+                <strong>Just a Ride</strong> is a quiet reflection on connection,
+                discomfort, and the quiet power of conversation. It's about what
+                happens when two people from different worlds share a few moments of
+                honesty on a silent night.
+            </p>
+
+            <p>
+                No drama. No preaching. Just a reminder: we're all trying to find our
+                way. And sometimes, the road teaches us more than the destination ever
+                could.
+            </p>
+
+            <h4 style="margin-top:1.5rem;font-weight:600;">
+                Project Status
+            </h4>
+
+            <div class="cast-crew">
+                <div class="item">
+                    <span class="role">Status</span>
+                    <span class="name" style="color:#d4af37;">In Development</span>
+                </div>
+
+                <div class="item">
+                    <span class="role">Writer & Director</span>
+                    <span class="name">Hariprasath Venkatesan</span>
+                </div>
+
+                <div class="item">
+                    <span class="role">Production</span>
+                    <span class="name">Arishu Films</span>
+                </div>
+
+                <div class="item">
+                    <span class="role">Release</span>
+                    <span class="name">To Be Announced</span>
+                </div>
+            </div>
+
+            <!-- UPDATED: Just a Ride Button (Disabled - In Development) -->
+            <a href="javascript:void(0);" class="watch-btn" style="opacity:.6;cursor:not-allowed;pointer-events:none;">
+                <span class="material-symbols-outlined">schedule</span>
+                In Development
+            </a>
+
+        </div>
+    </div>
+</div>
+
+    <!-- Right -->
+    <div>
+
+      <h4 style="font-weight:600;margin-bottom:0.8rem;">
+        Official Gallery
+      </h4>
+
+      <div style="
+        border:1px solid rgba(255,255,255,.08);
+        border-radius:20px;
+        padding:40px 30px;
+        text-align:center;
+        background:rgba(255,255,255,.02);
+      ">
+
+        <span class="material-symbols-outlined"
+              style="font-size:60px;color:#d4af37;margin-bottom:15px;display:block;">
+          movie
+        </span>
+
+        <h5 style="font-size:1.2rem;font-weight:600;margin-bottom:12px;">
+          Official Gallery Coming Soon
+        </h5>
+
+        <p style="color:rgba(255,255,255,.7);line-height:1.8;">
+          Just a Ride is currently in development.
+          Posters, production stills, behind-the-scenes photos,
+          teaser trailer, and the official gallery will be released
+          after filming begins.
+        </p>
+
+      </div>
+
+      <button class="close-detail" onclick="closeDetail('detail3')">
+        <span class="material-symbols-outlined">close</span>
+        Close details
+      </button>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Open detail panel when card is clicked
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('click', function(e) {
+      const targetId = this.dataset.target;
+      // close all other panels
+      document.querySelectorAll('.detail-panel').forEach(p => p.classList.remove('open'));
+      const panel = document.getElementById(targetId);
+      if (panel) {
+        panel.classList.add('open');
+        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  function closeDetail(id) {
+    const panel = document.getElementById(id);
+    if (panel) panel.classList.remove('open');
+  }
+
+  function closeAllDetails() {
+    document.querySelectorAll('.detail-panel').forEach(p => p.classList.remove('open'));
+  }
+</script>
+
+</body>
+</html>
