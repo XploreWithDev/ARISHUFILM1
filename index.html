@@ -73,12 +73,11 @@
             "full": "9999px"
           },
           spacing: {
-            "margin-mobile": "24px",
+            "margin-mobile": "20px",
             "unit": "8px",
-            "gutter": "24px",
+            "gutter": "20px",
             "container-max": "1440px",
-            "container-max-width": "1440px",
-            "margin-desktop": "80px"
+            "margin-desktop": "60px"
           },
           fontFamily: {
             "headline-sm": ["Poppins", "sans-serif"],
@@ -89,20 +88,18 @@
             "button-text": ["Satoshi", "sans-serif"],
             "headline-lg": ["Poppins", "sans-serif"],
             "display-lg": ["Poppins", "sans-serif"],
-            "display-xl": ["Poppins", "sans-serif"],
-            "headline-lg-mobile": ["Poppins", "sans-serif"]
+            "display-xl": ["Poppins", "sans-serif"]
           },
           fontSize: {
-            "headline-sm": ["20px", { "lineHeight": "1.3", "fontWeight": "700" }],
-            "headline-md": ["28px", { "lineHeight": "1.2", "fontWeight": "800" }],
-            "body-md": ["16px", { "lineHeight": "1.8", "fontWeight": "500" }],
-            "body-lg": ["20px", { "lineHeight": "1.7", "fontWeight": "500" }],
-            "label-md": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.2em", "fontWeight": "600" }],
+            "headline-sm": ["18px", { "lineHeight": "1.3", "fontWeight": "700" }],
+            "headline-md": ["24px", { "lineHeight": "1.2", "fontWeight": "800" }],
+            "body-md": ["15px", { "lineHeight": "1.7", "fontWeight": "500" }],
+            "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "500" }],
+            "label-md": ["11px", { "lineHeight": "1.2", "letterSpacing": "0.2em", "fontWeight": "600" }],
             "button-text": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.08em", "fontWeight": "600" }],
-            "headline-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.03em", "fontWeight": "800" }],
-            "display-lg": ["72px", { "lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "800" }],
-            "display-xl": ["110px", { "lineHeight": "0.95", "letterSpacing": "-0.05em", "fontWeight": "800" }],
-            "headline-lg-mobile": ["40px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }]
+            "headline-lg": ["36px", { "lineHeight": "1.1", "letterSpacing": "-0.03em", "fontWeight": "800" }],
+            "display-lg": ["48px", { "lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+            "display-xl": ["clamp(50px, 8vw, 100px)", { "lineHeight": "0.95", "letterSpacing": "-0.05em", "fontWeight": "800" }]
           }
         }
       }
@@ -127,8 +124,8 @@
     
     .reveal {
       opacity: 0;
-      transform: translateY(40px);
-      transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(30px);
+      transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .reveal.active {
       opacity: 1;
@@ -140,32 +137,24 @@
     }
     @keyframes slow-zoom {
       from { transform: scale(1); }
-      to { transform: scale(1.15); }
+      to { transform: scale(1.12); }
     }
 
     .glass-card {
       background: rgba(255, 255, 255, 0.02);
-      backdrop-filter: blur(25px);
+      backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .glass-card:hover {
       border-color: #D4AF37;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.04);
     }
 
-    .gold-underline::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #D4AF37;
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Disable custom cursor on touch devices for performance */
+    @media (pointer: coarse) {
+      .custom-cursor { display: none !important; }
     }
-    .gold-underline:hover::after { width: 100%; }
-
     .custom-cursor {
       width: 8px;
       height: 8px;
@@ -184,15 +173,17 @@
     }
 
     .perspective-grid {
-      perspective: 2000px;
+      perspective: 1500px;
     }
     
     .gallery-item {
-      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .gallery-item:hover {
-      transform: scale(1.02) translateY(-10px);
-      z-index: 20;
+    @media (min-width: 768px) {
+      .gallery-item:hover {
+        transform: scale(1.01) translateY(-6px);
+        z-index: 20;
+      }
     }
 
     /* ===== Footer Styles ===== */
@@ -209,37 +200,50 @@
 
     .film-watermark {
       position: absolute;
-      right: 0;
-      bottom: 0;
-      width: 22rem;
-      height: 22rem;
+      right: -20px;
+      bottom: -20px;
+      width: 16rem;
+      height: 16rem;
       color: var(--primary);
-      opacity: 0.04;
+      opacity: 0.03;
       pointer-events: none;
       z-index: 0;
-      transform: translate(5rem, 5rem);
       user-select: none;
+    }
+    @media (min-width: 768px) {
+      .film-watermark {
+        width: 22rem;
+        height: 22rem;
+        right: 0;
+        bottom: 0;
+        transform: translate(5rem, 5rem);
+      }
     }
 
     .footer-inner {
-      max-width: 1800px;
+      max-width: 1440px;
       margin: 0 auto;
       width: 100%;
-      padding: 6rem 80px 4rem;
+      padding: 4rem 20px 3rem;
       position: relative;
       z-index: 10;
+    }
+    @media (min-width: 768px) {
+      .footer-inner {
+        padding: 5rem 60px 3.5rem;
+      }
     }
 
     .footer-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 3rem;
+      gap: 2.5rem;
     }
 
     @media (min-width: 1024px) {
       .footer-grid {
         grid-template-columns: repeat(12, 1fr);
-        gap: 2.5rem;
+        gap: 2rem;
       }
       .col-brand {
         grid-column: span 4;
@@ -251,65 +255,55 @@
 
     @media (min-width: 640px) and (max-width: 1023px) {
       .footer-grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
       }
       .col-brand {
-        grid-column: span 4;
-      }
-      .col-links {
         grid-column: span 2;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .footer-inner {
-        padding-left: 24px;
-        padding-right: 24px;
       }
     }
 
     .brand-group {
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
+      gap: 1rem;
     }
 
     .brand-logo {
       display: inline-flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.625rem;
       text-decoration: none;
       color: var(--on-surface);
       font-family: 'Poppins', sans-serif;
       font-weight: 800;
-      font-size: 1.5rem;
+      font-size: 1.35rem;
       letter-spacing: -0.04em;
     }
 
     .brand-logo svg {
-      width: 1.75rem;
-      height: 1.75rem;
+      width: 1.5rem;
+      height: 1.5rem;
       color: var(--primary);
       flex-shrink: 0;
     }
 
     .brand-description {
-      font-size: 0.9375rem;
-      line-height: 1.75;
+      font-size: 0.9rem;
+      line-height: 1.6;
       color: rgba(229, 226, 225, 0.6);
-      max-width: 24rem;
+      max-width: 22rem;
     }
 
     .contact-link {
       display: inline-flex;
       align-items: center;
-      gap: 0.625rem;
-      margin-top: 0.5rem;
-      font-size: 0.875rem;
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+      font-size: 0.85rem;
       color: var(--on-surface-variant);
       text-decoration: none;
       width: fit-content;
-      letter-spacing: 0.05em;
       transition: color 0.3s ease;
     }
 
@@ -322,20 +316,20 @@
       font-family: 'Satoshi', sans-serif;
       font-weight: 600;
       font-size: 0.75rem;
-      letter-spacing: 0.25em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
     }
 
     .footer-link-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 0.875rem;
+      gap: 0.75rem;
     }
 
     .footer-link-list a {
-      font-size: 0.9375rem;
+      font-size: 0.9rem;
       color: rgba(229, 226, 225, 0.55);
       text-decoration: none;
       transition: all 0.3s ease;
@@ -344,20 +338,20 @@
 
     .footer-link-list a:hover {
       color: var(--primary);
-      transform: translateX(4px);
+      transform: translateX(3px);
     }
 
     .footer-divider {
       height: 1px;
       background-color: var(--border-color);
       width: 100%;
-      margin: 4.5rem 0 2.5rem;
+      margin: 3rem 0 2rem;
     }
 
     .footer-bottom {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1.25rem;
       align-items: center;
       justify-content: space-between;
       position: relative;
@@ -374,24 +368,23 @@
     }
 
     .legal-text {
-      font-size: 0.8125rem;
+      font-size: 0.8rem;
       color: rgba(229, 226, 225, 0.4);
       text-align: center;
-      letter-spacing: 0.02em;
+      line-height: 1.5;
     }
 
     .bottom-controls {
       display: flex;
       align-items: center;
-      gap: 1.25rem;
+      gap: 1rem;
       flex-wrap: wrap;
       justify-content: center;
     }
 
     .copyright-text {
-      font-size: 0.8125rem;
+      font-size: 0.8rem;
       color: rgba(229, 226, 225, 0.4);
-      letter-spacing: 0.05em;
     }
 
     .currency-select {
@@ -421,86 +414,64 @@
 <body class="font-body-md selection:bg-gold-accent selection:text-black">
 <div class="custom-cursor" id="cursor"></div>
 
-<!-- Top Navigation Bar (Converted from Next.js Navbar Component) -->
-<nav class="bg-surface/80 backdrop-blur-xl fixed top-0 w-full z-50 border-b border-white/10" id="main-nav">
+<!-- Top Navigation Bar -->
+<nav class="bg-surface/90 backdrop-blur-xl fixed top-0 w-full z-50 border-b border-white/10" id="main-nav">
   <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 w-full max-w-container-max mx-auto">
     <!-- Brand -->
     <a href="/" class="flex items-center">
-      <span class="font-headline-sm text-headline-sm font-bold text-primary tracking-tight">
+      <span class="font-headline-sm text-headline-sm font-bold text-primary tracking-tight truncate max-w-[200px] md:max-w-none">
         Arishu Creators Hub
       </span>
     </a>
 
     <!-- Navigation Links (Desktop) -->
-    <div class="hidden md:flex space-x-8">
-      <a href="/" class="nav-link transition-all duration-200 font-body-md text-body-md text-primary font-bold border-b-2 border-primary pb-1">
-        Home
-      </a>
-      <a href="/talent" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">
-        Talent
-      </a>
-      <a href="/campaigns" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">
-        Campaigns
-      </a>
-      <a href="/membership" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">
-        Membership
-      </a>
-      <a href="/about" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">
-        About
-      </a>
-      <a href="/creator" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">
-        Creator Hub
-      </a>
+    <div class="hidden md:flex space-x-6 lg:space-x-8">
+      <a href="/" class="nav-link transition-all duration-200 font-body-md text-body-md text-primary font-bold border-b-2 border-primary pb-1">Home</a>
+      <a href="/talent" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">Talent</a>
+      <a href="/campaigns" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">Campaigns</a>
+      <a href="/membership" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">Membership</a>
+      <a href="/about" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">About</a>
+      <a href="/creator" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">Creator Hub</a>
     </div>
 
-    <!-- Actions, Currency Selector & User Auth Area -->
-    <div class="hidden md:flex items-center space-x-4">
+    <!-- Actions & Auth Area (Desktop) -->
+    <div class="hidden md:flex items-center space-x-3">
       <select class="currency-select" aria-label="Select Currency">
         <option value="GBP">GBP (£)</option>
         <option value="USD">USD ($)</option>
         <option value="EUR">EUR (€)</option>
       </select>
 
-      <!-- Auth State: Logged Out State (Default) -->
       <div id="desktop-logged-out">
-        <a href="/login" class="bg-primary text-[#0F1115] hover:bg-surface-tint active:scale-95 transition-transform duration-200 font-button-text text-button-text px-6 py-2.5 rounded inline-block">
+        <a href="/login" class="bg-primary text-[#0F1115] hover:bg-surface-tint active:scale-95 transition-transform duration-200 font-button-text text-button-text px-5 py-2.5 rounded inline-block whitespace-nowrap">
           Login / Sign Up
         </a>
       </div>
 
-      <!-- Auth State: Logged In State (Hidden by default, ready for auth hook) -->
-      <div id="desktop-logged-in" class="hidden items-center space-x-4">
-        <span class="font-body-md text-body-md text-on-surface font-semibold" id="desktop-user-name">
-          User
-        </span>
-        <button id="desktop-sign-out" class="text-on-surface-variant hover:text-primary transition-colors font-button-text text-button-text px-4 py-2 cursor-pointer">
-          Sign Out
-        </button>
-        <a href="/dashboard" class="ml-2">
-          <img
-            alt="User Profile Avatar"
-            class="w-10 h-10 rounded-full border border-outline-variant object-cover cursor-pointer hover:border-primary transition-colors"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDs9z_GQ51nXwa34oCbRqvwXAI08SpZGrdtvsHjDFFdZT8litisKiDr9IQKG-F23e2kDRFUGzqQyWbNdyUuX7mn1MAgwgH0l1erNX4lRbaDaIzJjjuOb4oVN_SGIyqxTWtYfFuSRWaTcZbCrNf8ksxtiV2AA34znxtB0r0PhqR1_7LWnlVKIKAla1GgOgzTnKl3PVPOu3S2T3waivmDJKU8cl_uMn82TjAidf7c4m-wPbIOw__C9E3w870nzzY-O2K0hx8N8aEacnkh"
-          />
+      <div id="desktop-logged-in" class="hidden items-center space-x-3">
+        <span class="font-body-md text-body-md text-on-surface font-semibold truncate max-w-[120px]" id="desktop-user-name">User</span>
+        <button id="desktop-sign-out" class="text-on-surface-variant hover:text-primary transition-colors font-button-text text-button-text px-3 py-2 cursor-pointer">Sign Out</button>
+        <a href="/dashboard" class="ml-1">
+          <img alt="Profile" class="w-9 h-9 rounded-full border border-outline-variant object-cover cursor-pointer hover:border-primary transition-colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDs9z_GQ51nXwa34oCbRqvwXAI08SpZGrdtvsHjDFFdZT8litisKiDr9IQKG-F23e2kDRFUGzqQyWbNdyUuX7mn1MAgwgH0l1erNX4lRbaDaIzJjjuOb4oVN_SGIyqxTWtYfFuSRWaTcZbCrNf8ksxtiV2AA34znxtB0r0PhqR1_7LWnlVKIKAla1GgOgzTnKl3PVPOu3S2T3waivmDJKU8cl_uMn82TjAidf7c4m-wPbIOw__C9E3w870nzzY-O2K0hx8N8aEacnkh"/>
         </a>
       </div>
     </div>
 
-    <!-- Mobile Hamburger & Quick Currency -->
+    <!-- Mobile Hamburger & Quick Controls -->
     <div class="flex items-center gap-2 md:hidden">
-      <select class="currency-select text-xs py-1 px-2" aria-label="Select Currency Compact">
+      <select class="currency-select text-xs py-1 px-1.5" aria-label="Select Currency Compact">
         <option value="GBP">£</option>
         <option value="USD">$</option>
         <option value="EUR">€</option>
       </select>
-      <button id="mobile-toggle" aria-label="Toggle navigation menu" class="text-on-surface focus:outline-none p-1">
+      <button id="mobile-toggle" aria-label="Toggle navigation menu" class="text-on-surface focus:outline-none p-1.5">
         <span class="material-symbols-outlined text-[28px]" id="mobile-toggle-icon">menu</span>
       </button>
     </div>
   </div>
 
   <!-- Mobile Drawer -->
-  <div id="mobile-menu" class="hidden md:hidden bg-surface border-b border-white/10 px-margin-mobile py-6 space-y-4 flex flex-col absolute top-20 left-0 w-full z-40">
+  <div id="mobile-menu" class="hidden md:hidden bg-surface border-b border-white/10 px-margin-mobile py-6 space-y-4 flex flex-col absolute top-20 left-0 w-full z-40 shadow-2xl max-h-[calc(100vh-5rem)] overflow-y-auto">
     <a href="/" class="text-body-lg font-body-lg text-primary font-bold">Home</a>
     <a href="/talent" class="text-body-lg font-body-lg text-on-surface-variant hover:text-primary">Talent</a>
     <a href="/campaigns" class="text-body-lg font-body-lg text-on-surface-variant hover:text-primary">Campaigns</a>
@@ -511,277 +482,200 @@
     <hr class="border-white/10 my-2" />
 
     <div id="mobile-logged-out">
-      <a href="/login" class="bg-primary text-[#0F1115] hover:bg-surface-tint text-center font-button-text text-button-text py-3 rounded block">
+      <a href="/login" class="bg-primary text-[#0F1115] hover:bg-surface-tint text-center font-button-text text-button-text py-3 rounded block w-full">
         Login / Sign Up
       </a>
     </div>
 
     <div id="mobile-logged-in" class="hidden flex-col space-y-3">
-      <span class="font-body-lg text-body-lg text-on-surface font-semibold px-2" id="mobile-user-name">
-        User
-      </span>
-      <button id="mobile-sign-out" class="text-left text-on-surface-variant hover:text-primary text-body-lg font-body-lg px-2 cursor-pointer">
-        Sign Out
-      </button>
+      <span class="font-body-lg text-body-lg text-on-surface font-semibold px-2" id="mobile-user-name">User</span>
+      <button id="mobile-sign-out" class="text-left text-on-surface-variant hover:text-primary text-body-lg font-body-lg px-2 cursor-pointer">Sign Out</button>
     </div>
   </div>
 </nav>
 
 <!-- Hero Section -->
-<header class="relative h-[110vh] w-full overflow-hidden flex items-center justify-start px-margin-desktop pt-20">
+<header class="relative min-h-[90vh] md:h-[100vh] w-full overflow-hidden flex items-center justify-start px-margin-mobile md:px-margin-desktop pt-28 pb-16">
   <div class="absolute inset-0 z-0">
-    <div
-      class="w-full h-full zoom-effect bg-center bg-cover brightness-[0.4]"
-      style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuDsFlPiotni8UbOi4L_4kK250zakg-hw0-qbATsf7BwoqpNoRNa5Csp3pQ5l5JS3e5uMtBptn8x81vrEEEno4OqSo8x6CSfQmkkFZs0Yw3a8XLhje4R1GHtn1BEQ9ImD11H8kfuZenZGALDJA2ekvNcKR5TFayY9c9zAyXU60kjxZDBAe2DB7806X7Bt_BTEbiw446p9NAu_sYY9m5ujfiSYj368vSKBpxXsLRaTX6bC4OAoUXzYQm-19khyefFBKEMlzP7yUStASI');">
-    </div>
-    <div class="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent"></div>
+    <div class="w-full h-full zoom-effect bg-center bg-cover brightness-[0.4]" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuDsFlPiotni8UbOi4L_4kK250zakg-hw0-qbATsf7BwoqpNoRNa5Csp3pQ5l5JS3e5uMtBptn8x81vrEEEno4OqSo8x6CSfQmkkFZs0Yw3a8XLhje4R1GHtn1BEQ9ImD11H8kfuZenZGALDJA2ekvNcKR5TFayY9c9zAyXU60kjxZDBAe2DB7806X7Bt_BTEbiw446p9NAu_sYY9m5ujfiSYj368vSKBpxXsLRaTX6bC4OAoUXzYQm-19khyefFBKEMlzP7yUStASI');"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent"></div>
     <div class="absolute inset-0 bg-gradient-to-t from-[#090909] via-transparent to-transparent"></div>
   </div>
 
-  <div class="relative z-10 max-w-6xl reveal active">
-    <span class="text-gold-accent font-label-md tracking-[0.45em] uppercase mb-8 block">
+  <div class="relative z-10 max-w-5xl reveal active">
+    <span class="text-gold-accent font-label-md tracking-[0.35em] md:tracking-[0.45em] uppercase mb-6 block">
       Independent Film Studio • United Kingdom
     </span>
 
-    <h1 class="font-display-xl text-display-xl text-on-background leading-[0.9] mb-10 flex flex-col">
+    <h1 class="font-display-xl text-display-xl text-on-background leading-[0.95] mb-6 md:mb-8 flex flex-col">
       <span>WHERE</span>
       <span class="text-stroke">STORIES</span>
       <span>COME ALIVE.</span>
     </h1>
 
-    <p class="max-w-2xl text-lg text-white/70 leading-relaxed mb-14">
-      We create original short films, host creative events, and celebrate
-      independent filmmakers through storytelling, collaboration, and
-      unforgettable cinematic experiences.
+    <p class="max-w-xl text-base md:text-lg text-white/70 leading-relaxed mb-10 md:mb-12">
+      We create original short films, host creative events, and celebrate independent filmmakers through storytelling, collaboration, and unforgettable cinematic experiences.
     </p>
 
-    <div class="flex items-center gap-10">
-      <a href="#featured-projects"
-         class="group relative inline-flex items-center justify-center px-12 py-5 bg-white text-black font-label-md uppercase tracking-[0.2em] rounded-full transition-all duration-500 hover:bg-gold-accent hover:scale-[1.03] hover:shadow-[0_0_30px_rgba(212,175,55,.35)]">
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-5 sm:gap-8">
+      <a href="#featured-projects" class="group relative inline-flex items-center justify-center px-8 md:px-10 py-4 bg-white text-black font-label-md uppercase tracking-[0.2em] rounded-full transition-all duration-500 hover:bg-gold-accent hover:scale-[1.02]">
         Explore Films
       </a>
-
-      <a href="#film-festival" class="flex items-center gap-4 group cursor-pointer">
-        <div class="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center transition-all duration-500 group-hover:border-gold-accent group-hover:bg-gold-accent/10 group-hover:scale-110">
-          <span class="material-symbols-outlined text-gold-accent transition-transform duration-500 group-hover:translate-x-1">
-            play_arrow
-          </span>
+      <a href="#film-festival" class="flex items-center gap-4 group cursor-pointer justify-center sm:justify-start">
+        <div class="w-12 h-12 md:w-14 md:h-14 rounded-full border border-white/20 flex items-center justify-center transition-all duration-500 group-hover:border-gold-accent group-hover:bg-gold-accent/10">
+          <span class="material-symbols-outlined text-gold-accent text-lg md:text-xl transition-transform duration-500 group-hover:translate-x-1">play_arrow</span>
         </div>
-        <span class="font-label-md tracking-[0.25em] uppercase text-white/60 transition-all duration-500 group-hover:text-white">
-          Our Events
-        </span>
+        <span class="font-label-md tracking-[0.2em] uppercase text-white/60 transition-all duration-500 group-hover:text-white">Our Events</span>
       </a>
-    </div>
-  </div>
-
-  <div class="absolute bottom-20 right-margin-desktop flex flex-col items-end gap-3 reveal delay-500">
-    <span class="text-white/20 font-label-md tracking-tight text-4xl">01</span>
-    <div class="w-32 h-[1px] bg-white/10 relative overflow-hidden">
-      <div class="absolute left-0 top-0 h-full w-1/4 bg-gold-accent animate-pulse"></div>
     </div>
   </div>
 </header>
 
 <!-- About Section -->
-<section class="py-60 px-margin-desktop max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-24 items-center">
+<section class="py-24 md:py-48 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
   <div class="lg:col-span-5 reveal">
-    <div class="w-full aspect-[3/4] rounded-[24px] overflow-hidden border border-white/5 relative">
-      <img class="w-full h-full object-cover grayscale brightness-75 hover:grayscale-0 hover:brightness-100 transition-all duration-[1.5s] ease-out" data-alt="A minimalist, editorial close-up of a vintage 35mm film reel sitting on a dark, reflective marble surface. Subtle gold highlights glint off the metallic edges of the reel. The lighting is soft and directional, creating a high-end luxury lifestyle feel. The background is a blurred, deep charcoal studio setting with hints of professional camera equipment." src="https://i.postimg.cc/6p6ybdBz/image.png"/>
-      <div class="absolute inset-0 border-[20px] border-black/20 pointer-events-none"></div>
+    <div class="w-full aspect-[4/5] md:aspect-[3/4] rounded-[20px] overflow-hidden border border-white/5 relative shadow-2xl">
+      <img class="w-full h-full object-cover grayscale brightness-75 hover:grayscale-0 hover:brightness-100 transition-all duration-700 ease-out" src="https://i.postimg.cc/6p6ybdBz/image.png" alt="Vintage 35mm film reel"/>
+      <div class="absolute inset-0 border-[12px] md:border-[16px] border-black/20 pointer-events-none"></div>
     </div>
   </div>
-  <div class="lg:col-span-7 reveal delay-300">
-    <span class="text-gold-accent font-label-md tracking-[0.4em] mb-8 block uppercase">Artistry in Motion</span>
-    <h2 class="font-display-lg text-display-lg mb-12 italic text-on-surface">
+  <div class="lg:col-span-7 reveal delay-200">
+    <span class="text-gold-accent font-label-md tracking-[0.3em] md:tracking-[0.4em] mb-6 block uppercase">Artistry in Motion</span>
+    <h2 class="font-display-lg text-3xl md:text-5xl mb-8 italic text-on-surface leading-tight">
       "Cinema is a mirror that can focus on the soul."
     </h2>
-    <p class="font-body-lg text-body-lg text-on-surface/60 max-w-2xl mb-12">
+    <p class="font-body-lg text-body-lg text-on-surface/60 max-w-2xl mb-8 md:mb-10 text-base md:text-xl">
       Driven by an independent spirit and a commitment to uncompromising quality, Arishu Films bridges the gap between avant-garde vision and universal emotion. We treat every frame as a canvas, every sound as a whisper from the heart.
     </p>
     <div class="flex items-center gap-6">
-      <div class="w-20 h-[1px] bg-gold-accent"></div>
-      <span class="font-label-md text-gold-accent uppercase tracking-[0.3em]">The Visionaries</span>
+      <div class="w-16 md:w-20 h-[1px] bg-gold-accent"></div>
+      <span class="font-label-md text-gold-accent uppercase tracking-[0.25em]">The Visionaries</span>
     </div>
   </div>
 </section>
 
 <!-- Featured Projects -->
-<section id="featured-projects">
-  <div class="py-60 bg-[#0c0c0c]">
-    <div class="px-margin-desktop max-w-[1800px] mx-auto">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-32 reveal">
-        <div class="max-w-2xl">
-          <span class="text-gold-accent font-label-md tracking-[0.4em] mb-6 block uppercase">Our Filmography</span>
-          <h2 class="font-display-lg text-display-lg text-on-surface uppercase">&amp; MOVIES</h2>
+<section id="featured-projects" class="py-24 md:py-48 bg-[#0c0c0c]">
+  <div class="px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 reveal">
+      <div>
+        <span class="text-gold-accent font-label-md tracking-[0.3em] md:tracking-[0.4em] mb-4 block uppercase">Our Filmography</span>
+        <h2 class="font-display-lg text-3xl md:text-5xl text-on-surface uppercase">&amp; MOVIES</h2>
+      </div>
+      <a class="text-on-surface/40 font-label-md tracking-[0.25em] hover:text-gold-accent transition-all duration-500 pb-2 border-b border-white/5 mt-6 md:mt-0 group" href="#">
+        BROWSE ALL WORKS
+        <span class="material-symbols-outlined align-middle ml-2 group-hover:translate-x-2 transition-transform text-sm">arrow_forward</span>
+      </a>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+      <!-- Project 1 -->
+      <a href="extra.html" class="group reveal block">
+        <div class="relative overflow-hidden rounded-[20px] aspect-[10/14] mb-6 perspective-grid cursor-pointer bg-surface-container">
+          <img src="https://i.postimg.cc/qM5QTMhL/C86E4E99-A1AC-407B-A6E9-AE4D7611A12C.png" alt="Four Days Left Movie Poster" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 brightness-90 group-hover:brightness-100"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center text-center backdrop-blur-sm p-6">
+            <span class="material-symbols-outlined text-gold-accent text-5xl mb-4 group-hover:scale-110 transition-transform">play_circle</span>
+            <h4 class="text-white text-xl font-semibold mb-2">View Project</h4>
+            <div class="w-12 h-[2px] bg-gold-accent mb-3"></div>
+            <p class="text-white/70 text-sm max-w-xs">Explore the story, cast, crew and behind the scenes of <strong class="text-white">Four Days Left</strong>.</p>
+          </div>
         </div>
-        <a class="text-on-surface/40 font-label-md tracking-[0.3em] hover:text-gold-accent transition-all duration-500 pb-4 border-b border-white/5 mt-8 md:mt-0 group" href="#">
-          BROWSE ALL WORKS
-          <span class="material-symbols-outlined align-middle ml-2 group-hover:translate-x-2 transition-transform">arrow_forward</span>
-        </a>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-        <!-- Project 1 -->
-        <a href="extra.html" class="group reveal block">
-          <div class="relative overflow-hidden rounded-[24px] aspect-[10/14] mb-10 perspective-grid cursor-pointer">
-            <img
-              src="https://i.postimg.cc/qM5QTMhL/C86E4E99-A1AC-407B-A6E9-AE4D7611A12C.png"
-              alt="Four Days Left Movie Poster"
-              class="w-full h-full object-cover transition-all duration-[1800ms] group-hover:scale-110 brightness-90 group-hover:brightness-100"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30 opacity-0 group-hover:opacity-100 transition-all duration-700 flex flex-col items-center justify-center text-center backdrop-blur-sm p-10">
-              <span class="material-symbols-outlined text-gold-accent text-7xl mb-6 transition-all duration-700 group-hover:scale-110">
-                play_circle
-              </span>
-              <h4 class="text-white text-2xl font-semibold mb-3">View Project</h4>
-              <div class="w-20 h-[2px] bg-gold-accent mb-5"></div>
-              <p class="text-white/70 leading-relaxed max-w-xs">
-                Explore the story, cast, crew and behind the scenes of <strong class="text-white">Four Days Left</strong>.
-              </p>
-            </div>
-            <div class="absolute top-8 right-8 w-12 h-12 glass-card rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-700 delay-100">
-              <span class="material-symbols-outlined text-gold-accent">north_east</span>
-            </div>
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="font-headline-md text-headline-md tracking-tight">Four Days Left</h3>
+            <span class="text-gold-accent text-xs uppercase tracking-[0.15em]">Featured</span>
           </div>
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <h3 class="font-headline-md text-headline-md tracking-tight">Four Days Left</h3>
-              <span class="text-gold-accent text-sm uppercase tracking-[0.2em]">Featured</span>
-            </div>
-            <p class="font-label-md text-label-md text-on-surface/40 uppercase tracking-[0.18em]">
-              Drama • Short Film • 2025
-            </p>
-            <p class="text-on-surface/60 leading-relaxed">
-              A deeply personal story about silence, emotional pressure, resilience, and the difficult choices that quietly shape our lives.
-            </p>
-            <div class="mt-5 inline-flex items-center gap-2 text-gold-accent group-hover:text-white transition-all duration-300">
-              Read More
-              <span class="material-symbols-outlined text-base">arrow_forward</span>
-            </div>
+          <p class="font-label-md text-label-md text-on-surface/40 uppercase tracking-[0.15em]">Drama • Short Film • 2025</p>
+          <p class="text-on-surface/60 text-sm md:text-base leading-relaxed">A deeply personal story about silence, emotional pressure, and resilience.</p>
+          <div class="pt-2 inline-flex items-center gap-2 text-gold-accent group-hover:text-white transition-colors text-sm font-semibold">
+            Read More <span class="material-symbols-outlined text-sm">arrow_forward</span>
           </div>
-        </a>
+        </div>
+      </a>
 
-        <!-- Project 2 -->
-        <a href="extra.html" class="group reveal block">
-          <div class="relative overflow-hidden rounded-[24px] aspect-[10/14] mb-10 perspective-grid cursor-pointer">
-            <img
-              src="https://i.postimg.cc/ZKCFVt7v/image.png"
-              alt="If You Say Yes Movie Poster"
-              class="w-full h-full object-cover transition-all duration-[1800ms] group-hover:scale-110 brightness-90 group-hover:brightness-100"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30 opacity-0 group-hover:opacity-100 transition-all duration-700 flex flex-col items-center justify-center text-center backdrop-blur-sm p-10">
-              <span class="material-symbols-outlined text-gold-accent text-7xl mb-6 transition-all duration-700 group-hover:scale-110">
-                play_circle
-              </span>
-              <h4 class="text-white text-2xl font-semibold mb-3">View Project</h4>
-              <div class="w-20 h-[2px] bg-gold-accent mb-5"></div>
-              <p class="text-white/70 leading-relaxed max-w-xs">
-                Explore the story, cast &amp; crew of <strong class="text-white">If You Say Yes</strong>.
-              </p>
-            </div>
-            <div class="absolute top-8 right-8 w-12 h-12 glass-card rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-700 delay-100">
-              <span class="material-symbols-outlined text-gold-accent">north_east</span>
-            </div>
+      <!-- Project 2 -->
+      <a href="extra.html" class="group reveal block delay-100">
+        <div class="relative overflow-hidden rounded-[20px] aspect-[10/14] mb-6 perspective-grid cursor-pointer bg-surface-container">
+          <img src="https://i.postimg.cc/ZKCFVt7v/image.png" alt="If You Say Yes Movie Poster" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 brightness-90 group-hover:brightness-100"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center text-center backdrop-blur-sm p-6">
+            <span class="material-symbols-outlined text-gold-accent text-5xl mb-4 group-hover:scale-110 transition-transform">play_circle</span>
+            <h4 class="text-white text-xl font-semibold mb-2">View Project</h4>
+            <div class="w-12 h-[2px] bg-gold-accent mb-3"></div>
+            <p class="text-white/70 text-sm max-w-xs">Explore the story, cast &amp; crew of <strong class="text-white">If You Say Yes</strong>.</p>
           </div>
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <h3 class="font-headline-md text-headline-md tracking-tight">If You Say Yes</h3>
-              <span class="text-gold-accent text-sm uppercase tracking-[0.2em]">Released</span>
-            </div>
-            <p class="font-label-md text-label-md text-on-surface/40 uppercase tracking-[0.18em]">
-              Screenlife Romantic Drama • 2025
-            </p>
-            <p class="text-on-surface/60 leading-relaxed">
-              A modern romance unfolding through screens, where every message carries the weight of a lifetime.
-            </p>
-            <div class="mt-5 inline-flex items-center gap-2 text-gold-accent group-hover:text-white transition-all duration-300">
-              Read More
-              <span class="material-symbols-outlined text-base">arrow_forward</span>
-            </div>
+        </div>
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="font-headline-md text-headline-md tracking-tight">If You Say Yes</h3>
+            <span class="text-gold-accent text-xs uppercase tracking-[0.15em]">Released</span>
           </div>
-        </a>
+          <p class="font-label-md text-label-md text-on-surface/40 uppercase tracking-[0.15em]">Screenlife Romantic Drama • 2025</p>
+          <p class="text-on-surface/60 text-sm md:text-base leading-relaxed">A modern romance unfolding through screens, where every message carries weight.</p>
+          <div class="pt-2 inline-flex items-center gap-2 text-gold-accent group-hover:text-white transition-colors text-sm font-semibold">
+            Read More <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </div>
+        </div>
+      </a>
 
-        <!-- Project 3 -->
-        <a href="extra.html" class="group reveal block">
-          <div class="relative overflow-hidden rounded-[24px] aspect-[10/14] mb-10 perspective-grid cursor-pointer">
-            <img
-              src="https://i.postimg.cc/bJy1nKSw/image.png"
-              alt="Just a Ride Movie Poster"
-              class="w-full h-full object-cover transition-all duration-[1800ms] group-hover:scale-110 brightness-90 group-hover:brightness-100"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30 opacity-0 group-hover:opacity-100 transition-all duration-700 flex flex-col items-center justify-center text-center backdrop-blur-sm p-10">
-              <span class="material-symbols-outlined text-gold-accent text-7xl mb-6 transition-all duration-700 group-hover:scale-110">
-                play_circle
-              </span>
-              <h4 class="text-white text-2xl font-semibold mb-3">View Project</h4>
-              <div class="w-20 h-[2px] bg-gold-accent mb-5"></div>
-              <p class="text-white/70 leading-relaxed max-w-xs">
-                Explore the story, cast &amp; crew of <strong class="text-white">Just a Ride</strong>.
-              </p>
-            </div>
-            <div class="absolute top-8 right-8 w-12 h-12 glass-card rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-700 delay-100">
-              <span class="material-symbols-outlined text-gold-accent">north_east</span>
-            </div>
+      <!-- Project 3 -->
+      <a href="extra.html" class="group reveal block delay-200 md:col-span-2 lg:col-span-1">
+        <div class="relative overflow-hidden rounded-[20px] aspect-[10/14] mb-6 perspective-grid cursor-pointer bg-surface-container">
+          <img src="https://i.postimg.cc/bJy1nKSw/image.png" alt="Just a Ride Movie Poster" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 brightness-90 group-hover:brightness-100"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center text-center backdrop-blur-sm p-6">
+            <span class="material-symbols-outlined text-gold-accent text-5xl mb-4 group-hover:scale-110 transition-transform">play_circle</span>
+            <h4 class="text-white text-xl font-semibold mb-2">View Project</h4>
+            <div class="w-12 h-[2px] bg-gold-accent mb-3"></div>
+            <p class="text-white/70 text-sm max-w-xs">Explore the story, cast &amp; crew of <strong class="text-white">Just a Ride</strong>.</p>
           </div>
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <h3 class="font-headline-md text-headline-md tracking-tight">Just a Ride</h3>
-              <span class="text-gold-accent text-sm uppercase tracking-[0.2em]">In Development</span>
-            </div>
-            <p class="font-label-md text-label-md text-on-surface/40 uppercase tracking-[0.18em]">
-              Drama • 2026
-            </p>
-            <p class="text-on-surface/60 leading-relaxed">
-              A raw, emotional journey of self-discovery set against the backdrop of a cross-country road trip.
-            </p>
-            <div class="mt-5 inline-flex items-center gap-2 text-gold-accent group-hover:text-white transition-all duration-300">
-              Read More
-              <span class="material-symbols-outlined text-base">arrow_forward</span>
-            </div>
+        </div>
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="font-headline-md text-headline-md tracking-tight">Just a Ride</h3>
+            <span class="text-gold-accent text-xs uppercase tracking-[0.15em]">In Dev</span>
           </div>
-        </a>
-      </div>
+          <p class="font-label-md text-label-md text-on-surface/40 uppercase tracking-[0.15em]">Drama • 2026</p>
+          <p class="text-on-surface/60 text-sm md:text-base leading-relaxed">A raw, emotional journey of self-discovery set against a cross-country road trip.</p>
+          <div class="pt-2 inline-flex items-center gap-2 text-gold-accent group-hover:text-white transition-colors text-sm font-semibold">
+            Read More <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </div>
+        </div>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ===== SHORT SPOTLIGHT FILM FESTIVAL SECTION ===== -->
-<section id="film-festival" class="py-60 px-margin-desktop max-w-[1800px] mx-auto">
-  <div class="text-center mb-32 reveal">
-    <span class="text-gold-accent font-label-md tracking-[0.5em] mb-8 block uppercase">Global Stage</span>
-    <h2 class="font-display-lg text-display-xl text-on-surface">THE SHORT SPOTLIGHT</h2>
+<!-- Film Festival Section -->
+<section id="film-festival" class="py-24 md:py-48 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+  <div class="text-center mb-16 md:mb-24 reveal">
+    <span class="text-gold-accent font-label-md tracking-[0.4em] md:tracking-[0.5em] mb-4 block uppercase">Global Stage</span>
+    <h2 class="font-display-lg text-3xl md:text-5xl text-on-surface">THE SHORT SPOTLIGHT</h2>
   </div>
 
-  <div class="grid grid-cols-1 gap-16">
-    <!-- EVENT CARD 1 → Short Spotlight Second Edition -->
+  <div class="grid grid-cols-1 gap-10 md:gap-12">
+    <!-- Event Card 1 -->
     <a href="filmfest.html" class="event-card-link reveal">
-      <div class="flex flex-col md:flex-row glass-card overflow-hidden rounded-[24px] group">
-        <div class="w-full md:w-1/2 aspect-square overflow-hidden">
-          <img 
-            class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110" 
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGNHms0rNuqKFIkDbJqrSJYnCEqvAas52ZKhBQ4e5ADE2gyqaqvXC0ln-O8hD3kkpOv8tr2RPjvKEQQZ2dx4Z-2Q4QMBUs_HnqfsMn8grLvJUBY-_5VYZJF-yMoAKD5soGPUqyOVpK5q2H6UVsoWYcgK8L0p-rwHxbwwa-NB3Oe1aKAN7lq-dmq11Vzdgiiio0v8ixk4TEE8lx2TNQ3_DEbpV71T0tZvJQoivnTMbkzrsR0nAtK9khZvXXrHeVbDTvCVX8aVEFCrE" 
-            alt="Short Spotlight Second Edition" 
-            loading="lazy"
-          />
+      <div class="flex flex-col lg:flex-row glass-card overflow-hidden rounded-[20px] group">
+        <div class="w-full lg:w-1/2 aspect-video lg:aspect-square overflow-hidden bg-surface-container">
+          <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGNHms0rNuqKFIkDbJqrSJYnCEqvAas52ZKhBQ4e5ADE2gyqaqvXC0ln-O8hD3kkpOv8tr2RPjvKEQQZ2dx4Z-2Q4QMBUs_HnqfsMn8grLvJUBY-_5VYZJF-yMoAKD5soGPUqyOVpK5q2H6UVsoWYcgK8L0p-rwHxbwwa-NB3Oe1aKAN7lq-dmq11Vzdgiiio0v8ixk4TEE8lx2TNQ3_DEbpV71T0tZvJQoivnTMbkzrsR0nAtK9khZvXXrHeVbDTvCVX8aVEFCrE" alt="Short Spotlight Second Edition" loading="lazy"/>
         </div>
-        <div class="w-full md:w-1/2 p-12 flex flex-col justify-between">
+        <div class="w-full lg:w-1/2 p-6 sm:p-10 lg:p-12 flex flex-col justify-between">
           <div>
-            <div class="flex items-center gap-3 text-gold-accent mb-6">
+            <div class="flex items-center gap-2 text-gold-accent mb-4">
               <span class="material-symbols-outlined text-base">calendar_today</span>
-              <span class="font-label-md tracking-[0.2em]">FRI 18 SEPT</span>
+              <span class="font-label-md tracking-[0.15em]">FRI 18 SEPT</span>
             </div>
-            <h3 class="font-headline-md text-headline-md mb-6 text-on-surface">SHORT SPOTLIGHT <br/>SECOND EDITION</h3>
-            <p class="font-body-md text-body-md text-on-surface/50 mb-8">Submissions are now open for Short Spotlight – Second Edition. Join us for another celebration of independent short films.</p>
-            <div class="flex items-center gap-2 text-on-surface/30 font-label-md">
+            <h3 class="font-headline-md text-xl sm:text-2xl mb-4 text-on-surface">SHORT SPOTLIGHT<br/>SECOND EDITION</h3>
+            <p class="font-body-md text-on-surface/50 mb-6 text-sm sm:text-base">Submissions are now open for Short Spotlight – Second Edition. Join us for another celebration of independent short films.</p>
+            <div class="flex items-center gap-2 text-on-surface/40 font-label-md text-xs">
               <span class="material-symbols-outlined text-base">location_on</span>
               <span class="tracking-widest">MIDLANDS ARTS CENTRE</span>
             </div>
           </div>
-          <div class="flex items-center justify-between mt-10">
-            <span class="inline-flex items-center gap-2 text-on-surface group-hover:text-gold-accent transition-colors">
-              Explore Festival
-              <span class="material-symbols-outlined" style="font-size:1rem;">arrow_forward</span>
+          <div class="flex items-center justify-between mt-8 pt-6 border-t border-white/5">
+            <span class="inline-flex items-center gap-2 text-on-surface group-hover:text-gold-accent transition-colors text-sm font-semibold">
+              Explore Festival <span class="material-symbols-outlined text-sm">arrow_forward</span>
             </span>
-            <span class="text-gold-accent text-xs tracking-[0.15em] uppercase border border-gold-accent/20 px-4 py-2 rounded-full hover:bg-gold-accent hover:text-black transition-all duration-300">
+            <span class="text-gold-accent text-xs tracking-[0.15em] uppercase border border-gold-accent/20 px-3.5 py-2 rounded-full hover:bg-gold-accent hover:text-black transition-all">
               Submit Now
             </span>
           </div>
@@ -789,36 +683,30 @@
       </div>
     </a>
 
-    <!-- EVENT CARD 2 → Short Spotlights Film Festival (First Edition) -->
-    <a href="filmfest.html" class="event-card-link reveal delay-200">
-      <div class="flex flex-col md:flex-row glass-card overflow-hidden rounded-[24px] group">
-        <div class="w-full md:w-1/2 aspect-square overflow-hidden">
-          <img 
-            class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110" 
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLS6uG5g4udfBrbGLvaX7IIiOzC3Iq8iprehi_ox3-Crt8tOxwUhXbJNs7HUnKffvi0oj0XZjJ5AiQNMGL-iwBtgL5Xtz2EJSVjTxsUmxPT_JHdj30bhC7l8oR3DOM8Uso2NAoIpNUc5JvEUpeTXy3-85520zfFhIgSYMgPqJrz6bmf8K0UTMlXBGgV7c-KLK5gtwuB1eIEWCxFPBReuyvFpImNs7QoO54w6cRuhEB0ITUJ9JbMCRkX3KlLNXS_Y1Lu8fe-S3g0bg" 
-            alt="Short Spotlights Film Festival" 
-            loading="lazy"
-          />
+    <!-- Event Card 2 -->
+    <a href="filmfest.html" class="event-card-link reveal delay-100">
+      <div class="flex flex-col lg:flex-row glass-card overflow-hidden rounded-[20px] group">
+        <div class="w-full lg:w-1/2 aspect-video lg:aspect-square overflow-hidden bg-surface-container">
+          <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLS6uG5g4udfBrbGLvaX7IIiOzC3Iq8iprehi_ox3-Crt8tOxwUhXbJNs7HUnKffvi0oj0XZjJ5AiQNMGL-iwBtgL5Xtz2EJSVjTxsUmxPT_JHdj30bhC7l8oR3DOM8Uso2NAoIpNUc5JvEUpeTXy3-85520zfFhIgSYMgPqJrz6bmf8K0UTMlXBGgV7c-KLK5gtwuB1eIEWCxFPBReuyvFpImNs7QoO54w6cRuhEB0ITUJ9JbMCRkX3KlLNXS_Y1Lu8fe-S3g0bg" alt="Short Spotlights Film Festival" loading="lazy"/>
         </div>
-        <div class="w-full md:w-1/2 p-12 flex flex-col justify-between">
+        <div class="w-full lg:w-1/2 p-6 sm:p-10 lg:p-12 flex flex-col justify-between">
           <div>
-            <div class="flex items-center gap-3 text-gold-accent mb-6">
+            <div class="flex items-center gap-2 text-gold-accent mb-4">
               <span class="material-symbols-outlined text-base">calendar_today</span>
-              <span class="font-label-md tracking-[0.2em]">TUE 11 FEB</span>
+              <span class="font-label-md tracking-[0.15em]">TUE 11 FEB</span>
             </div>
-            <h3 class="font-headline-md text-headline-md mb-6 text-on-surface">SHORT SPOTLIGHTS <br/>FILM FESTIVAL</h3>
-            <p class="font-body-md text-body-md text-on-surface/50 mb-8">Arishu Short Film Spotlight is the first edition of the Arishu Film Festival, created to showcase independent short films and engage live audiences through cinema screenings and feedback.</p>
-            <div class="flex items-center gap-2 text-on-surface/30 font-label-md">
+            <h3 class="font-headline-md text-xl sm:text-2xl mb-4 text-on-surface">SHORT SPOTLIGHTS<br/>FILM FESTIVAL</h3>
+            <p class="font-body-md text-on-surface/50 mb-6 text-sm sm:text-base">Arishu Short Film Spotlight is the first edition of the Arishu Film Festival, created to showcase independent short films.</p>
+            <div class="flex items-center gap-2 text-on-surface/40 font-label-md text-xs">
               <span class="material-symbols-outlined text-base">location_on</span>
               <span class="tracking-widest">BIRMINGHAM</span>
             </div>
           </div>
-          <div class="flex items-center justify-between mt-10">
-            <span class="inline-flex items-center gap-2 text-on-surface group-hover:text-gold-accent transition-colors">
-              Explore Festival
-              <span class="material-symbols-outlined" style="font-size:1rem;">arrow_forward</span>
+          <div class="flex items-center justify-between mt-8 pt-6 border-t border-white/5">
+            <span class="inline-flex items-center gap-2 text-on-surface group-hover:text-gold-accent transition-colors text-sm font-semibold">
+              Explore Festival <span class="material-symbols-outlined text-sm">arrow_forward</span>
             </span>
-            <span class="text-gold-accent text-xs tracking-[0.15em] uppercase border border-gold-accent/20 px-4 py-2 rounded-full hover:bg-gold-accent hover:text-black transition-all duration-300">
+            <span class="text-gold-accent text-xs tracking-[0.15em] uppercase border border-gold-accent/20 px-3.5 py-2 rounded-full hover:bg-gold-accent hover:text-black transition-all">
               Details
             </span>
           </div>
@@ -828,72 +716,55 @@
   </div>
 </section>
 
-<!-- Luxury Editorial Gallery -->
-<section class="py-60 bg-black overflow-hidden">
-  <div class="px-margin-desktop max-w-[1800px] mx-auto">
-    <div class="mb-32 reveal">
-      <span class="text-gold-accent font-label-md tracking-[0.5em] mb-6 block uppercase">Editorial Gallery</span>
-      <h2 class="font-display-lg text-display-lg text-on-surface">CINEMATIC STILLS<br/><span class="text-stroke">VOL. 01</span></h2>
+<!-- Editorial Gallery -->
+<section class="py-24 md:py-48 bg-black overflow-hidden">
+  <div class="px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+    <div class="mb-16 md:mb-24 reveal">
+      <span class="text-gold-accent font-label-md tracking-[0.4em] mb-4 block uppercase">Editorial Gallery</span>
+      <h2 class="font-display-lg text-3xl md:text-5xl text-on-surface">CINEMAS STILLS<br/><span class="text-stroke">VOL. 01</span></h2>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 min-h-[1400px]">
-      <!-- Large Featured Image -->
-      <div class="md:col-span-8 md:row-span-2 gallery-item reveal">
-        <div class="h-full rounded-[24px] overflow-hidden relative group">
-          <img class="w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-105" data-alt="Behind the scenes on a film production" src="https://i.postimg.cc/G3Nf6b33/image.png"/>
-          <div class="absolute bottom-10 left-10 z-10">
-            <span class="text-gold-accent font-label-md tracking-widest mb-2 block">ON SET</span>
-            <h4 class="font-headline-md text-white text-3xl">THE ART OF PRODUCTION</h4>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+      <!-- Main Featured Stills -->
+      <div class="md:col-span-8 gallery-item reveal">
+        <div class="h-[350px] sm:h-[450px] md:h-[520px] rounded-[20px] overflow-hidden relative group bg-surface-container">
+          <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://i.postimg.cc/G3Nf6b33/image.png" alt="Behind the scenes"/>
+          <div class="absolute bottom-6 left-6 z-10">
+            <span class="text-gold-accent font-label-md tracking-widest mb-1 block text-xs">ON SET</span>
+            <h4 class="font-headline-md text-white text-xl sm:text-2xl">THE ART OF PRODUCTION</h4>
           </div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
         </div>
       </div>
 
-      <!-- Secondary Stills -->
-      <div class="md:col-span-4 md:row-span-1 gallery-item reveal delay-200">
-        <div class="h-full rounded-[24px] overflow-hidden relative group">
-          <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 group-hover:scale-110" data-alt="Light refracting prism" src="https://i.postimg.cc/Bvn94NrS/FD11AC44-6712-4EC3-BB23-1710445E1C05.png"/>
-          <div class="absolute top-8 left-8 glass-card px-6 py-2 rounded-full">
+      <!-- Secondary Still 1 -->
+      <div class="md:col-span-4 gallery-item reveal delay-100">
+        <div class="h-[280px] sm:h-[350px] md:h-[520px] rounded-[20px] overflow-hidden relative group bg-surface-container">
+          <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 group-hover:scale-105" src="https://i.postimg.cc/Bvn94NrS/FD11AC44-6712-4EC3-BB23-1710445E1C05.png" alt="Prism refraction"/>
+          <div class="absolute top-6 left-6 glass-card px-4 py-1.5 rounded-full">
             <span class="text-white/80 font-label-md text-[10px]">#MACRO_042</span>
           </div>
         </div>
       </div>
 
-      <div class="md:col-span-4 md:row-span-1 gallery-item reveal delay-400">
-        <div class="h-full rounded-[24px] overflow-hidden relative group">
-          <img class="w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-110" data-alt="Director on film set" src="https://i.postimg.cc/d1ZfVfnj/BA99E5E9-C7B2-4572-BFC9-65C8021BE015.png"/>
+      <!-- Callout Box -->
+      <div class="md:col-span-6 gallery-item reveal delay-200">
+        <div class="h-[320px] sm:h-[380px] rounded-[20px] overflow-hidden relative group bg-[#111] flex flex-col items-center justify-center p-8 text-center border border-white/5">
+          <h5 class="font-display-lg text-2xl sm:text-3xl mb-4 text-on-surface">COLLABORATE WITH US</h5>
+          <p class="font-body-md text-on-surface/50 text-sm max-w-sm mb-8">Bringing your premium brand stories to the cinematic screen with unparalleled visual quality.</p>
+          <a class="font-label-md text-gold-accent border-b border-gold-accent pb-1 tracking-[0.2em] hover:text-white hover:border-white transition-all text-xs" href="https://wa.me/447365331346" target="_blank" rel="noopener noreferrer">
+            GET IN TOUCH
+          </a>
         </div>
       </div>
 
-      <!-- Bottom Horizontal Section -->
-      <div class="md:col-span-6 md:row-span-1 gallery-item reveal delay-500">
-        <div class="h-[400px] rounded-[24px] overflow-hidden relative group">
-        <div class="absolute inset-0 bg-[#111] flex flex-col items-center justify-center p-12 text-center"> 
-  <h5 class="font-display-lg text-4xl mb-8 text-on-surface">
-    COLLABORATE WITH US
-  </h5> 
-  
-  <p class="font-body-md text-on-surface/40 max-w-sm mb-12">
-    Bringing your premium brand stories to the cinematic screen with unparalleled visual quality.
-  </p> 
-  
-  <a 
-    class="font-label-md text-gold-accent border-b border-gold-accent pb-2 tracking-[0.2em] hover:text-white hover:border-white transition-all duration-500" 
-    href="https://wa.me/447365331346"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    GET IN TOUCH
-  </a> 
-</div>
-        </div>
-      </div>
-
-      <div class="md:col-span-6 md:row-span-1 gallery-item reveal delay-700">
-        <div class="h-[400px] rounded-[24px] overflow-hidden relative group">
-          <img alt="Cinematic Lighting Setup" class="w-full h-full object-cover brightness-50 group-hover:brightness-75 transition-all duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_YukGkFH9kPr050MVGb30JLHcnf4sumeKLdmxyQtIpHQbTgJHt47HN3qsOmA9NbRcHGsJOzSYhBUov1qy04RI26guh31n6397D59YhzMrRLXMn_u_2UVoS_rWZjYui2oM4Da-oOGsHHJl7LMEpbTD-iBCrc5bnJcsOpGZHO81e0usZSxAHWMrvNRXSExelmdUSHXF1msNnip7hWpuf3MrXzHT1dmSo1_PdQVQ46QGKc0kvEBgqTvmrxOl6TCXZwFQlsf6HBpm4_4"/>
+      <!-- Secondary Still 2 -->
+      <div class="md:col-span-6 gallery-item reveal delay-300">
+        <div class="h-[320px] sm:h-[380px] rounded-[20px] overflow-hidden relative group bg-surface-container">
+          <img alt="Lighting Setup" class="w-full h-full object-cover brightness-50 group-hover:brightness-75 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_YukGkFH9kPr050MVGb30JLHcnf4sumeKLdmxyQtIpHQbTgJHt47HN3qsOmA9NbRcHGsJOzSYhBUov1qy04RI26guh31n6397D59YhzMrRLXMn_u_2UVoS_rWZjYui2oM4Da-oOGsHHJl7LMEpbTD-iBCrc5bnJcsOpGZHO81e0usZSxAHWMrvNRXSExelmdUSHXF1msNnip7hWpuf3MrXzHT1dmSo1_PdQVQ46QGKc0kvEBgqTvmrxOl6TCXZwFQlsf6HBpm4_4"/>
           <div class="absolute inset-0 flex items-center justify-center">
-            <div class="w-24 h-24 rounded-full border border-white/20 flex items-center justify-center backdrop-blur-xl group-hover:border-gold-accent group-hover:scale-110 transition-all duration-700">
-              <span class="material-symbols-outlined text-white text-3xl">play_arrow</span>
+            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border border-white/20 flex items-center justify-center backdrop-blur-xl group-hover:border-gold-accent group-hover:scale-110 transition-all">
+              <span class="material-symbols-outlined text-white text-2xl">play_arrow</span>
             </div>
           </div>
         </div>
@@ -902,29 +773,18 @@
   </div>
 </section>
 
-<!-- ===== SITE FOOTER ===== -->
+<!-- Footer -->
 <footer class="site-footer">
-  <!-- Film Reel Watermark -->
   <svg viewBox="0 0 200 200" class="film-watermark" aria-hidden="true">
     <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width="6" fill="none" />
     <circle cx="100" cy="100" r="30" stroke="currentColor" stroke-width="4" fill="none" />
     <line x1="100" y1="20" x2="100" y2="180" stroke="currentColor" stroke-width="4" />
     <line x1="20" y1="100" x2="180" y2="100" stroke="currentColor" stroke-width="4" />
-    <line x1="43.4" y1="43.4" x2="156.6" y2="156.6" stroke="currentColor" stroke-width="4" />
-    <line x1="43.4" y1="156.6" x2="156.6" y2="43.4" stroke="currentColor" stroke-width="4" />
-    <circle cx="100" cy="55" r="12" stroke="currentColor" stroke-width="2" fill="none" />
-    <circle cx="100" cy="145" r="12" stroke="currentColor" stroke-width="2" fill="none" />
-    <circle cx="55" cy="100" r="12" stroke="currentColor" stroke-width="2" fill="none" />
-    <circle cx="145" cy="100" r="12" stroke="currentColor" stroke-width="2" fill="none" />
-    <circle cx="68" cy="68" r="12" stroke="currentColor" stroke-width="2" fill="none" />
-    <circle cx="132" cy="132" r="12" stroke="currentColor" stroke-width="2" fill="none" />
-    <circle cx="68" cy="132" r="12" stroke="currentColor" stroke-width="2" fill="none" />
-    <circle cx="132" cy="68" r="12" stroke="currentColor" stroke-width="2" fill="none" />
   </svg>
 
   <div class="footer-inner">
     <div class="footer-grid">
-      <!-- Brand Column -->
+      <!-- Brand -->
       <div class="col-brand brand-group">
         <a href="/" class="brand-logo">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -936,16 +796,14 @@
           </svg>
           <span class="site-name">ARISHU<span class="text-gold-accent">.</span>FILMS</span>
         </a>
-        <p class="brand-description">
-          Empowering creators. Backing stories. Building the future of independent cinema.
-        </p>
+        <p class="brand-description">Empowering creators. Backing stories. Building the future of independent cinema.</p>
         <a href="mailto:contact@arishufilms.com" class="contact-link" id="email-link">
-          <span class="material-symbols-outlined" style="font-size: 18px;" aria-hidden="true">mail</span>
+          <span class="material-symbols-outlined" style="font-size: 16px;" aria-hidden="true">mail</span>
           <span id="email-label">contact@arishufilms.com</span>
         </a>
       </div>
 
-      <!-- Platform Links -->
+      <!-- Platform -->
       <div class="col-links">
         <h5 class="column-title">Platform</h5>
         <ul class="footer-link-list">
@@ -956,7 +814,7 @@
         </ul>
       </div>
 
-      <!-- Company Links -->
+      <!-- Company -->
       <div class="col-links">
         <h5 class="column-title">Company</h5>
         <ul class="footer-link-list">
@@ -966,7 +824,7 @@
         </ul>
       </div>
 
-      <!-- Support Links -->
+      <!-- Support -->
       <div class="col-links">
         <h5 class="column-title">Support</h5>
         <ul class="footer-link-list">
@@ -976,7 +834,7 @@
         </ul>
       </div>
 
-      <!-- Legal Links -->
+      <!-- Legal -->
       <div class="col-links">
         <h5 class="column-title">Legal</h5>
         <ul class="footer-link-list">
@@ -988,10 +846,8 @@
       </div>
     </div>
 
-    <!-- Divider -->
     <div class="footer-divider"></div>
 
-    <!-- Bottom Section -->
     <div class="footer-bottom">
       <p class="legal-text" id="legal-meta">
         Arishu Films Ltd &middot; Registered in the United Kingdom &middot; Company No. 12345678
@@ -1011,7 +867,6 @@
 </footer>
 
 <script>
-  // Configuration object mirroring SITE from @/lib/site
   const SITE = {
     name: "ARISHU.FILMS",
     legalName: "Arishu Films Ltd",
@@ -1020,7 +875,6 @@
     email: "contact@arishufilms.com"
   };
 
-  // Inject dynamic values into footer
   document.querySelectorAll(".site-name").forEach(el => {
     if (!el.children.length) el.textContent = SITE.name;
   });
@@ -1053,77 +907,47 @@
       if (isHidden) {
         mobileMenu.classList.remove('hidden');
         mobileToggleIcon.textContent = 'close';
+        document.body.style.overflow = 'hidden';
       } else {
         mobileMenu.classList.add('hidden');
         mobileToggleIcon.textContent = 'menu';
+        document.body.style.overflow = '';
       }
     });
 
-    // Close menu when tapping mobile links
     mobileMenu.querySelectorAll('a, button').forEach(el => {
       el.addEventListener('click', () => {
         mobileMenu.classList.add('hidden');
         mobileToggleIcon.textContent = 'menu';
+        document.body.style.overflow = '';
       });
     });
   }
 
-  // Optional mock auth state switch (demonstrates user login handling)
-  function setAuthState(user) {
-    const desktopLoggedOut = document.getElementById('desktop-logged-out');
-    const desktopLoggedIn = document.getElementById('desktop-logged-in');
-    const mobileLoggedOut = document.getElementById('mobile-logged-out');
-    const mobileLoggedIn = document.getElementById('mobile-logged-in');
+  // Custom Cursor
+  const cursor = document.getElementById('cursor');
+  if (cursor && window.matchMedia('(pointer: fine)').matches) {
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
 
-    if (user) {
-      if (desktopLoggedOut) desktopLoggedOut.classList.add('hidden');
-      if (desktopLoggedIn) {
-        desktopLoggedIn.classList.remove('hidden');
-        desktopLoggedIn.classList.add('flex');
-        document.getElementById('desktop-user-name').textContent = user.name;
-      }
-      if (mobileLoggedOut) mobileLoggedOut.classList.add('hidden');
-      if (mobileLoggedIn) {
-        mobileLoggedIn.classList.remove('hidden');
-        mobileLoggedIn.classList.add('flex');
-        document.getElementById('mobile-user-name').textContent = user.name;
-      }
-    } else {
-      if (desktopLoggedOut) desktopLoggedOut.classList.remove('hidden');
-      if (desktopLoggedIn) {
-        desktopLoggedIn.classList.add('hidden');
-        desktopLoggedIn.classList.remove('flex');
-      }
-      if (mobileLoggedOut) mobileLoggedOut.classList.remove('hidden');
-      if (mobileLoggedIn) {
-        mobileLoggedIn.classList.add('hidden');
-        mobileLoggedIn.classList.remove('flex');
-      }
-    }
+    document.querySelectorAll('button, a, .perspective-grid, .gallery-item, .currency-select').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.transform = 'scale(5)';
+        cursor.style.backgroundColor = 'rgba(212, 175, 55, 0.15)';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.transform = 'scale(1)';
+        cursor.style.backgroundColor = '#D4AF37';
+      });
+    });
   }
 
-  // Custom Cursor Logic
-  const cursor = document.getElementById('cursor');
-  document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-  });
-
-  document.querySelectorAll('button, a, .perspective-grid, .gallery-item, .currency-select').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.style.transform = 'scale(6)';
-      cursor.style.backgroundColor = 'rgba(212, 175, 55, 0.15)';
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.style.transform = 'scale(1)';
-      cursor.style.backgroundColor = '#D4AF37';
-    });
-  });
-
-  // Scroll Reveal Logic
+  // Scroll Reveal Observer
   const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
+    threshold: 0.05,
+    rootMargin: '0px 0px -50px 0px'
   };
 
   const observer = new IntersectionObserver((entries) => {
