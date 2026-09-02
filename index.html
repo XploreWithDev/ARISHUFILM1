@@ -124,7 +124,8 @@
     .heading-2lines .line1 { display: block; font-weight: 700; color: #000000; }
     .heading-2lines .line2 { display: block; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; color: #000000; }
 
-    .card-scroll-container { height: clamp(340px, 48vh, 600px); }
+    /* RESPONSIVE HERO VIDEO / IMAGE CONTAINER HEIGHT ADJUSTMENT */
+    .card-scroll-container { height: clamp(480px, 60vh, 600px); }
 
     .card-img {
       background-size: cover;
@@ -272,7 +273,7 @@
     .project-card-arrow { color: #000000; flex-shrink: 0; margin-left: 16px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); width: 40px; height: 40px; border-radius: 50%; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; }
     .project-card:hover .project-card-arrow { background: linear-gradient(135deg, #0c1334 0%, #27397f 50%, #5ea7db 100%); color: #fff; border-color: #27397f; transform: translateX(4px); }
 
-    /* ===== VERTICAL CATEGORY SELECTOR & FAQ STYLES (RESPONSIVE OPTIMIZATION) ===== */
+    /* ===== VERTICAL CATEGORY SELECTOR & FAQ STYLES ===== */
     #category-selector {
       position: relative;
       width: 100%;
@@ -421,7 +422,7 @@
     }
 
     /* ============================================================
-       RESPONSIVE OPTIMIZATIONS (MOBILE / TABLET VIEWPORT FIXES)
+       RESPONSIVE OPTIMIZATIONS (MOBILE / TABLET VIEWPORT & FAQ FIXES)
        ============================================================ */
     @media (max-width: 1024px) {
       /* Stack Featured Works grid on tablet/mobile */
@@ -437,7 +438,7 @@
         height: 280px;
       }
 
-      /* Prevent FAQ pinned section from locking/trapping on mobile devices */
+      /* Prevent FAQ pinned section from locking or trapping scroll on mobile/tablet */
       #scroll-wrapper {
         height: auto !important;
         padding: 60px 0;
