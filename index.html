@@ -215,23 +215,23 @@
       justify-content: flex-start;
       background: #050505;
       z-index: 10;
-      padding: clamp(2.5rem, 5vw, 4.5rem) 0 clamp(1.5rem, 3vw, 2.5rem);
+      padding: clamp(2.5rem, 5vh, 4.5rem) 0 clamp(1rem, 3vh, 2rem);
     }
     .section-header {
       width: 100%;
       max-width: 1280px;
       padding: 0 clamp(1rem, 4vw, 2rem);
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       text-align: left;
     }
-    .section-header .label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: #737373; margin-bottom: 0.4rem; }
-    .section-header h1 { font-size: clamp(1.6rem, 3vw, 2.8rem); font-weight: 300; color: #a0a0a0; line-height: 1.15; width: 100%; }
-    .section-header h1 .highlight { font-family: 'Playfair Display', serif; font-style: italic; color: #fff; font-size: clamp(2rem, 4vw, 3.6rem); display: inline-block; margin-top: 0.15rem; }
-    .section-header .divider { width: 100%; height: 1px; background: rgba(255, 255, 255, 0.08); margin-top: 1rem; }
+    .section-header .label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: #737373; margin-bottom: 0.3rem; }
+    .section-header h1 { font-size: clamp(1.5rem, 2.8vw, 2.6rem); font-weight: 300; color: #a0a0a0; line-height: 1.1; width: 100%; }
+    .section-header h1 .highlight { font-family: 'Playfair Display', serif; font-style: italic; color: #fff; font-size: clamp(1.9rem, 3.8vw, 3.4rem); display: inline-block; margin-top: 0.1rem; }
+    .section-header .divider { width: 100%; height: 1px; background: rgba(255, 255, 255, 0.08); margin-top: 0.75rem; }
     
     .sync-content-wrapper {
       position: relative;
@@ -267,9 +267,9 @@
     
     /* 5 Images stacked in exact same position */
     .image-area {
-      flex: 0 0 clamp(130px, 18vw, 190px);
-      width: clamp(130px, 18vw, 190px);
-      height: clamp(130px, 18vw, 190px);
+      flex: 0 0 clamp(120px, 16vw, 180px);
+      width: clamp(120px, 16vw, 180px);
+      height: clamp(120px, 16vw, 180px);
       position: relative;
       overflow: hidden;
       border-radius: 50%;
@@ -289,7 +289,7 @@
       flex: 1 1 400px;
       max-width: 480px;
       position: relative;
-      height: clamp(170px, 28vw, 260px);
+      height: clamp(160px, 26vw, 240px);
     }
     .text-item {
       position: absolute;
@@ -299,9 +299,9 @@
       transform: translateY(-50%);
       transition: opacity 0.4s cubic-bezier(.23, 1, .32, 1), transform 0.4s cubic-bezier(.23, 1, .32, 1);
     }
-    .text-item .label { color: #737373; font-size: 0.75rem; letter-spacing: 0.15em; margin-bottom: 0.35rem; display: block; }
-    .text-item h2 { font-size: clamp(1.5rem, 2.2vw, 2.1rem); font-weight: 500; margin-bottom: 0.5rem; line-height: 1.2; color: #fff; }
-    .text-item p { color: #b0b0b0; font-size: clamp(0.9rem, 1.05vw, 1rem); line-height: 1.6; font-weight: 300; }
+    .text-item .label { color: #737373; font-size: 0.75rem; letter-spacing: 0.15em; margin-bottom: 0.3rem; display: block; }
+    .text-item h2 { font-size: clamp(1.4rem, 2.1vw, 2rem); font-weight: 500; margin-bottom: 0.4rem; line-height: 1.2; color: #fff; }
+    .text-item p { color: #b0b0b0; font-size: clamp(0.85rem, 1vw, 0.98rem); line-height: 1.55; font-weight: 300; }
 
     /* CTA PANEL — STAGGERED SLIDE RIGHT */
     .cta-panel {
@@ -336,7 +336,7 @@
       flex: 0 0 auto;
     }
     .cta-img-box {
-      width: clamp(60px, 10vw, 150px);
+      width: clamp(55px, 9vw, 140px);
       aspect-ratio: 1 / 1;
       object-fit: cover;
       border-radius: 16px;
@@ -373,7 +373,7 @@
     }
 
     .cta-text h2 {
-      font-size: clamp(1.35rem, 2vw, 2.2rem);
+      font-size: clamp(1.3rem, 2vw, 2.1rem);
       font-weight: 600;
       color: #ffffff;
       margin-bottom: 0;
@@ -391,7 +391,7 @@
 
     .cta-text p {
       color: #a0a0a0;
-      font-size: clamp(0.95rem, 1.25vw, 1.25rem);
+      font-size: clamp(0.9rem, 1.2vw, 1.2rem);
       margin-bottom: 0;
       font-weight: 300;
     }
@@ -402,35 +402,36 @@
       justify-content: center;
       background: linear-gradient(135deg, #0c1334 0%, #27397f 100%);
       color: #ffffff;
-      font-size: clamp(0.95rem, 1.2vw, 1.22rem);
+      font-size: clamp(0.9rem, 1.1vw, 1.15rem);
       font-weight: 600;
-      padding: 14px 32px;
+      padding: 12px 28px;
       border-radius: 50px;
       text-decoration: none;
       white-space: nowrap;
     }
 
     @media (max-width: 1024px) {
-      .section-header { text-align: center; align-items: center; }
+      .section-header { text-align: left; align-items: flex-start; padding: 0 1.25rem; }
       .panel-inner, .cta-panel {
         flex-direction: column;
-        gap: 1.75rem;
+        gap: 1.25rem;
         text-align: center;
+        padding: 0 1rem;
       }
-      .image-area { width: 120px; height: 120px; flex: 0 0 120px; }
-      .text-area { height: auto; min-height: 150px; }
-      .text-item { top: 0; transform: none !important; position: absolute; }
+      .image-area { width: 110px; height: 110px; flex: 0 0 110px; }
+      .text-area { width: 100%; height: auto; min-height: 140px; }
+      .text-item { position: relative; top: auto; left: auto; transform: none !important; width: 100%; }
       
       .cta-images { justify-content: center; width: 100%; flex: 0 0 auto; }
-      .cta-img-box { transform: translateY(25px); }
+      .cta-img-box { transform: translateY(20px); width: 65px; }
       .cta-panel.visible-panel .cta-img-box { transform: translateY(0); }
-      .cta-text { align-items: center; justify-content: center; flex: 0 0 auto; transform: translateY(20px); }
+      .cta-text { align-items: center; justify-content: center; flex: 0 0 auto; transform: translateY(15px); }
       .cta-panel.visible-panel .cta-text { transform: translateY(0); transition-delay: 0.35s; }
       .cta-action-row { justify-content: center; }
 
-      .fc-card { flex-direction: column; height: 82vh; width: 92vw; min-height: auto; }
+      .fc-card { flex-direction: column; height: 80vh; width: 92vw; min-height: auto; }
       .fc-right { display: none; }
-      .fc-left { padding: 24px 18px; }
+      .fc-left { padding: 20px 16px; justify-content: flex-start; gap: 6px; }
     }
     @media (max-width: 768px) {
       .approach-grid { flex-direction: column; gap: 2rem; }
