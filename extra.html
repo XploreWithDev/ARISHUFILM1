@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>ARISHU FILMS | Film Festival</title>
-
-  <!-- Fonts -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARISHU FILMS · Featured Projects</title>
+  <!-- Google Fonts & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;family=Hanken+Grotesk:wght@300;400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&amp;family=Satoshi:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0,1" />
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -56,7 +58,7 @@
       background: #090909;
       color: #f5f0eb;
       font-family: 'Inter', 'Poppins', 'Satoshi', sans-serif;
-      line-height: 1.5;
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       display: flex;
       flex-direction: column;
@@ -65,16 +67,18 @@
     a { text-decoration: none; color: inherit; }
     img { display: block; max-width: 100%; height: auto; }
 
-    /* ---------- UTILITY ---------- */
     .text-gold { color: #d4af37; }
-    .bg-gold { background: #d4af37; }
-    .border-gold { border-color: #d4af37; }
-
-    .glass {
+    .bg-glass {
       background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(212, 175, 55, 0.08);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(212, 175, 55, 0.10);
+    }
+    .gold-divider {
+      width: 60px;
+      height: 2px;
+      background: #d4af37;
+      margin: 1rem 0;
     }
 
     .container {
@@ -84,345 +88,341 @@
       width: 100%;
     }
 
-    /* ---------- SECTION HEADER ---------- */
-    .festival-header {
-      position: relative;
-      padding: 5rem 3rem;
-      border-radius: 32px;
-      overflow: hidden;
-      margin-bottom: 4rem;
-      background: #0c0c0c;
-      box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.05);
+    /* ----- header ----- */
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
     }
-    .festival-header .bg-img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.25;
-      filter: brightness(0.6) saturate(0.7);
-      transition: opacity 1s;
-    }
-    .festival-header .grain {
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
-      opacity: 0.15;
-      pointer-events: none;
-    }
-    .festival-header .content {
-      position: relative;
-      z-index: 2;
-      max-width: 700px;
-    }
-    .festival-header .label {
+    .section-header .sub {
       font-size: 0.7rem;
-      letter-spacing: 0.5em;
+      letter-spacing: 0.4em;
       text-transform: uppercase;
       color: #d4af37;
-      margin-bottom: 0.5rem;
     }
-    .festival-header h1 {
+    .section-header h2 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.8rem, 7vw, 4.8rem);
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
       font-weight: 700;
       letter-spacing: -0.02em;
-      line-height: 1.1;
-      margin-bottom: 0.5rem;
-    }
-    .festival-header h1 span { color: #d4af37; }
-    .festival-header .sub {
-      font-size: 1.1rem;
-      color: rgba(245, 240, 235, 0.6);
-      max-width: 500px;
-      line-height: 1.6;
     }
 
-    /* ---------- EVENT GRID (2 cards) ---------- */
-    .event-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 3rem;
-    }
-    @media (min-width: 768px) {
-      .event-grid { grid-template-columns: 1fr 1fr; }
-    }
-
-    .event-card {
-      position: relative;
-      border-radius: 28px;
-      overflow: hidden;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(212, 175, 55, 0.06);
-      transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1), box-shadow 0.5s, border-color 0.4s;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-    }
-    .event-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
-      border-color: rgba(212, 175, 55, 0.3);
-    }
-
-    .event-card .img-wrap {
-      position: relative;
-      overflow: hidden;
-      aspect-ratio: 16 / 9;
-      background: #141414;
-    }
-    .event-card .img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    .event-card:hover .img-wrap img {
-      transform: scale(1.06);
-    }
-    .event-card .img-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 100%);
-      transition: opacity 0.5s;
-    }
-    .event-card:hover .img-overlay {
-      background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%);
-    }
-
-    .event-card .float-arrow {
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-      width: 3rem;
-      height: 3rem;
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(6px);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #d4af37;
-      border: 1px solid rgba(212, 175, 55, 0.15);
-      transition: transform 0.5s, opacity 0.3s;
-      opacity: 0;
-    }
-    .event-card:hover .float-arrow {
-      opacity: 1;
-      transform: rotate(45deg);
-    }
-
-    .status-badge {
-      position: absolute;
-      bottom: 1.5rem;
-      left: 1.5rem;
-      padding: 0.4rem 1.2rem;
-      border-radius: 40px;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      background: rgba(212, 175, 55, 0.15);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(212, 175, 55, 0.2);
-      color: #d4af37;
-      font-weight: 500;
-      transition: transform 0.4s, background 0.3s;
-    }
-    .event-card:hover .status-badge {
-      transform: scale(1.04);
-      background: rgba(212, 175, 55, 0.25);
-    }
-    .status-badge.completed {
-      background: rgba(255,255,255,0.05);
-      border-color: rgba(255,255,255,0.1);
-      color: #aaa;
-    }
-
-    .event-card .body {
-      padding: 1.8rem 2rem 2.2rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    .event-card .body .title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      font-weight: 600;
-      line-height: 1.2;
-      margin-bottom: 0.2rem;
-    }
-    .event-card .body .title .edition {
-      color: #d4af37;
-      font-weight: 400;
-    }
-    .event-card .body .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem 1.8rem;
-      font-size: 0.85rem;
-      color: rgba(245, 240, 235, 0.5);
-      margin: 0.6rem 0 0.8rem;
-    }
-    .event-card .body .meta span {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-    .event-card .body .desc {
-      color: rgba(245, 240, 235, 0.65);
-      font-size: 0.95rem;
-      line-height: 1.7;
-      margin-bottom: 0.8rem;
-      flex: 1;
-    }
-    .event-card .body .btn-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      margin-top: 0.8rem;
-      opacity: 0.7;
-      transition: opacity 0.4s, transform 0.4s;
-      transform: translateY(4px);
-    }
-    .event-card:hover .body .btn-row {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .btn-outline-gold {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.5rem 1.5rem;
-      border-radius: 40px;
-      border: 1px solid rgba(212, 175, 55, 0.25);
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: #f5f0eb;
-      transition: background 0.3s, border-color 0.3s, transform 0.2s;
-      cursor: pointer;
-      background: none;
-    }
-    .btn-outline-gold:hover {
-      background: rgba(212, 175, 55, 0.08);
-      border-color: #d4af37;
-      transform: scale(1.02);
-    }
-    .btn-gold {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.5rem 1.8rem;
-      border-radius: 40px;
-      background: #d4af37;
-      color: #090909;
-      font-weight: 600;
-      font-size: 0.8rem;
-      transition: background 0.3s, transform 0.2s;
-      border: none;
-      cursor: pointer;
-    }
-    .btn-gold:hover {
-      background: #e6c75a;
-      transform: scale(1.02);
-    }
-
-    /* ====== DETAIL PANEL ====== */
-    .detail-panel {
-      display: none;
-      margin-top: 1.5rem;
-      padding: 2.5rem 2.5rem 3rem;
-      border-radius: 28px;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(212, 175, 55, 0.06);
-      animation: fadeSlide 0.5s ease;
-    }
-    .detail-panel.open { display: block; }
-    @keyframes fadeSlide {
-      0% { opacity: 0; transform: translateY(12px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    .detail-panel .detail-grid {
+    /* ----- 4‑col project grid (cards) ----- */
+    .project-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 2.5rem;
     }
-    @media (min-width: 768px) {
-      .detail-panel .detail-grid { grid-template-columns: 1fr 1fr; }
+    @media (min-width: 640px) {
+      .project-grid { grid-template-columns: repeat(2, 1fr); }
     }
-    .detail-panel h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
+    @media (min-width: 1024px) {
+      .project-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .project-card {
+      border-radius: 24px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(212, 175, 55, 0.06);
+      transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1), box-shadow 0.4s, border-color 0.3s;
+      cursor: pointer;
+    }
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+      border-color: rgba(212, 175, 55, 0.2);
+    }
+
+    .poster-wrap {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 10 / 14;
+      background: #141414;
+    }
+    .poster-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.5s;
+      filter: brightness(0.90);
+    }
+    .project-card:hover .poster-wrap img {
+      transform: scale(1.06);
+      filter: brightness(1);
+    }
+
+    .hover-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      opacity: 0;
+      transition: opacity 0.5s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1.5rem;
+    }
+    .project-card:hover .hover-overlay {
+      opacity: 1;
+    }
+    .hover-overlay .play-icon {
+      font-size: 3.8rem;
+      color: #d4af37;
+      margin-bottom: 0.5rem;
+      transition: transform 0.4s;
+    }
+    .project-card:hover .hover-overlay .play-icon {
+      transform: scale(1.1);
+    }
+    .hover-overlay h4 {
+      font-size: 1.1rem;
       font-weight: 600;
+      color: #fff;
+    }
+    .hover-overlay .divider {
+      width: 40px;
+      height: 2px;
+      background: #d4af37;
+      margin: 0.5rem auto;
+    }
+    .hover-overlay p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.85rem;
+      max-width: 200px;
+    }
+
+    .arrow-top {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(4px);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s 0.1s;
+      color: #d4af37;
+      border: 1px solid rgba(212, 175, 55, 0.15);
+    }
+    .project-card:hover .arrow-top {
+      opacity: 1;
+    }
+
+    .card-body {
+      padding: 1.2rem 1.2rem 1.5rem;
+    }
+    .card-body .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.2rem;
+    }
+    .card-body .title-row h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+    .card-body .title-row .badge {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #d4af37;
+      font-weight: 500;
+    }
+    .card-body .genre {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(245, 240, 235, 0.35);
       margin-bottom: 0.3rem;
     }
-    .detail-panel .sub-meta {
-      color: rgba(245, 240, 235, 0.4);
+    .card-body .desc {
+      color: rgba(245, 240, 235, 0.6);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin: 0.3rem 0 0.8rem;
+    }
+    .read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      color: #d4af37;
+      font-weight: 500;
       font-size: 0.85rem;
-      margin-bottom: 1rem;
+      transition: gap 0.2s, color 0.2s;
     }
-    .detail-panel p {
-      color: rgba(245, 240, 235, 0.7);
-      line-height: 1.8;
-      font-size: 0.95rem;
-      margin-bottom: 1rem;
+    .project-card:hover .read-more {
+      color: #fff;
+      gap: 0.7rem;
     }
-    .detail-panel .info-grid {
+
+    /* ====== DETAIL PANEL (expands below card) ====== */
+    .detail-panel {
+      display: none;
+      margin-top: 1.5rem;
+      padding: 2rem 2rem 2.5rem;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(212, 175, 55, 0.08);
+      animation: fadeSlide 0.5s ease;
+    }
+    .detail-panel.open {
+      display: block;
+    }
+    @keyframes fadeSlide {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .detail-panel .detail-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.5rem 2rem;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    @media (min-width: 768px) {
+      .detail-panel .detail-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .detail-panel .detail-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+    .detail-panel .detail-text .meta-line {
+      color: rgba(245, 240, 235, 0.4);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.8rem;
+    }
+    .detail-panel .detail-text p {
+      color: rgba(245, 240, 235, 0.75);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .detail-panel .detail-text .quote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: #d4af37;
+      font-size: 1.1rem;
+      border-left: 3px solid #d4af37;
+      padding-left: 1.2rem;
       margin: 1rem 0;
     }
-    .detail-panel .info-grid .item {
+    .detail-panel .cast-crew {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem 2rem;
+      margin: 1rem 0;
+    }
+    .detail-panel .cast-crew .item {
       display: flex;
       flex-direction: column;
     }
-    .detail-panel .info-grid .item .label {
+    .detail-panel .cast-crew .item .role {
       font-size: 0.65rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: #d4af37;
     }
-    .detail-panel .info-grid .item .value {
+    .detail-panel .cast-crew .item .name {
       font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    /* gallery inside detail */
+    .detail-gallery {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+    @media (min-width: 480px) {
+      .detail-gallery { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 768px) {
+      .detail-gallery { grid-template-columns: repeat(3, 1fr); }
+    }
+    .detail-gallery .gallery-img {
+      border-radius: 16px;
+      overflow: hidden;
+      background: #141414;
+      transition: transform 0.3s;
+    }
+    .detail-gallery .gallery-img:hover {
+      transform: scale(1.02);
+    }
+    .detail-gallery .gallery-img img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .detail-gallery .gallery-img .cap {
+      padding: 0.4rem 0.6rem 0.6rem;
+      font-size: 0.75rem;
+      color: rgba(245, 240, 235, 0.5);
+      background: rgba(0,0,0,0.2);
+    }
+
+    .watch-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 1.2rem;
+      padding: 0.7rem 2.2rem;
+      background: #d4af37;
+      color: #0c0c0c;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.3s, transform 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .watch-btn:hover {
+      background: #e6c75a;
+      transform: translateY(-2px);
     }
 
     .close-detail {
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      color: rgba(245, 240, 235, 0.3);
+      color: rgba(245, 240, 235, 0.4);
       font-size: 0.8rem;
       margin-top: 1.5rem;
       cursor: pointer;
+      transition: color 0.2s;
       background: none;
       border: none;
-      transition: color 0.2s;
     }
-    .close-detail:hover { color: #d4af37; }
+    .close-detail:hover {
+      color: #d4af37;
+    }
 
     .back-link {
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      color: rgba(245, 240, 235, 0.2);
+      color: rgba(245, 240, 235, 0.3);
       font-size: 0.8rem;
-      margin-top: 3rem;
+      margin-top: 2rem;
       transition: color 0.2s;
     }
-    .back-link:hover { color: #d4af37; }
-
-    .status-closed {
-      display: inline-block;
-      background: rgba(255, 0, 0, 0.1);
-      border: 1px solid rgba(255, 0, 0, 0.2);
-      color: #ff6b6b;
-      padding: 0.3rem 1rem;
-      border-radius: 40px;
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+    .back-link:hover {
+      color: #d4af37;
     }
 
     /* ===== Footer Styles ===== */
@@ -652,7 +652,7 @@
     }
   </style>
 </head>
-<body class="font-body-md selection:bg-gold-accent selection:text-black">
+<body>
 
 <!-- Top Navigation Bar -->
 <nav class="bg-surface/90 backdrop-blur-xl fixed top-0 w-full z-50 border-b border-white/10" id="main-nav">
@@ -666,7 +666,7 @@
 
     <!-- Navigation Links (Desktop) -->
     <div class="hidden md:flex space-x-6 lg:space-x-8">
-      <a href="/" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">Home</a>
+      <a href="/" class="nav-link transition-all duration-200 font-body-md text-body-md text-primary font-bold border-b-2 border-primary pb-1">Home</a>
       <a href="/talent" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">Talent</a>
       <a href="/campaigns" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">Campaigns</a>
       <a href="/membership" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">Membership</a>
@@ -712,7 +712,7 @@
 
   <!-- Mobile Drawer -->
   <div id="mobile-menu" class="hidden md:hidden bg-surface border-b border-white/10 px-margin-mobile py-6 space-y-4 flex flex-col absolute top-20 left-0 w-full z-40 shadow-2xl max-h-[calc(100vh-5rem)] overflow-y-auto">
-    <a href="/" class="text-body-lg font-body-lg text-on-surface-variant hover:text-primary">Home</a>
+    <a href="/" class="text-body-lg font-body-lg text-primary font-bold">Home</a>
     <a href="/talent" class="text-body-lg font-body-lg text-on-surface-variant hover:text-primary">Talent</a>
     <a href="/campaigns" class="text-body-lg font-body-lg text-on-surface-variant hover:text-primary">Campaigns</a>
     <a href="/membership" class="text-body-lg font-body-lg text-on-surface-variant hover:text-primary">Membership</a>
@@ -734,156 +734,464 @@
   </div>
 </nav>
 
-<!-- Main Container -->
 <main class="flex-grow pt-32 pb-20 w-full">
   <div class="container">
 
-    <!-- ===== FESTIVAL HERO ===== -->
-    <div class="festival-header">
-      <img class="bg-img" src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1400&q=80" alt="festival background" />
-      <div class="grain"></div>
-      <div class="content">
-        <div class="label">Film Festival</div>
-        <h1>Short <span>Spotlight</span></h1>
-        <p class="sub">Celebrating independent filmmakers through screenings, networking, audience engagement, and meaningful cinematic experiences.</p>
-      </div>
+    <!-- header -->
+    <div class="section-header">
+      <span class="sub">Our Filmography</span>
+      <h2>Featured <span class="text-gold">Projects</span></h2>
     </div>
 
-    <!-- ===== EVENT GRID ===== -->
-    <div class="event-grid" id="eventGrid">
+    <!-- ===== PROJECT GRID (4 cards) ===== -->
+    <div class="project-grid" id="projectGrid">
 
-      <!-- EVENT CARD 1: Second Edition -->
-      <div class="event-card" data-target="detailSecond">
-        <div class="img-wrap">
-          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80" alt="Short Spotlight Second Edition" loading="lazy" />
-          <div class="img-overlay"></div>
-          <div class="float-arrow"><span class="material-symbols-outlined">north_east</span></div>
-          <span class="status-badge">Now Accepting Submissions</span>
+      <!-- CARD 1: Four Days Left -->
+      <div class="project-card" data-target="detail1">
+        <div class="poster-wrap">
+          <img src="https://i.postimg.cc/qM5QTMhL/C86E4E99-A1AC-407B-A6E9-AE4D7611A12C.png" alt="Four Days Left" loading="lazy">
+          <div class="hover-overlay">
+            <span class="material-symbols-outlined play-icon">play_circle</span>
+            <h4>View Project</h4>
+            <div class="divider"></div>
+            <p>Explore the story, cast &amp; crew</p>
+          </div>
+          <div class="arrow-top">
+            <span class="material-symbols-outlined" style="font-size:1.3rem;">north_east</span>
+          </div>
         </div>
-        <div class="body">
-          <div class="title">Short Spotlight <span class="edition">· Second Edition</span></div>
-          <div class="meta">
-            <span><span class="material-symbols-outlined" style="font-size:1rem;">calendar_today</span> Fri 18 Sept</span>
-            <span><span class="material-symbols-outlined" style="font-size:1rem;">schedule</span> 4:00 – 7:00 PM</span>
-            <span><span class="material-symbols-outlined" style="font-size:1rem;">location_on</span> Midlands Arts Centre</span>
+
+        <div class="card-body">
+          <div class="title-row">
+            <h3>Four Days Left</h3>
+            <span class="badge">Featured</span>
           </div>
-          <p class="desc">Submissions are now open for Short Spotlight – Second Edition. Join us for another celebration of independent voices on the big screen.</p>
-          <div class="btn-row">
-            <a href="https://filmfreeway.com/ArishuFilms" target="_blank" class="btn-gold"><span class="material-symbols-outlined">send</span> FilmFreeway</a>
-            <span class="btn-outline-gold">Learn More</span>
-          </div>
+
+          <div class="genre">Drama • Short Film • 2025</div>
+
+          <p class="desc">
+            A deeply personal story about silence, emotional pressure, resilience,
+            and the difficult choices that quietly shape our lives.
+          </p>
+
+          <span class="read-more">
+            Read More
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </span>
         </div>
       </div>
 
-      <!-- EVENT CARD 2: First Edition -->
-      <div class="event-card" data-target="detailFirst">
-        <div class="img-wrap">
-          <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80" alt="Short Spotlight First Edition" loading="lazy" />
-          <div class="img-overlay"></div>
-          <div class="float-arrow"><span class="material-symbols-outlined">north_east</span></div>
-          <span class="status-badge completed">Registration Closed</span>
+      <!-- CARD 2: If You Say Yes -->
+      <div class="project-card" data-target="detail2">
+        <div class="poster-wrap">
+          <img src="https://i.postimg.cc/ZKCFVt7v/image.png" alt="If You Say Yes" loading="lazy">
+          <div class="hover-overlay">
+            <span class="material-symbols-outlined play-icon">play_circle</span>
+            <h4>View Project</h4>
+            <div class="divider"></div>
+            <p>Explore the story, cast &amp; crew</p>
+          </div>
+          <div class="arrow-top">
+            <span class="material-symbols-outlined" style="font-size:1.3rem;">north_east</span>
+          </div>
         </div>
-        <div class="body">
-          <div class="title">Short Spotlight <span class="edition">· First Edition</span></div>
-          <div class="meta">
-            <span><span class="material-symbols-outlined" style="font-size:1rem;">calendar_today</span> Tue 11 Feb</span>
-            <span><span class="material-symbols-outlined" style="font-size:1rem;">location_on</span> Birmingham</span>
+
+        <div class="card-body">
+          <div class="title-row">
+            <h3>If You Say Yes</h3>
+            <span class="badge">Released</span>
           </div>
-          <p class="desc">Arishu Short Film Spotlight is the first edition of the Arishu Film Festival, created to showcase independent short films and engage live audiences through cinema screenings and feedback.</p>
-          <div class="btn-row">
-            <span class="btn-outline-gold">See other events</span>
-            <span class="btn-outline-gold">Watch Coverage</span>
+
+          <div class="genre">Screenlife Romantic Drama • 2025</div>
+
+          <p class="desc">
+            A modern romance unfolding through screens, where every message carries
+            the weight of a lifetime.
+          </p>
+
+          <span class="read-more">
+            Read More
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- CARD 3: Just a Ride -->
+      <div class="project-card" data-target="detail3">
+        <div class="poster-wrap">
+          <img src="https://i.postimg.cc/bJy1nKSw/image.png" alt="Just a Ride" loading="lazy">
+          <div class="hover-overlay">
+            <span class="material-symbols-outlined play-icon">play_circle</span>
+            <h4>View Project</h4>
+            <div class="divider"></div>
+            <p>Explore the story, cast &amp; crew</p>
           </div>
+          <div class="arrow-top">
+            <span class="material-symbols-outlined" style="font-size:1.3rem;">north_east</span>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="title-row">
+            <h3>Just a Ride</h3>
+            <span class="badge">In Development</span>
+          </div>
+
+          <div class="genre">Drama • 2026</div>
+
+          <p class="desc">
+            A raw, emotional journey of self-discovery set against the backdrop of a
+            cross-country road trip.
+          </p>
+
+          <span class="read-more">
+            Read More
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- CARD 4: Behind the Actor -->
+      <div class="project-card" data-target="detail4">
+        <div class="poster-wrap">
+          <img src="https://i.postimg.cc/8cxs9bmP/55059DDE-D327-49EC-BCF4-5E0A3BAEAA7A.png" alt="Behind the Actor" loading="lazy" onerror="this.src='https://i.postimg.cc/6p6ybdBz/image.png'">
+          <div class="hover-overlay">
+            <span class="material-symbols-outlined play-icon">play_circle</span>
+            <h4>View Project</h4>
+            <div class="divider"></div>
+            <p>Explore the story, cast &amp; crew</p>
+          </div>
+          <div class="arrow-top">
+            <span class="material-symbols-outlined" style="font-size:1.3rem;">north_east</span>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="title-row">
+            <h3>Behind the Actor</h3>
+            <span class="badge">Coming Soon</span>
+          </div>
+
+          <div class="genre">Short Film • Upcoming</div>
+
+          <p class="desc">
+            Every performance has a story beyond the camera. A journey of passion,
+            collaboration, and dedication.
+          </p>
+
+          <span class="read-more">
+            Read More
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </span>
         </div>
       </div>
 
     </div>
 
-    <!-- ===== DETAIL PANELS ===== -->
+    <!-- ===== DETAIL PANELS (hidden initially) ===== -->
 
-    <!-- DETAIL: Second Edition -->
-    <div id="detailSecond" class="detail-panel">
+    <div id="detail1" class="detail-panel">
       <div class="detail-grid">
-        <div>
-          <h3>Short Spotlight · Second Edition</h3>
-          <div class="sub-meta">18 Sept 2026 · 4:00 – 7:00 PM · Midlands Arts Centre, Birmingham</div>
-          
-          <h4 style="font-weight:600; margin-top:0.5rem;">About the Film Festival</h4>
-          <p>Submissions are now open for Short Spotlight – Second Edition.</p>
-          <p>After a successful first edition with great audience turnout and positive feedback, we're back to celebrate more independent voices on the big screen in Birmingham, UK.</p>
-          <p>We're inviting short films in <strong>Drama | Horror | Comedy</strong> with a runtime of <strong>1–20 minutes</strong>.</p>
-          <p>If you're an independent filmmaker with a story to tell, we'd love to see your work.</p>
-          <p style="font-size:0.9rem; color:#d4af37;"><strong>Presented by Arishu Films</strong></p>
+        <div class="detail-text">
+          <h3>Four Days Left</h3>
+          <div class="meta-line">Drama · Short Film · 2025 | Written & Directed by Hariprasath Venkatesan</div>
+          <p><strong>Four Days Left</strong> is a film born from real emotion — the kind that builds slowly, quietly, under the surface of everyday life.</p>
+          <p>It's about the feeling of being stuck between two worlds. The pressure of timelines, rules, and choices that no one prepares you for. The loneliness that comes with keeping it all together while everything feels like it's falling apart.</p>
+          <div class="quote">"This isn't a film filled with spectacle. It's filled with silence, hesitation, unspoken love, and the weight of decisions made in small rooms."</div>
+          <p>I made this film for those navigating uncertain paths. For those who've had to make life-changing decisions with no clear right answer. And for those who understand that sometimes, strength is quiet.</p>
 
-          <div style="display:flex; gap:1rem; flex-wrap:wrap; margin:1.2rem 0;">
-            <a href="https://filmfreeway.com/ArishuFilms" target="_blank" class="btn-gold"><span class="material-symbols-outlined">send</span> FilmFreeway</a>
+          <h4 style="margin-top:1.2rem; font-weight:600;">Cast</h4>
+          <div class="cast-crew">
+            <div class="item"><span class="role">Illa</span><span class="name">Ahamed Azharudeen Rafeeq Abdulkhader</span></div>
+            <div class="item"><span class="role">Ms Emily</span><span class="name">Max Day</span></div>
+            <div class="item"><span class="role">Karen</span><span class="name">Karen Elizabeth Bucknall</span></div>
+            <div class="item"><span class="role">Ravi</span><span class="name">Shamas Munzoor Khan</span></div>
+            <div class="item"><span class="role">Maran</span><span class="name">Surj Kumar</span></div>
           </div>
 
-          <button class="close-detail" onclick="closeDetail('detailSecond')"><span class="material-symbols-outlined">close</span> Close details</button>
+          <h4 style="font-weight:600;">Crew</h4>
+          <div class="cast-crew">
+            <div class="item"><span class="role">Producer</span><span class="name">Arishu Films</span></div>
+            <div class="item"><span class="role">Assistant Director</span><span class="name">Aishwarya Kumana Kumar</span></div>
+            <div class="item"><span class="role">Director of Photography</span><span class="name">James Peakman</span></div>
+            <div class="item"><span class="role">Sound Recordist &amp; Mixer</span><span class="name">Andrew Simpson</span></div>
+            <div class="item"><span class="role">Editor</span><span class="name">Jimu Zhang</span></div>
+            <div class="item"><span class="role">Production Assistant</span><span class="name">Danyan Zhang</span></div>
+            <div class="item"><span class="role">Music</span><span class="name">Pixabay</span></div>
+          </div>
+
+          <!-- UPDATED: Four Days Left Button -->
+          <a href="https://youtu.be/O0oVAz4v6BE?si=MOI9C1E_RpVDeBJ6" target="_blank" class="watch-btn">
+            <span class="material-symbols-outlined">play_circle</span>
+            Click Here To Watch Full Movie
+          </a>
         </div>
+
         <div>
-          <h4 style="font-weight:600; margin-bottom:0.8rem;">Event Details</h4>
-          <div class="info-grid">
-            <div class="item"><span class="label">Date</span><span class="value">18 September 2026</span></div>
-            <div class="item"><span class="label">Time</span><span class="value">4:00 – 7:00 PM</span></div>
-            <div class="item"><span class="label">Venue</span><span class="value">Midlands Arts Centre</span></div>
-            <div class="item"><span class="label">Address</span><span class="value">Cannon Hill Park, Birmingham B12 9QH, UK</span></div>
-            <div class="item"><span class="label">Categories</span><span class="value">Drama · Horror · Comedy</span></div>
-            <div class="item"><span class="label">Runtime</span><span class="value">1 – 20 minutes</span></div>
+          <h4 style="font-weight:600; margin-bottom:0.8rem;">Gallery</h4>
+          <div class="detail-gallery">
+            <div class="gallery-img"><img src="https://i.postimg.cc/8zTv92tQ/image.png" alt="still 1"><div class="cap">Frame 01 · Quiet tension</div></div>
+            <div class="gallery-img"><img src="https://i.postimg.cc/ZKSvvGGG/image.png" alt="still 2"><div class="cap">Frame 02 · Late night</div></div>
+            <div class="gallery-img"><img src="https://i.postimg.cc/nLgCFgYn/image.png" alt="still 3"><div class="cap">Frame 03 · The weight</div></div>
           </div>
-          <p style="font-size:0.85rem; color:rgba(245,240,235,0.4); margin-top:0.5rem;">Presented by Arishu Films</p>
+          <button class="close-detail" onclick="closeDetail('detail1')"><span class="material-symbols-outlined">close</span> Close details</button>
         </div>
       </div>
     </div>
 
-    <!-- DETAIL: First Edition -->
-    <div id="detailFirst" class="detail-panel">
+    <div id="detail2" class="detail-panel">
       <div class="detail-grid">
-        <div>
-          <h3>Short Spotlight · First Edition</h3>
-          <div class="sub-meta">11 Feb 2025 · 4:00 PM · Birmingham</div>
-          
-          <div style="margin-bottom: 1rem;">
-            <span class="status-closed">Registration Closed</span>
+        <div class="detail-text">
+          <h3>If You Say Yes</h3>
+
+          <div class="meta-line">
+            Screenlife Romantic Drama · 2025 | Written & Directed by Hariprasath Venkatesan
           </div>
 
-          <h4 style="font-weight:600; margin-top:0.5rem;">About the Film Festival</h4>
-          <p><strong>Terms and Conditions — Short Spotlight by Arishu Film Festival</strong></p>
-          
-          <p><strong>Eligibility:</strong><br />
-          Submissions are open to independent filmmakers of all backgrounds. Films must be original works between 1 and 30 minutes in length.</p>
-          
-          <p><strong>Submission Requirements:</strong><br />
-          All films must include English subtitles if the dialogue is in any other language. Films must be provided in a cinema screen ratio suitable for theatrical projection. Failure to meet these technical requirements may result in disqualification.</p>
-          
-          <p><strong>Rights and Permissions:</strong><br />
-          By submitting, you confirm that you hold all necessary rights for public exhibition and agree to Arishu Films' festival terms.</p>
-          
-          <p style="font-size:0.9rem; color:#d4af37; margin-top:0.5rem;"><strong>Presented by Arishu Films</strong></p>
+          <p><strong>If You Say Yes</strong> is a screenlife romantic short film that unfolds entirely through video calls, chats, and glowing laptop screens. When Sam finally confesses his love to his best friend Max, what starts as a simple text spirals into a tense, funny, and deeply intimate night of waiting.</p>
 
-          <div style="display:flex; gap:1rem; flex-wrap:wrap; margin:1.2rem 0;"></div>
+          <p>As Sam anxiously replays every moment and Max wrestles with her feelings, their friends become silent witnesses to a modern love story shaped by distance, memory, and vulnerability.</p>
 
-          <button class="close-detail" onclick="closeDetail('detailFirst')"><span class="material-symbols-outlined">close</span> Close details</button>
+          <div class="quote">
+            "Told in real time through digital windows, the film explores the fragile space between friendship and love — the fear of rejection, the comfort of familiarity, and the courage it takes to say yes."
+          </div>
+
+          <p>Quiet, heartfelt, and relatable, <strong>If You Say Yes</strong> captures how today's relationships live and breathe through screens, yet still carry the same timeless emotions.</p>
+
+          <h4 style="margin-top:1.2rem;font-weight:600;">Cast</h4>
+
+          <div class="cast-crew">
+            <div class="item"><span class="role">Henry</span><span class="name">Sam Cooper</span></div>
+            <div class="item"><span class="role">Max</span><span class="name">Max Day</span></div>
+            <div class="item"><span class="role">Sam</span><span class="name">Shamas Munzoor Khan</span></div>
+            <div class="item"><span class="role">Demi</span><span class="name">Demi Savva</span></div>
+          </div>
+
+          <h4 style="font-weight:600;">Crew</h4>
+
+          <div class="cast-crew">
+            <div class="item"><span class="role">Written & Directed</span><span class="name">Hariprasath Venkatesan</span></div>
+            <div class="item"><span class="role">First Assistant Director</span><span class="name">Aishwarya Kumana Kumar</span></div>
+            <div class="item"><span class="role">Cinematographer</span><span class="name">James Peakman</span></div>
+            <div class="item"><span class="role">Composer</span><span class="name">Joshua Graesser</span></div>
+            <div class="item"><span class="role">Sound Recordist &amp; Mixer</span><span class="name">Andrew Simpson</span></div>
+          </div>
+
+          <!-- UPDATED: If You Say Yes Button -->
+          <a href="https://www.youtube.com/watch?v=v7Mzvcw1Agc&t=190s" target="_blank" class="watch-btn">
+            <span class="material-symbols-outlined">play_circle</span>
+            Click Here To Watch Full Movie
+          </a>
         </div>
+
         <div>
-          <h4 style="font-weight:600; margin-bottom:0.8rem;">Event Details</h4>
-          <div class="info-grid">
-            <div class="item"><span class="label">Date</span><span class="value">11 February 2025</span></div>
-            <div class="item"><span class="label">Time</span><span class="value">4:00 PM</span></div>
-            <div class="item"><span class="label">Venue</span><span class="value">Birmingham</span></div>
-            <div class="item"><span class="label">Address</span><span class="value">Cannon Hill Park, Birmingham B12 9QH, UK</span></div>
-            <div class="item"><span class="label">Status</span><span class="value" style="color:#ff6b6b;">Registration Closed</span></div>
-            <div class="item"><span class="label">Runtime</span><span class="value">1 – 30 minutes</span></div>
+          <h4 style="font-weight:600;margin-bottom:0.8rem;">Gallery</h4>
+
+          <div class="detail-gallery">
+            <div class="gallery-img">
+              <img src="https://i.postimg.cc/rFjs0KCb/image.png" alt="Screenlife Frame">
+              <div class="cap">Screenlife Frame</div>
+            </div>
+
+            <div class="gallery-img">
+              <img src="https://i.postimg.cc/mrHTwDCx/image.png" alt="Late Night Chat">
+              <div class="cap">Late Night Chat</div>
+            </div>
+
+            <div class="gallery-img">
+              <img src="https://i.postimg.cc/ZKbKSJt9/image.png" alt="Emotional Moment">
+              <div class="cap">Emotional Moment</div>
+            </div>
+
+            <div class="gallery-img">
+              <img src="https://i.postimg.cc/RCbbMT2t/image.png" alt="Official Certificate">
+              <div class="cap">Official Certificate</div>
+            </div>
+
+            <div class="gallery-img">
+              <img src="https://i.postimg.cc/J4FncSvt/Untitled-design-(50).png" alt="Award Badge">
+              <div class="cap">Award Badge</div>
+            </div>
           </div>
-          <p style="font-size:0.85rem; color:rgba(245,240,235,0.4); margin-top:0.5rem;">Presented by Arishu Films</p>
+
+          <button class="close-detail" onclick="closeDetail('detail2')">
+            <span class="material-symbols-outlined">close</span>
+            Close details
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- back link -->
-    <a href="#" class="back-link" onclick="closeAllDetails(); return false;">
-      <span class="material-symbols-outlined">arrow_back</span> Back to Festival
-    </a>
+    <div id="detail3" class="detail-panel">
+      <div class="detail-grid">
+        <!-- Left -->
+        <div class="detail-text">
+          <h3>Just a Ride: Different Roads, Same Heart (Development)</h3>
+
+          <div class="meta-line">
+            Writer: Arishu Films • July 26, 2025 • 1 min read
+          </div>
+
+          <p><strong>by Hariprasath Venkatesan</strong></p>
+
+          <div class="quote">
+            "Some journeys don't need distance — just a change in perspective."
+          </div>
+
+          <p>
+            <strong>Just a Ride</strong> is a quiet reflection on connection,
+            discomfort, and the quiet power of conversation. It's about what
+            happens when two people from different worlds share a few moments of
+            honesty on a silent night.
+          </p>
+
+          <p>
+            No drama. No preaching. Just a reminder: we're all trying to find our
+            way. And sometimes, the road teaches us more than the destination ever
+            could.
+          </p>
+
+          <h4 style="margin-top:1.5rem;font-weight:600;">
+            Project Status
+          </h4>
+
+          <div class="cast-crew">
+            <div class="item">
+              <span class="role">Status</span>
+              <span class="name" style="color:#d4af37;">In Development</span>
+            </div>
+
+            <div class="item">
+              <span class="role">Writer & Director</span>
+              <span class="name">Hariprasath Venkatesan</span>
+            </div>
+
+            <div class="item">
+              <span class="role">Production</span>
+              <span class="name">Arishu Films</span>
+            </div>
+
+            <div class="item">
+              <span class="role">Release</span>
+              <span class="name">To Be Announced</span>
+            </div>
+          </div>
+
+          <!-- UPDATED: Just a Ride Button (Disabled - In Development) -->
+          <a href="javascript:void(0);" class="watch-btn" style="opacity:.6;cursor:not-allowed;pointer-events:none;">
+            <span class="material-symbols-outlined">schedule</span>
+            In Development
+          </a>
+        </div>
+
+        <!-- Right -->
+        <div>
+          <h4 style="font-weight:600;margin-bottom:0.8rem;">
+            Official Gallery
+          </h4>
+
+          <div style="
+            border:1px solid rgba(255,255,255,.08);
+            border-radius:20px;
+            padding:40px 30px;
+            text-align:center;
+            background:rgba(255,255,255,.02);
+          ">
+            <span class="material-symbols-outlined"
+                  style="font-size:60px;color:#d4af37;margin-bottom:15px;display:block;">
+              movie
+            </span>
+
+            <h5 style="font-size:1.2rem;font-weight:600;margin-bottom:12px;">
+              Official Gallery Coming Soon
+            </h5>
+
+            <p style="color:rgba(255,255,255,.7);line-height:1.8;">
+              Just a Ride is currently in development.
+              Posters, production stills, behind-the-scenes photos,
+              teaser trailer, and the official gallery will be released
+              after filming begins.
+            </p>
+          </div>
+
+          <button class="close-detail" onclick="closeDetail('detail3')">
+            <span class="material-symbols-outlined">close</span>
+            Close details
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="detail4" class="detail-panel">
+      <div class="detail-grid">
+        <div class="detail-text">
+          <h3>Behind the Actor</h3>
+
+          <div class="meta-line">
+            Short Film · Upcoming | Directed by Bawa Mohamed
+          </div>
+
+          <p>Every performance has a story beyond the camera.</p>
+
+          <p>Proud to present the official poster for our upcoming short film, <strong>Behind the Actor</strong>. This project has been a journey of passion, collaboration, and dedication, and we're excited to finally share the first look with you.</p>
+
+          <div class="quote">
+            "Every performance has a story beyond the camera."
+          </div>
+
+          <h4 style="margin-top:1.2rem; font-weight:600;">Cast &amp; Key Credits</h4>
+
+          <div class="cast-crew">
+            <div class="item"><span class="role">Director</span><span class="name">Bawa Mohamed</span></div>
+            <div class="item"><span class="role">Story</span><span class="name">Hariprasath Venkatesan</span></div>
+            <div class="item"><span class="role">Screenplay</span><span class="name">Hariprasath Venkatesan &amp; Bawa Mohamed</span></div>
+            <div class="item"><span class="role">Lead Actress</span><span class="name">Grace Rogers</span></div>
+            <div class="item"><span class="role">Executive Producer</span><span class="name">Aishwarya Kumaran Kumar</span></div>
+            <div class="item"><span class="role">Co-Producer</span><span class="name">Bawa Mohamed</span></div>
+            <div class="item"><span class="role">Director of Photography</span><span class="name">Harvey Forster</span></div>
+            <div class="item"><span class="role">Editor</span><span class="name">Lucas Keay</span></div>
+            <div class="item"><span class="role">VFX</span><span class="name">Rory Lynn</span></div>
+            <div class="item"><span class="role">Assistant Director</span><span class="name">Gurnoor Bedi</span></div>
+            <div class="item"><span class="role">Sound Recordist</span><span class="name">William Bolton</span></div>
+            <div class="item"><span class="role">Composer &amp; Post Sound Mixer</span><span class="name">Saurabh F Thomas</span></div>
+            <div class="item"><span class="role">Camera Assistants</span><span class="name">Isaac &amp; Gurnoor Bedi</span></div>
+            <div class="item"><span class="role">Art Directors</span><span class="name">Aishwarya Kumaran Kumar, Grace Rogers &amp; Bawa Mohamed</span></div>
+            <div class="item"><span class="role">Special Mention</span><span class="name">Max Day</span></div>
+            <div class="item"><span class="role">Production Company</span><span class="name">Arishu Films</span></div>
+          </div>
+
+          <a href="javascript:void(0);" class="watch-btn" style="opacity:.6;cursor:not-allowed;pointer-events:none;">
+            <span class="material-symbols-outlined">schedule</span>
+            Coming Soon
+          </a>
+        </div>
+
+        <div>
+          <h4 style="font-weight:600; margin-bottom:0.8rem;">Official Gallery</h4>
+          <div style="
+            border:1px solid rgba(255,255,255,.08);
+            border-radius:20px;
+            padding:40px 30px;
+            text-align:center;
+            background:rgba(255,255,255,.02);
+          ">
+            <span class="material-symbols-outlined" style="font-size:60px;color:#d4af37;margin-bottom:15px;display:block;">
+              movie
+            </span>
+            <h5 style="font-size:1.2rem;font-weight:600;margin-bottom:12px;">
+              Official Gallery Coming Soon
+            </h5>
+            <p style="color:rgba(255,255,255,.7);line-height:1.8;">
+              Behind the Actor is currently in production. Behind-the-scenes photos, teaser trailers, and the official gallery will be released soon.
+            </p>
+          </div>
+
+          <button class="close-detail" onclick="closeDetail('detail4')">
+            <span class="material-symbols-outlined">close</span> Close details
+          </button>
+        </div>
+      </div>
+    </div>
 
   </div>
 </main>
@@ -982,10 +1290,11 @@
 </footer>
 
 <script>
-  // Open detail on card click
-  document.querySelectorAll('.event-card').forEach(card => {
+  // Open detail panel when card is clicked
+  document.querySelectorAll('.project-card').forEach(card => {
     card.addEventListener('click', function(e) {
       const targetId = this.dataset.target;
+      // close all other panels
       document.querySelectorAll('.detail-panel').forEach(p => p.classList.remove('open'));
       const panel = document.getElementById(targetId);
       if (panel) {
@@ -996,7 +1305,8 @@
   });
 
   function closeDetail(id) {
-    document.getElementById(id).classList.remove('open');
+    const panel = document.getElementById(id);
+    if (panel) panel.classList.remove('open');
   }
 
   function closeAllDetails() {
