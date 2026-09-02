@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Future of Branding: What's Changing, What Isn't, and How to Get Ready</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fontshare Satoshi & Google Fonts (Playfair Display, Inter) -->
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@500,700,900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            head: ['Satoshi', 'sans-serif'],
+            subhead: ['"Playfair Display"', 'serif'],
+          },
+          colors: {
+            editorial: {
+              bg: '#FFFFFF',
+              text: '#111111',
+              muted: '#666666',
+              border: '#E5E5E5',
+              accent: '#111111'
+            },
+            brand: {
+              navy: '#0F1F5C',
+              blue: '#1A56DB',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- ========================================================= SDS NAVIGATION — BASE CSS ========================================================= -->
+  <style>
+    #sds-nav-container, #sds-nav-container * { box-sizing: border-box; }
+    #sds-nav-container { position: fixed; top: 1rem; left: 1rem; z-index: 1000; display: flex; align-items: center; height: auto; min-height: 56px; padding: 0.5rem; max-width: calc(100vw - 2rem); background: rgba(0, 0, 0, 0.80); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.10); border-radius: 9999px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35); transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s ease, box-shadow 0.3s ease; }
+
+    /* ========================================================= LOGO ========================================================= */
+    #sds-logo-container { position: relative; flex-shrink: 0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 9999px; border: 1px solid rgba(255, 255, 255, 0.10); background: rgba(255, 255, 255, 0.05); cursor: pointer; z-index: 10; transition: transform 0.3s ease, background 0.3s ease; }
+    #sds-logo-container:hover { background: rgba(255, 255, 255, 0.10); }
+    #sds-logo-container:active { transform: scale(0.94); }
+    #sds-logo-container img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; padding: 6px; transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+    #sds-logo-collapsed { opacity: 1; transform: scale(1); }
+    #sds-logo-expanded { opacity: 0; transform: scale(0.90); pointer-events: none; }
+
+    /* ========================================================= NAVIGATION WRAPPER ========================================================= */
+    #sds-nav-wrapper { display: flex; align-items: center; overflow: hidden; max-width: 0; opacity: 0; padding-left: 0; padding-right: 0; transition: max-width 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease, padding 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+    #sds-nav-container.sds-expanded #sds-nav-wrapper { max-width: 520px; opacity: 1; padding-left: 1rem; padding-right: 0.5rem; }
+
+    /* ========================================================= NAV LINKS ========================================================= */
+    #sds-nav-links { display: flex; align-items: center; width: max-content; gap: 1rem; white-space: nowrap; }
+    #sds-nav-links a { position: relative; display: inline-flex; align-items: center; padding: 0.5rem 0.25rem; color: #9ca3af; text-decoration: none; font-family: inherit; font-size: 0.875rem; font-weight: 500; line-height: 1; white-space: nowrap; transition: color 0.3s ease; }
+    #sds-nav-links a:hover { color: #ffffff; }
+    #sds-nav-links a.sds-active { color: #ffffff; }
+    .sds-active-dot { position: absolute; left: 50%; bottom: -0.25rem; width: 6px; height: 6px; border-radius: 9999px; background: #ffffff; box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); transform: translateX(-50%) scale(0); opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease; }
+    #sds-nav-links a.sds-active .sds-active-dot { transform: translateX(-50%) scale(1); opacity: 1; }
+
+    /* ========================================================= RIGHT SIDE ACTIONS ========================================================= */
+    #sds-nav-actions { position: relative; z-index: 10; display: flex; align-items: center; flex-shrink: 0; }
+    #sds-nav-divider { width: 1px; height: 24px; margin: 0; background: rgba(255, 255, 255, 0.20); transform: scaleY(0); opacity: 0; transform-origin: center; transition: transform 0.4s ease, opacity 0.3s ease; }
+    #sds-nav-container.sds-expanded #sds-nav-divider { transform: scaleY(1); opacity: 1; margin-left: 0.25rem; }
+    #sds-nav-toggle { position: relative; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; padding: 0; margin-left: 0.25rem; border: 0; outline: none; border-radius: 9999px; background: transparent; color: #ffffff; cursor: pointer; transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease; }
+    #sds-nav-toggle:hover { background: rgba(255, 255, 255, 0.10); color: #d1d5db; }
+    #sds-nav-toggle:active { transform: scale(0.95); }
+    #sds-nav-toggle:focus-visible { outline: 1px solid rgba(255, 255, 255, 0.5); outline-offset: 2px; }
+    .sds-icon-box { position: relative; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; }
+    .sds-icon-box svg { position: absolute; width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: opacity 0.3s ease, transform 0.3s ease; }
+    #sds-menu-icon { opacity: 1; transform: rotate(0deg) scale(1); }
+    #sds-close-icon { opacity: 0; transform: rotate(-90deg) scale(0.7); }
+    #sds-nav-container.sds-expanded #sds-menu-icon { opacity: 0; transform: rotate(90deg) scale(0.7); }
+    #sds-nav-container.sds-expanded #sds-close-icon { opacity: 1; transform: rotate(0deg) scale(1); }
+
+    /* ========================================================= CLICK OUTSIDE OVERLAY ========================================================= */
+    #sds-nav-overlay { position: fixed; inset: 0; z-index: 999; display: none; background: rgba(0, 0, 0, 0.40); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); opacity: 0; transition: opacity 0.4s ease; }
+    #sds-nav-overlay.sds-visible { display: block; opacity: 1; }
+
+    /* ========================================================= RESPONSIVE ========================================================= */
+    @media (min-width: 640px) {
+      #sds-nav-container { top: 1.5rem; left: 1.5rem; }
+      #sds-logo-container { width: 48px; height: 48px; }
+      #sds-nav-toggle { width: 42px; height: 42px; }
+      #sds-nav-links { gap: 1.5rem; }
+      #sds-nav-links a { font-size: 1rem; }
+    }
+    @media (max-width: 639px) {
+      #sds-nav-container.sds-expanded { max-width: calc(100vw - 2rem); }
+      #sds-nav-container.sds-expanded #sds-nav-wrapper { max-width: calc(100vw - 120px); overflow-x: auto; overflow-y: hidden; scrollbar-width: none; }
+      #sds-nav-container.sds-expanded #sds-nav-wrapper::-webkit-scrollbar { display: none; }
+      #sds-nav-links { gap: 1rem; }
+    }
+    body.sds-nav-open { overflow: hidden; }
+    @media (prefers-reduced-motion: reduce) {
+      #sds-nav-container, #sds-nav-container *, #sds-nav-overlay { transition-duration: 0.01ms !important; }
+    }
+  </style>
+
+  <style>
+    body {
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+      background-color: #ffffff;
+    }
+    .linear-line {
+      border-top: 1px solid #E5E5E5;
+    }
+    /* premium animations */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .scale-in {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+    .scale-in.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .slide-left {
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .slide-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .stagger-children > * {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .stagger-children.visible > *:nth-child(1) { transition-delay: 0.05s; }
+    .stagger-children.visible > *:nth-child(2) { transition-delay: 0.10s; }
+    .stagger-children.visible > *:nth-child(3) { transition-delay: 0.15s; }
+    .stagger-children.visible > *:nth-child(4) { transition-delay: 0.20s; }
+    .stagger-children.visible > *:nth-child(5) { transition-delay: 0.25s; }
+    .stagger-children.visible > * {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .hover-lift {
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    }
+    .hover-lift:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -12px rgba(15, 31, 92, 0.15);
+    }
+    .accent-line {
+      width: 40px;
+      height: 3px;
+      background: linear-gradient(90deg, #0F1F5C, #1A56DB);
+      border-radius: 2px;
+      transition: width 0.5s ease;
+    }
+    .group:hover .accent-line {
+      width: 60px;
+    }
+    .number-glow {
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .group:hover .number-glow {
+      color: #0F1F5C;
+      transform: scale(1.05);
+    }
+    .cta-shimmer {
+      background: linear-gradient(135deg, #0F1F5C 0%, #1A56DB 100%);
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .cta-shimmer:hover {
+      background: linear-gradient(135deg, #1A56DB 0%, #0F1F5C 100%);
+      transform: scale(1.02);
+    }
+    .img-hover {
+      transition: filter 0.7s ease, transform 0.7s ease;
+    }
+    .img-hover:hover {
+      filter: grayscale(0) contrast(1);
+      transform: scale(1.01);
+    }
+    /* quote mark animation */
+    .quote-mark {
+      display: inline-block;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+  </style>
+</head>
+<body class="bg-editorial-bg text-editorial-text font-sans antialiased selection:bg-brand-navy selection:text-white">
+
+  <!-- ========================================================= SDS DYNAMIC COLLAPSIBLE NAVIGATION ========================================================= -->
+  <div id="sds-nav-overlay"></div>
+  <div id="sds-nav-container">
+    <!-- LOGO -->
+    <a id="sds-logo-container" href="index.html" aria-label="SandyDesignStudio Home">
+      <!-- Collapsed Logo -->
+      <img id="sds-logo-collapsed" src="https://i.postimg.cc/K892XdFR/sds-white-logo-01-(1).png" alt="SandyDesignStudio">
+      <!-- Expanded Logo -->
+      <img id="sds-logo-expanded" src="https://i.postimg.cc/Qd63LRDP/sds-white-logo-02-(1).png" alt="SandyDesignStudio">
+    </a>
+
+    <!-- NAVIGATION LINKS -->
+    <div id="sds-nav-wrapper">
+      <nav id="sds-nav-links" aria-label="Main navigation">
+        <!-- JS inserts navigation items here -->
+      </nav>
+    </div>
+
+    <!-- RIGHT SIDE ACTIONS -->
+    <div id="sds-nav-actions">
+      <!-- Divider -->
+      <div id="sds-nav-divider"></div>
+      <!-- Toggle -->
+      <button id="sds-nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+        <div class="sds-icon-box">
+          <!-- MENU ICON -->
+          <svg id="sds-menu-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 6h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 18h16"></path>
+          </svg>
+          <!-- CLOSE ICON -->
+          <svg id="sds-close-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 6l12 12"></path>
+            <path d="M18 6L6 18"></path>
+          </svg>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <main class="max-w-6xl mx-auto px-6 sm:px-10 py-16 sm:py-24 lg:py-32 space-y-24 sm:space-y-32">
+
+    <!-- Header / Summary Section -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start fade-up" id="section-header">
+      <div class="lg:col-span-3 pt-2">
+        <span class="text-xs font-mono font-bold tracking-widest uppercase text-brand-navy/60 border-b border-brand-navy/20 pb-1">INSIGHT</span>
+      </div>
+      <div class="lg:col-span-9 space-y-8">
+        <h1 class="font-head font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight text-editorial-text leading-[1.08]">
+          The Future of Branding: What's Changing, What Isn't, and How to Get Ready
+        </h1>
+        <div class="space-y-6 text-lg sm:text-xl text-editorial-muted leading-[1.8] font-sans pt-2">
+          <p class="text-editorial-text font-normal">
+            Every few years, someone declares that branding is being reinvented. Usually, it isn't - the fundamentals hold. But right now, a few real shifts are changing how brands need to show up, and businesses that adapt early are going to look meaningfully more current than the ones that wait.
+          </p>
+          <p class="text-neutral-500">
+            Here's what's actually changing in 2026 and what it means if you're building or refreshing a brand right now.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature Visual -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 scale-in" id="section-visual">
+      <div class="lg:col-span-3"></div>
+      <div class="lg:col-span-9">
+        <div class="overflow-hidden border-b border-neutral-200 pb-3">
+          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1600&auto=format&fit=crop" 
+               alt="Branding Editorial Visual" 
+               class="w-full h-[380px] sm:h-[460px] object-cover grayscale contrast-125 opacity-90 transition-all duration-700 img-hover"
+               onerror="this.src='https://placehold.co/1600x900/0F1F5C/FFFFFF?text=Sandy+Design+Studio'">
+          <div class="mt-3 flex justify-between items-center text-xs font-mono text-neutral-400">
+            <span>Visual Identity Systems & Dynamics</span>
+            <span>Archive 2026</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pull Quote Block -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start linear-line pt-16 fade-up" id="section-quote">
+      <div class="lg:col-span-3">
+        <span class="text-4xl font-subhead italic text-brand-navy/30 quote-mark">“</span>
+      </div>
+      <div class="lg:col-span-9 space-y-6">
+        <blockquote class="font-subhead italic text-2xl sm:text-3xl text-editorial-text leading-snug">
+          "The future of branding isn't about chasing every new format. It's about having a system solid enough that new formats don't break it."
+        </blockquote>
+        <div class="flex items-center gap-4 pt-2">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" 
+               alt="Sandy Design Studio" 
+               class="w-10 h-10 rounded-full object-cover grayscale"
+               onerror="this.src='https://placehold.co/100x100/0F1F5C/FFFFFF?text=SD'">
+          <div>
+            <div class="font-head font-bold text-sm text-editorial-text">Sandy Design Studio</div>
+            <div class="text-xs font-mono text-brand-navy/70 uppercase tracking-wider">Design & Strategy</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Insights Section Header -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 pt-16 linear-line slide-left" id="section-insights-header">
+      <div class="lg:col-span-3 pt-2"></div>
+      <div class="lg:col-span-9">
+        <h2 class="font-head font-bold text-3xl sm:text-4xl tracking-tight text-editorial-text">What's Changing in 2026</h2>
+        <div class="accent-line mt-4"></div>
+      </div>
+    </section>
+
+    <!-- Insight 01 -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start linear-line pt-16 group stagger-children" id="insight-01">
+      <div class="lg:col-span-3">
+        <span class="font-head font-black text-6xl text-neutral-300 tracking-tighter number-glow">01</span>
+      </div>
+      <div class="lg:col-span-9 space-y-6">
+        <h3 class="font-head font-bold text-2xl sm:text-3xl text-editorial-text">AI Is a Tool for Speed, Not a Replacement for Taste</h3>
+        <div class="space-y-6 text-editorial-muted text-base sm:text-lg leading-[1.8] font-sans">
+          <p>
+            AI-generated content is everywhere now, which means the brands that stand out aren't the ones using AI the most they're the ones using it well. The pattern winning right now is "hybrid intelligence": generative tools handle the repetitive, high-volume work, while a human eye still shapes the final result so the brand keeps its personality instead of flattening into something generic.
+          </p>
+          <p class="text-editorial-text pt-2">
+            <strong class="font-semibold text-brand-navy">What this means for you:</strong> speed is no longer the differentiator everyone has speed now. Judgment is. A brand with a strong, human point of view directing the tools will always outperform a brand that lets the tools decide.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Insight 02 -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start linear-line pt-16 group stagger-children" id="insight-02">
+      <div class="lg:col-span-3">
+        <span class="font-head font-black text-6xl text-neutral-300 tracking-tighter number-glow">02</span>
+      </div>
+      <div class="lg:col-span-9 space-y-6">
+        <h3 class="font-head font-bold text-2xl sm:text-3xl text-editorial-text">Static Brand Guidelines Are Becoming Obsolete</h3>
+        <div class="space-y-6 text-editorial-muted text-base sm:text-lg leading-[1.8] font-sans">
+          <p>
+            Brand identity used to mean a locked PDF: this logo, these five colors, this one font, forever. That model is fading. Brands today need to flex across formats a static feed post, a 15-second reel, a website banner, an animated intro - without looking inconsistent.
+          </p>
+          <p>
+            The brands that feel current in 2026 aren't the ones with the most rigid rulebook. They're the ones with a flexible system: a visual language that can stretch and move without losing recognizability.
+          </p>
+          <p class="text-editorial-text pt-2">
+            <strong class="font-semibold text-brand-navy">What this means for you:</strong> if your brand identity is a logo and a color palette and nothing else, it's already behind. What's needed now is a system built to move.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Insight 03 -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start linear-line pt-16 group stagger-children" id="insight-03">
+      <div class="lg:col-span-3">
+        <span class="font-head font-black text-6xl text-neutral-300 tracking-tighter number-glow">03</span>
+      </div>
+      <div class="lg:col-span-9 space-y-6">
+        <h3 class="font-head font-bold text-2xl sm:text-3xl text-editorial-text">Motion Is No Longer Optional</h3>
+        <div class="space-y-6 text-editorial-muted text-base sm:text-lg leading-[1.8] font-sans">
+          <p>
+            Static, still-image branding is giving way to motion-first identity - logos that animate, brand elements that shift, content built to move rather than sit still. This isn't just a video-marketing trend; it's becoming part of what a brand identity is.
+          </p>
+          <p class="text-editorial-text pt-2">
+            <strong class="font-semibold text-brand-navy">What this means for you:</strong> if video and motion have felt like "extra" content rather than core brand assets, that's the gap to close first. It's often the single biggest visible difference between a brand that feels current and one that feels dated.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Insight 04 -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start linear-line pt-16 group stagger-children" id="insight-04">
+      <div class="lg:col-span-3">
+        <span class="font-head font-black text-6xl text-neutral-300 tracking-tighter number-glow">04</span>
+      </div>
+      <div class="lg:col-span-9 space-y-6">
+        <h3 class="font-head font-bold text-2xl sm:text-3xl text-editorial-text">Short, Emotional Video Is Doing the Heavy Lifting</h3>
+        <div class="space-y-6 text-editorial-muted text-base sm:text-lg leading-[1.8] font-sans">
+          <p>
+            Attention is won in seconds now, and the brands earning it aren't necessarily the most polished they're the ones that make people feel something quickly. Short-form video built around a real emotional beat is consistently outperforming longer, more "produced" content.
+          </p>
+          <p class="text-editorial-text pt-2">
+            <strong class="font-semibold text-brand-navy">What this means for you:</strong> perfect production value matters less than a clear, felt idea. A rough 15-second clip with a strong emotional hook will often beat a beautifully shot ad with no point of view.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Insight 05 -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start linear-line pt-16 group stagger-children" id="insight-05">
+      <div class="lg:col-span-3">
+        <span class="font-head font-black text-6xl text-neutral-300 tracking-tighter number-glow">05</span>
+      </div>
+      <div class="lg:col-span-9 space-y-6">
+        <h3 class="font-head font-bold text-2xl sm:text-3xl text-editorial-text">Purpose Now Requires Proof</h3>
+        <div class="space-y-6 text-editorial-muted text-base sm:text-lg leading-[1.8] font-sans">
+          <p>
+            A mission statement on an "About" page is no longer enough people expect to see a brand's values reflected in its actions, not just its words. Vague purpose claims get noticed and questioned faster than ever.
+          </p>
+          <p class="text-editorial-text pt-2">
+            <strong class="font-semibold text-brand-navy">What this means for you:</strong> don't put anything in your brand story you can't back up with something real. Authenticity isn't a tone - it's a track record.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Constants Section -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start linear-line pt-20 fade-up" id="section-constants">
+      <div class="lg:col-span-3 pt-2"></div>
+      <div class="lg:col-span-9 space-y-8">
+        <h2 class="font-head font-bold text-3xl sm:text-4xl text-editorial-text">What Isn't Changing</h2>
+        <p class="text-editorial-muted text-lg sm:text-xl font-sans">
+          For all of this shift, a few things about branding are exactly as true as they've always been:
+        </p>
+        <div class="space-y-6 pt-2 font-sans text-editorial-text text-base sm:text-lg leading-relaxed">
+          <div class="flex items-start gap-4 hover:pl-2 transition-all duration-300">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-navy mt-3 shrink-0"></span>
+            <p class="text-editorial-text">A brand still needs to say one clear thing, consistently, everywhere it shows up.</p>
+          </div>
+          <div class="flex items-start gap-4 hover:pl-2 transition-all duration-300">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-navy mt-3 shrink-0"></span>
+            <p class="text-editorial-text">Trust is still built slowly, through repetition not a single clever post.</p>
+          </div>
+          <div class="flex items-start gap-4 hover:pl-2 transition-all duration-300">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-navy mt-3 shrink-0"></span>
+            <p class="text-editorial-text">The businesses that win aren't the ones with the biggest budget. They're the ones with the clearest system.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Studio Philosophy Section -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start linear-line pt-20 fade-up" id="section-philosophy">
+      <div class="lg:col-span-3 pt-2"></div>
+      <div class="lg:col-span-9 space-y-8">
+        <h2 class="font-head font-bold text-3xl sm:text-4xl text-editorial-text">How We Think About This at Sandy Design Studio</h2>
+        <div class="space-y-6 text-editorial-muted text-lg sm:text-xl leading-[1.8] font-sans">
+          <p class="text-editorial-text font-medium">
+            Everything above points back to the same idea we've always built around: <span class="font-subhead italic text-2xl font-normal text-brand-navy">Clear. Creative. Communication.</span>
+          </p>
+          <p>
+            A brand system that's clear enough to flex across formats. Creative work with a real point of view, not just AI output with no judgment behind it. And communication that reaches people through the formats motion, short video, real story that actually hold attention now.
+          </p>
+          <p class="font-subhead italic text-2xl sm:text-3xl text-editorial-text pt-6 border-t border-neutral-200">
+            "The future of branding isn't about chasing every new format. It's about having a system solid enough that new formats don't break it."
+          </p>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="pt-8 pb-12">
+          <p class="font-head font-bold text-xl sm:text-2xl text-editorial-text mb-6">
+            Want your brand ready for where things are headed, not just where they've been?
+          </p>
+          <a href="connect.html#contactForm" class="inline-flex items-center gap-3 text-white px-8 py-4 rounded-lg font-head font-medium transition-all text-base tracking-wide group cta-shimmer shadow-lg shadow-brand-navy/20 hover:shadow-brand-blue/30 cursor-pointer">
+            Talk to Sandy Design Studio
+            <span class="group-hover:translate-x-1 transition-transform">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================= SDS NAVIGATION JAVASCRIPT ========================================================= -->
+  <script>
+    (function () {
+      'use strict';
+      const navItems = [
+        { label: 'Built', href: 'built.html' },
+        { label: 'Create', href: 'create.html' },
+        { label: 'Studio', href: 'studio.html' },
+        { label: 'Think', href: 'think.html' },
+        { label: 'Connect', href: 'connect.html' }
+      ];
+
+      const navContainer = document.getElementById('sds-nav-container');
+      const navWrapper = document.getElementById('sds-nav-wrapper');
+      const navLinks = document.getElementById('sds-nav-links');
+      const toggleButton = document.getElementById('sds-nav-toggle');
+      const overlay = document.getElementById('sds-nav-overlay');
+
+      function renderNavigation() {
+        if (!navLinks) return;
+        navLinks.innerHTML = '';
+        let currentPage = window.location.pathname.split('/').pop().toLowerCase();
+        if (!currentPage) {
+          currentPage = 'index.html';
+        }
+        navItems.forEach(function (item) {
+          const link = document.createElement('a');
+          link.href = item.href;
+          link.setAttribute('aria-label', item.label);
+          const isActive = currentPage === item.href.toLowerCase();
+          if (isActive) {
+            link.classList.add('sds-active');
+          }
+          const text = document.createElement('span');
+          text.textContent = item.label;
+          const dot = document.createElement('span');
+          dot.className = 'sds-active-dot';
+          link.appendChild(text);
+          link.appendChild(dot);
+          navLinks.appendChild(link);
+        });
+      }
+
+      function openNavigation() {
+        navContainer.classList.add('sds-expanded');
+        overlay.classList.add('sds-visible');
+        document.body.classList.add('sds-nav-open');
+        toggleButton.setAttribute('aria-expanded', 'true');
+        toggleButton.setAttribute('aria-label', 'Close menu');
+      }
+
+      function closeNavigation() {
+        navContainer.classList.remove('sds-expanded');
+        overlay.classList.remove('sds-visible');
+        document.body.classList.remove('sds-nav-open');
+        toggleButton.setAttribute('aria-expanded', 'false');
+        toggleButton.setAttribute('aria-label', 'Open menu');
+      }
+
+      function toggleNavigation() {
+        const isExpanded = navContainer.classList.contains('sds-expanded');
+        if (isExpanded) {
+          closeNavigation();
+        } else {
+          openNavigation();
+        }
+      }
+
+      toggleButton.addEventListener('click', function (event) {
+        event.stopPropagation();
+        toggleNavigation();
+      });
+
+      overlay.addEventListener('click', function () {
+        closeNavigation();
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          closeNavigation();
+        }
+      });
+
+      navLinks.addEventListener('click', function (event) {
+        const link = event.target.closest('a');
+        if (!link) return;
+        closeNavigation();
+      });
+
+      renderNavigation();
+      window.addEventListener('popstate', renderNavigation);
+    })();
+  </script>
+
+  <!-- ========================================================= PAGE FUNCTIONALITY JAVASCRIPT ========================================================= -->
+  <script>
+    // Intersection Observer for animations
+    document.addEventListener('DOMContentLoaded', function() {
+      const fadeElements = document.querySelectorAll('.fade-up, .scale-in, .slide-left, .stagger-children');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      fadeElements.forEach(el => observer.observe(el));
+    });
+  </script>
+</body>
+</html>

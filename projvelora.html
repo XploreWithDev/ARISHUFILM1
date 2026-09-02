@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Velora · Brand & Growth</title>
+  <!-- Tailwind + plugins -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet" />
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- GSAP & ScrollTrigger CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- ========================================================= EXACT REFERENCE NAVIGATION STYLES ========================================================= -->
+  <style>
+    .smooth-transition { transition: all 600ms cubic-bezier(0.25, 1, 0.5, 1); }
+    .active-dot { transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .active-dot.active { opacity: 1; transform: scale(1) translateX(-50%); box-shadow: 0 0 10px rgba(255, 255, 255, 0.6); }
+    .active-dot.inactive { opacity: 0; transform: scale(0) translateX(-50%); }
+    #menu-icon-wrapper.expanded { transform: rotate(90deg) scale(0); opacity: 0; }
+    #menu-icon-wrapper.collapsed { transform: rotate(0) scale(1); opacity: 1; }
+    #close-icon-wrapper.expanded { transform: rotate(0) scale(1); opacity: 1; }
+    #close-icon-wrapper.collapsed { transform: rotate(-90deg) scale(0); opacity: 0; }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    #logo-container-wrap { transition: width 500ms cubic-bezier(0.22, 1, 0.36, 1), background-color 400ms ease, border 400ms ease, border-radius 400ms ease, padding 400ms ease; }
+  </style>
+
+  <style>
+    /* base fonts & custom styles */
+    body { font-family: 'Inter', sans-serif; }
+    .font-serif-italic { font-family: 'Playfair Display', serif; }
+    .img-premium {
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .img-premium:hover {
+      transform: scale(1.01);
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.2);
+    }
+    .text-balance { text-wrap: balance; }
+
+    /* Slide-up reveal base state */
+    .reveal-slide-up {
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    /* Footer Hero Tagline */
+    .hero-line {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: baseline;
+      width: 100%;
+      white-space: nowrap;
+    }
+
+    /* "Design that" */
+    .hero-sans {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      font-size: clamp(1rem, 3.5vw, 4.2rem);
+      margin-right: 1rem !important;
+    }
+
+    /* Italic words */
+    .hero-serif {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      font-size: clamp(1.1rem, 3.8vw, 4.6rem);
+      margin-left: 0.28em !important;
+    }
+
+    .hero-sans + .hero-serif {
+      margin-left: 0 !important;
+    }
+  </style>
+</head>
+<body class="bg-white text-black antialiased relative">
+
+  <!-- ============================================================ -->
+  <!-- EXACT REFERENCE NAVIGATION -->
+  <!-- ============================================================ -->
+  <div id="nav-container" class="smooth-transition fixed top-4 left-4 sm:top-6 sm:left-6 z-[1000] flex items-center bg-black/60 backdrop-blur-xl border border-white/10 shadow-2xl rounded-full p-2 max-w-[95vw]">
+    <!-- Logo Container linking to index.html -->
+    <a href="index.html" id="logo-container-wrap" class="z-10 shrink-0 relative flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 overflow-hidden rounded-full border border-white/10 bg-white/5 cursor-pointer p-1.5 no-underline">
+      <img id="logo-collapsed" src="https://i.postimg.cc/K892XdFR/sds-white-logo-01-(1).png" alt="Collapsed Logo" class="absolute inset-0 w-full h-full object-cover smooth-transition opacity-100 scale-100 p-1" />
+      <img id="logo-expanded" src="https://i.postimg.cc/JnjLHGwc/Untitled-design-(63).png" alt="Expanded Logo" class="absolute inset-0 w-full h-full object-contain smooth-transition opacity-0 scale-95 pointer-events-none p-0.5" />
+    </a>
+
+    <!-- Navigation Items Wrapper -->
+    <div id="nav-wrapper" class="smooth-transition flex items-center overflow-x-auto scrollbar-hide max-w-0 opacity-0 px-0">
+      <nav class="flex items-center w-max justify-between gap-4 sm:gap-6 pr-2" id="nav-links-wrapper">
+        <!-- Links injected by JS -->
+      </nav>
+    </div>
+
+    <!-- Right side actions -->
+    <div class="z-10 flex items-center shrink-0">
+      <div id="divider" class="smooth-transition h-6 w-px bg-white/20 mx-0 scale-y-0 opacity-0"></div>
+      <button id="toggle-btn" class="text-white hover:text-gray-300 transition-colors focus:outline-none p-2.5 rounded-full hover:bg-white/10 active:scale-95 duration-200 shrink-0 ml-1" aria-label="Open menu">
+        <div class="relative w-5 h-5 flex items-center justify-center">
+          <span id="menu-icon-wrapper" class="absolute collapsed smooth-transition">
+            <i data-lucide="menu" class="w-5 h-5 stroke-[1.5]"></i>
+          </span>
+          <span id="close-icon-wrapper" class="absolute collapsed smooth-transition">
+            <i data-lucide="x" class="w-5 h-5 stroke-[1.5]"></i>
+          </span>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Click outside to close overlay -->
+  <div id="nav-overlay" class="fixed inset-0 z-[999] hidden bg-black/40 backdrop-blur-sm transition-opacity duration-500 opacity-0"></div>
+
+
+  <!-- ============================================================ -->
+  <!-- VELORA CONTENT BLOCK                                         -->
+  <!-- ============================================================ -->
+
+  <!-- HERO -->
+  <header class="px-12 pt-28 pb-8 max-w-7xl mx-auto">
+    <div class="mb-8 reveal-slide-up">
+      <span class="text-xs font-semibold uppercase tracking-widest text-gray-400">08 — VELORA</span>
+      <h1 class="text-4xl md:text-6xl font-light tracking-tight mt-2 text-gray-900 text-balance">
+        Designing a stronger presence for modern living.
+      </h1>
+    </div>
+    <div class="relative w-full h-[60vh] rounded-3xl overflow-hidden bg-gray-100 shadow-2xl reveal-slide-up">
+      <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1600" 
+           alt="Velora Hero" class="w-full h-full object-cover img-premium" />
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section class="px-12 py-16 flex flex-col md:flex-row justify-between items-start max-w-7xl mx-auto gap-12">
+    <div class="max-w-2xl reveal-slide-up">
+      <div class="flex items-center space-x-3 mb-4">
+        <span class="font-bold text-2xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600">VELORA</span>
+        <span class="w-8 h-px bg-gray-300"></span>
+      </div>
+      <p class="text-gray-600 text-lg leading-relaxed font-light mb-8">
+        Velora operates in a design-led category where perception matters. SDS focused on creating content and communication that reflects the quality and sophistication behind the brand.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <span class="px-5 py-2.5 border border-gray-200 rounded-full text-xs font-medium text-gray-600 bg-gray-50/50 hover:bg-gray-100 transition-colors">Content Strategy</span>
+        <span class="px-5 py-2.5 border border-gray-200 rounded-full text-xs font-medium text-gray-600 bg-gray-50/50 hover:bg-gray-100 transition-colors">Video Production</span>
+        <span class="px-5 py-2.5 border border-gray-200 rounded-full text-xs font-medium text-gray-600 bg-gray-50/50 hover:bg-gray-100 transition-colors">Video editing</span>
+        <span class="px-5 py-2.5 border border-gray-200 rounded-full text-xs font-medium text-gray-600 bg-gray-50/50 hover:bg-gray-100 transition-colors">Platform branding</span>
+      </div>
+    </div>
+    <div class="text-sm font-medium text-gray-400 tracking-wider"></div>
+  </section>
+
+  <!-- THE CHALLENGE -->
+  <section class="px-12 py-16 max-w-5xl mx-auto text-center reveal-slide-up">
+    <div class="relative">
+      <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-1 bg-gradient-to-r from-gray-300 to-gray-500 rounded-full"></div>
+      <span class="text-xs font-semibold uppercase tracking-widest text-gray-400 block mb-3">THE CHALLENGE</span>
+      <h2 class="text-3xl md:text-5xl font-light tracking-tight leading-[1.2] text-balance text-gray-800 mb-6">
+        If the product feels premium, the communication should too.
+      </h2>
+      <p class="text-gray-600 text-lg leading-relaxed font-light max-w-3xl mx-auto">
+        The goal was to bring greater consistency and intention to how Velora presents itself.
+      </p>
+    </div>
+  </section>
+
+  <!-- WHAT WE DID -->
+  <section class="px-12 py-16 max-w-7xl mx-auto reveal-slide-up">
+    <div class="relative w-full rounded-3xl overflow-hidden bg-gray-900 text-white flex flex-col justify-center p-12 md:p-20 shadow-2xl">
+      <span class="text-xs font-semibold uppercase tracking-widest text-blue-400 mb-4">WHAT WE DID</span>
+      <h3 class="text-2xl md:text-4xl font-light tracking-tight mb-6 text-balance">
+        Strategy → Content Planning → Video → Platform
+      </h3>
+      <p class="text-gray-300 text-lg font-light max-w-3xl leading-relaxed">
+        SDS developed content directions and visual communication designed to strengthen the brand's digital presence.
+      </p>
+    </div>
+  </section>
+
+  <!-- Portfolio Grid / Visuals -->
+  <section class="px-12 pb-28 max-w-7xl mx-auto">
+    <div class="w-full aspect-video bg-black/5 rounded-3xl mb-10 flex items-center justify-center relative overflow-hidden shadow-2xl reveal-slide-up">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1600" 
+           alt="Velora showcase" class="w-full h-full object-cover img-premium" />
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+      <div class="aspect-[4/3] bg-gray-100 rounded-3xl overflow-hidden relative shadow-xl reveal-slide-up">
+        <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=1000" 
+             alt="Interior design asset" class="w-full h-full object-cover img-premium" />
+      </div>
+      <div class="aspect-[4/3] bg-neutral-900 rounded-3xl overflow-hidden relative shadow-xl reveal-slide-up">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=1000" 
+             alt="Platform branding asset" class="w-full h-full object-cover img-premium" />
+      </div>
+    </div>
+  </section>
+
+  <!-- THINKING -->
+  <main class="max-w-[1600px] mx-auto px-8 md:px-12 py-16 md:py-24 border-t border-gray-100/50 w-full">
+    <header class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8 reveal-slide-up">
+      <div class="max-w-4xl">
+        <p class="text-sm font-medium mb-4 text-gray-400">THINKING</p>
+        <h1 class="text-4xl md:text-7xl tracking-tight leading-[1.1] font-light text-gray-900 text-balance">
+          Build the brand with the same clarity you bring to the build.
+        </h1>
+      </div>
+    </header>
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- Card 1: ASAL - Brand Identity -->
+      <a class="group relative block aspect-[4/5] rounded-[2rem] overflow-hidden bg-[#2a2420] reveal-slide-up" href="proj7.html">
+        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1541888946425-d0fbb18f1066?auto=format&fit=crop&q=80&w=800'); filter: brightness(0.8);"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+        <div class="absolute inset-0 p-8 flex flex-col justify-between z-10">
+          <div class="flex justify-end items-start w-full">
+            <svg class="w-6 h-6 text-white opacity-80 group-hover:opacity-100 group-hover:-translate-y-1 group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          </div>
+          <div class="flex justify-start items-end w-full">
+            <h3 class="text-white text-3xl font-serif-italic">Brand Identity <br/><span class="text-sm font-sans opacity-80 uppercase tracking-widest not-italic mt-2 block">ASAL</span></h3>
+          </div>
+        </div>
+      </a>
+      
+      <!-- Card 2: SARAN BUILDERS - Content Strategy -->
+      <a class="group relative block aspect-[4/5] rounded-[2rem] overflow-hidden bg-[#2a2420] reveal-slide-up" href="proj3.html">
+        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&q=80&w=800'); filter: brightness(0.8);"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+        <div class="absolute inset-0 p-8 flex flex-col justify-between z-10">
+          <div class="flex justify-end items-start w-full">
+            <svg class="w-6 h-6 text-white opacity-80 group-hover:opacity-100 group-hover:-translate-y-1 group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          </div>
+          <div class="flex justify-start items-end w-full">
+            <h3 class="text-white text-3xl font-serif-italic">Content Strategy <br/><span class="text-sm font-sans opacity-80 uppercase tracking-widest not-italic mt-2 block">SARAN BUILDERS</span></h3>
+          </div>
+        </div>
+      </a>
+      
+      <!-- Card 3: VEEAURA - Brand Identity -->
+      <a class="group relative block aspect-[4/5] rounded-[2rem] overflow-hidden bg-[#2a2420] reveal-slide-up" href="proj4.html">
+        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=800'); filter: brightness(0.8);"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+        <div class="absolute inset-0 p-8 flex flex-col justify-between z-10">
+          <div class="flex justify-end items-start w-full">
+            <svg class="w-6 h-6 text-white opacity-80 group-hover:opacity-100 group-hover:-translate-y-1 group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          </div>
+          <div class="flex justify-start items-end w-full">
+            <h3 class="text-white text-3xl font-serif-italic">Brand Identity <br/><span class="text-sm font-sans opacity-80 uppercase tracking-widest not-italic mt-2 block">VEEAURA</span></h3>
+          </div>
+        </div>
+      </a>
+
+    </section>
+  </main>
+
+  <!-- ============================================================ -->
+  <!-- FOOTER SECTION                                             -->
+  <!-- ============================================================ -->
+  <footer class="w-full text-white py-16 px-6 md:px-16 lg:px-24 mt-16 rounded-t-[40px] shadow-2xl border-t border-white/10"
+  style="background: linear-gradient(135deg, #0c1334 0%, #27397f 100%);">
+    <div class="w-full max-w-7xl mx-auto flex flex-col gap-12 reveal-slide-up">
+      
+      <!-- Top Links + Contact Row -->
+      <div class="flex flex-col md:flex-row justify-between text-[14px] leading-relaxed font-normal tracking-wide">
+        <div class="flex flex-wrap gap-12 md:gap-16 lg:gap-24">
+          <div class="flex flex-col gap-2.5 leading-loose">
+        <a class="hover:text-gray-300 transition-colors" href="built.html">Built</a>
+                            <a class="hover:text-gray-300 transition-colors" href="studio.html">Studio</a>
+                            <a class="hover:text-gray-300 transition-colors" href="built.html">Projects</a>
+                        </div>
+                        <div class="flex flex-col gap-2.5 leading-loose">
+                            <a class="hover:text-gray-300 transition-colors" href="create.html">Create</a>
+                            <a class="hover:text-gray-300 transition-colors" href="think.html">Think</a>
+                            <a class="hover:text-gray-300 transition-colors" href="connect.html">Connect</a>
+          </div>
+          <div class="flex flex-col gap-2.5 leading-loose">
+            <span class="text-white/80 text-sm font-semibold">Chennai</span>
+            <span class="text-white/60 text-sm">Tamil Nadu, India</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2.5 mt-6 md:mt-0 text-right leading-loose">
+          <a class="hover:text-gray-300 transition-colors" href="tel:+916369325726">+91 63693 25726</a>
+          <a class="hover:text-gray-300 transition-colors" href="mailto:admin@sandydesignstudio.com">admin@sandydesignstudio.com</a>
+          <a class="hover:text-gray-300 transition-colors" href="#">Company Profile</a>
+        </div>
+      </div>
+
+      <!-- Social Icons -->
+      <div class="flex gap-4">
+        <a aria-label="LinkedIn" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-black hover:bg-gray-200 transition-all duration-300" href="https://www.linkedin.com/company/sandydesignstudio"><i class="fa-brands fa-linkedin-in text-lg"></i></a>
+        <a aria-label="Instagram" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-black hover:bg-gray-200 transition-all duration-300" href="https://www.instagram.com/sandydesignstudio_"><i class="fa-brands fa-instagram text-lg"></i></a>
+        <a aria-label="X" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-black hover:bg-gray-200 transition-all duration-300" href="https://x.com/sandydesignstd" target="_blank" rel="noopener noreferrer">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817-5.963 6.817H1.684l7.73-8.835L1.254 2.25H8.08l4.713 6.231L18.244 2.25Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/>
+          </svg>
+        </a>
+      </div>
+
+      <hr class="border-t border-white/20 w-full my-2" />
+
+      <!-- Centered Hero Tagline -->
+      <div class="flex flex-col items-center justify-center text-center w-full py-6">
+        <h2 class="hero-line">
+          <span class="hero-sans text-white">Design that</span>
+          <span class="hero-serif text-white">gives</span>
+          <span class="hero-serif text-white">the</span>
+          <span class="hero-serif text-white">brand</span>
+          <span class="hero-serif text-white">it</span>
+          <span class="hero-serif text-white">deserves</span>
+        </h2>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ============================================================ -->
+  <!-- EXACT NAVIGATION & GSAP ANIMATION JAVASCRIPT               -->
+  <!-- ============================================================ -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+
+      // GSAP ScrollTrigger Setup for Slide-Up Reveal Animation
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.utils.toArray('.reveal-slide-up').forEach(el => {
+        gsap.fromTo(el, 
+          { opacity: 0, y: 60 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+
+      let isNavExpanded = false;
+      const navItemsList = [
+          { label: 'Built', href: 'built.html' },
+          { label: 'Create', href: 'create.html' },
+          { label: 'Studio', href: 'studio.html' },
+          { label: 'Think', href: 'think.html' },
+          { label: 'Connect', href: 'connect.html' }
+      ];
+
+      const navWrapper = document.getElementById('nav-wrapper');
+      const navLinksWrapper = document.getElementById('nav-links-wrapper');
+      const logoContainerWrap = document.getElementById('logo-container-wrap');
+      const logoCollapsed = document.getElementById('logo-collapsed');
+      const logoExpanded = document.getElementById('logo-expanded');
+      const divider = document.getElementById('divider');
+      const toggleBtn = document.getElementById('toggle-btn');
+      const menuIconWrapper = document.getElementById('menu-icon-wrapper');
+      const closeIconWrapper = document.getElementById('close-icon-wrapper');
+      const navOverlay = document.getElementById('nav-overlay');
+
+      function renderNavLinks() {
+          if (!navLinksWrapper) return;
+          navLinksWrapper.innerHTML = '';
+          let currentPath = window.location.pathname.split('/').pop().toLowerCase();
+          if (!currentPath || currentPath === '') {
+              currentPath = 'index.html';
+          }
+
+          navItemsList.forEach(item => {
+              const isActive = currentPath === item.href.toLowerCase();
+              const textColorClass = isActive ? 'text-white' : 'text-gray-400 group-hover:text-white';
+              const dotStateClass = isActive ? 'active' : 'inactive';
+              const linkHTML = `
+                  <a href="${item.href}" class="relative group text-sm sm:text-base font-medium transition-colors duration-300 focus:outline-none whitespace-nowrap py-2 px-1 no-underline">
+                      <span class="transition-colors duration-300 ${textColorClass}">
+                          ${item.label}
+                      </span>
+                      <span class="active-dot ${dotStateClass} absolute -bottom-1 left-1/2 w-1.5 h-1.5 rounded-full bg-white shadow-lg"></span>
+                  </a>
+              `;
+              navLinksWrapper.insertAdjacentHTML('beforeend', linkHTML);
+          });
+      }
+
+      function toggleNav() {
+          isNavExpanded = !isNavExpanded;
+          if (isNavExpanded) {
+              navWrapper.classList.remove('max-w-0', 'opacity-0', 'px-0');
+              navWrapper.classList.add('max-w-[800px]', 'opacity-100', 'px-4', 'sm:px-6');
+          } else {
+              navWrapper.classList.remove('max-w-[800px]', 'opacity-100', 'px-4', 'sm:px-6');
+              navWrapper.classList.add('max-w-0', 'opacity-0', 'px-0');
+          }
+
+          if (isNavExpanded) {
+              logoContainerWrap.style.width = '145px';
+              logoContainerWrap.style.backgroundColor = 'transparent';
+              logoContainerWrap.style.border = '0';
+              logoContainerWrap.style.borderRadius = '0';
+              logoContainerWrap.style.padding = '0 4px';
+              logoCollapsed.classList.remove('opacity-100', 'scale-100');
+              logoCollapsed.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
+              logoExpanded.classList.remove('opacity-0', 'scale-90', 'pointer-events-none');
+              logoExpanded.classList.add('opacity-100', 'scale-100');
+          } else {
+              logoExpanded.classList.remove('opacity-100', 'scale-100');
+              logoExpanded.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
+              logoContainerWrap.style.width = '';
+              logoContainerWrap.style.backgroundColor = '';
+              logoContainerWrap.style.border = '';
+              logoContainerWrap.style.borderRadius = '';
+              logoContainerWrap.style.padding = '';
+              logoCollapsed.classList.remove('opacity-0', 'scale-90', 'pointer-events-none');
+              logoCollapsed.classList.add('opacity-100', 'scale-100');
+          }
+
+          if (isNavExpanded) {
+              divider.classList.remove('scale-y-0', 'mx-0', 'opacity-0');
+              divider.classList.add('scale-y-100', 'mx-2', 'sm:mx-4', 'opacity-100');
+          } else {
+              divider.classList.remove('scale-y-100', 'mx-2', 'sm:mx-4', 'opacity-100');
+              divider.classList.add('scale-y-0', 'mx-0', 'opacity-0');
+          }
+
+          if (isNavExpanded) {
+              menuIconWrapper.classList.remove('collapsed');
+              menuIconWrapper.classList.add('expanded');
+              closeIconWrapper.classList.remove('collapsed');
+              closeIconWrapper.classList.add('expanded');
+              toggleBtn.setAttribute('aria-label', 'Close menu');
+          } else {
+              menuIconWrapper.classList.remove('expanded');
+              menuIconWrapper.classList.add('collapsed');
+              closeIconWrapper.classList.remove('expanded');
+              closeIconWrapper.classList.add('collapsed');
+              toggleBtn.setAttribute('aria-label', 'Open menu');
+          }
+
+          if (isNavExpanded) {
+              navOverlay.classList.remove('hidden');
+              setTimeout(() => {
+                  navOverlay.classList.remove('opacity-0');
+                  navOverlay.classList.add('opacity-100');
+              }, 10);
+              document.body.classList.add('overflow-hidden');
+          } else {
+              navOverlay.classList.remove('opacity-100');
+              navOverlay.classList.add('opacity-0');
+              setTimeout(() => {
+                  navOverlay.classList.add('hidden');
+              }, 500);
+              document.body.classList.remove('overflow-hidden');
+          }
+      }
+
+      if (toggleBtn) {
+          toggleBtn.addEventListener('click', toggleNav);
+      }
+      if (navOverlay) {
+          navOverlay.addEventListener('click', () => {
+              if (isNavExpanded) toggleNav();
+          });
+      }
+      document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && isNavExpanded) {
+              toggleNav();
+          }
+      });
+
+      renderNavLinks();
+    });
+  </script>
+</body>
+</html>

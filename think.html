@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sandy Design Studio · Journal & Insights</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,700&display=swap" rel="stylesheet" />
+  
+  <!-- GSAP & ScrollTrigger CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <style>
+    .smooth-transition { transition: all 600ms cubic-bezier(0.25, 1, 0.5, 1); }
+    .active-dot { transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .active-dot.active { opacity: 1; transform: scale(1) translateX(-50%); box-shadow: 0 0 10px rgba(255, 255, 255, 0.6); }
+    .active-dot.inactive { opacity: 0; transform: scale(0) translateX(-50%); }
+    #menu-icon-wrapper.expanded { transform: rotate(90deg) scale(0); opacity: 0; }
+    #menu-icon-wrapper.collapsed { transform: rotate(0) scale(1); opacity: 1; }
+    #close-icon-wrapper.expanded { transform: rotate(0) scale(1); opacity: 1; }
+    #close-icon-wrapper.collapsed { transform: rotate(-90deg) scale(0); opacity: 0; }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    #logo-container-wrap { transition: width 500ms cubic-bezier(0.22, 1, 0.36, 1), background-color 400ms ease, border 400ms ease, border-radius 400ms ease, padding 400ms ease; }
+
+    /* Slide-up reveal base state */
+    .reveal-slide-up {
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+  </style>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #0f0f0f;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: clamp(30px, 5vw, 50px) clamp(12px, 3vw, 20px) 0 clamp(12px, 3vw, 20px);
+    }
+
+    .font-satoshi {
+      font-family: 'Satoshi', sans-serif;
+    }
+
+    .font-serif-italic {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .font-serif {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    /* ── Featured Recognition Section ── */
+    .recognition-section {
+      width: 100%;
+      max-width: 1200px;
+      margin: 20px auto 40px auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    .recognition-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.6em;
+      text-transform: uppercase;
+      color: #777777;
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .recognition-card {
+      background: #fafafa;
+      border: 1px solid #eeeeee;
+      border-radius: 32px;
+      min-height: 560px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: row;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+    }
+    .recognition-card:hover {
+      transform: translateY(-6px);
+      border-color: #1c2d6f;
+      box-shadow: 0 35px 70px rgba(12, 19, 52, 0.12);
+    }
+
+    .recognition-content {
+      flex: 0 0 50%;
+      padding: clamp(40px, 6vw, 80px) clamp(24px, 5vw, 64px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      position: relative;
+      z-index: 10;
+    }
+
+    .recognition-kicker {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: #1c2d6f;
+      margin-bottom: 20px;
+    }
+
+    .recognition-headline {
+      font-family: 'Satoshi', sans-serif;
+      font-size: clamp(36px, 4.5vw, 52px);
+      font-weight: 700;
+      line-height: 1.08;
+      color: #111111;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .recognition-divider {
+      width: 48px;
+      height: 3px;
+      background: linear-gradient(135deg, #0C1334 0%, #27397f 50%, #5ea7db 100%);
+      margin-bottom: 28px;
+      border-radius: 2px;
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .recognition-card:hover .recognition-divider {
+      width: 72px;
+    }
+
+    .recognition-desc {
+      font-size: clamp(13px, 1.1vw, 14px);
+      line-height: 1.9;
+      color: #666666;
+      font-weight: 400;
+      max-width: 360px;
+      margin-bottom: 48px;
+    }
+
+    .recognition-cta {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #111111;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      padding-bottom: 6px;
+      border-bottom: 2px solid rgba(17, 17, 17, 0.3);
+      align-self: flex-start;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .recognition-cta:hover {
+      border-color: #27397f;
+      color: #27397f;
+      padding-left: 6px;
+    }
+
+    .recognition-cta span {
+      margin-left: 10px;
+      font-size: 18px;
+      transition: transform 0.3s ease;
+    }
+    .recognition-cta:hover span {
+      transform: translateX(4px);
+    }
+
+    .recognition-image {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 55%;
+      clip-path: polygon(12% 0, 100% 0, 100% 100%, 0% 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      background-image: url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&auto=format&fit=crop&q=80');
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .recognition-card:hover .recognition-image {
+      transform: scale(1.03);
+    }
+
+    .recognition-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(12, 19, 52, 0.2);
+      transition: background 0.4s ease;
+      z-index: 1;
+    }
+    .recognition-card:hover .recognition-image::after {
+      background: rgba(12, 19, 52, 0.05);
+    }
+
+    .recognition-img-label {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      font-size: 12px;
+      letter-spacing: 0.6em;
+      font-weight: 500;
+      opacity: 0.85;
+      text-transform: uppercase;
+    }
+
+    /* ── Immersive 3D Carousel (Optimized Speed) ── */
+    .carousel-container {
+      width: 100%;
+      background: linear-gradient(to bottom, #ffffff, #fafafa, #ffffff);
+      padding: clamp(40px, 6vw, 60px) 0;
+      margin: 20px 0 40px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .perspective-wrapper {
+      perspective: 1400px;
+      transform-style: preserve-3d;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      height: 400px;
+      z-index: 10;
+      touch-action: pan-y;
+      cursor: grab;
+      user-select: none;
+    }
+    .perspective-wrapper:active {
+      cursor: grabbing;
+    }
+
+    .card {
+      background-color: #161616;
+      border-radius: 24px;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+      pointer-events: auto;
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      display: block;
+      transform: translateZ(1px);
+      filter: grayscale(20%) contrast(105%);
+      transition: filter 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s ease;
+    }
+
+    .card:hover img {
+      filter: grayscale(0%) contrast(105%);
+      transform: scale(1.05) translateZ(1px);
+    }
+
+    .pos-0 {
+      width: clamp(220px, 25vw, 280px);
+      height: clamp(280px, 32vw, 360px);
+      transform: translate(-50%, -50%) translateZ(0);
+      z-index: 5;
+      opacity: 1;
+      box-shadow: 0 40px 90px -15px rgba(39, 57, 127, 0.3),
+                  0 0 0 1px rgba(39, 57, 127, 0.15);
+    }
+
+    .pos-m1 {
+      width: clamp(200px, 22vw, 250px);
+      height: clamp(250px, 28vw, 320px);
+      transform: translate(-50%, -50%) translateX(clamp(-160px, -24vw, -275px)) rotateY(14deg) rotateZ(-2deg) translateZ(-40px);
+      z-index: 4;
+      opacity: 0.55;
+    }
+
+    .pos-p1 {
+      width: clamp(200px, 22vw, 250px);
+      height: clamp(250px, 28vw, 320px);
+      transform: translate(-50%, -50%) translateX(clamp(160px, 24vw, 275px)) rotateY(-14deg) rotateZ(2deg) translateZ(-40px);
+      z-index: 4;
+      opacity: 0.55;
+    }
+
+    .pos-m2 {
+      width: clamp(170px, 19vw, 220px);
+      height: clamp(220px, 24vw, 280px);
+      transform: translate(-50%, -50%) translateX(clamp(-300px, -45vw, -520px)) rotateY(22deg) rotateZ(-4deg) translateZ(-90px);
+      z-index: 3;
+      opacity: 0.25;
+    }
+
+    .pos-p2 {
+      width: clamp(170px, 19vw, 220px);
+      height: clamp(220px, 24vw, 280px);
+      transform: translate(-50%, -50%) translateX(clamp(300px, 45vw, 520px)) rotateY(-22deg) rotateZ(4deg) translateZ(-90px);
+      z-index: 3;
+      opacity: 0.25;
+    }
+
+    /* ── Enhanced Blog / Article Card Micro-animations ── */
+    .article-card {
+      border: 1px solid #eeeeee;
+      background: #fafafa;
+      border-radius: 24px;
+      overflow: hidden;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                  box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                  border-color 0.4s ease;
+    }
+    .article-card:hover {
+      transform: translateY(-8px);
+      border-color: #27397f;
+      box-shadow: 0 30px 60px -15px rgba(12, 19, 52, 0.15);
+      background: #ffffff;
+    }
+    .article-image-container {
+      background-color: #f1f1f1;
+      overflow: hidden;
+    }
+    .article-image-container img {
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+      filter: grayscale(100%) contrast(105%);
+    }
+    .article-card:hover .article-image-container img {
+      transform: scale(1.08);
+      filter: grayscale(0%) contrast(105%);
+    }
+
+    /* ── Filter Nav Links ── */
+    .filter-link {
+      position: relative;
+      padding-bottom: 0.35rem;
+      color: #777777;
+      transition: color 0.3s ease;
+    }
+    .filter-link:hover {
+      color: #27397f;
+    }
+    .filter-link.active {
+      color: #27397f;
+      font-weight: 700;
+    }
+    .filter-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background-color: #27397f;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .filter-link.active::after,
+    .filter-link:hover::after {
+      width: 100%;
+    }
+
+    /* ── Custom Gradient Button with 3-Color Gradient (#0c1334, #27397f, #5ea7db) ── */
+    .btn-gradient {
+      background: linear-gradient(135deg, #0C1334 0%, #27397f 50%, #5ea7db 100%) !important;
+      background-size: 200% auto;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(12, 19, 52, 0.25);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-gradient::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+      transition: transform 0.7s ease;
+    }
+    .btn-gradient:hover::before {
+      transform: translateX(200%);
+    }
+    .btn-gradient:hover {
+      background: linear-gradient(135deg, #5ea7db 0%, #27397f 50%, #0C1334 100%) !important;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 18px 35px rgba(39, 57, 127, 0.4);
+    }
+    .btn-gradient:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+
+    /* ── Hero Footer Line Styles ── */
+    .hero-line {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: baseline;
+      gap: 0.35em;
+      white-space: nowrap;
+      width: 100%;
+    }
+    .hero-sans {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      font-size: clamp(1rem, 3.5vw, 4.2rem);
+    }
+    .hero-serif {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      font-size: clamp(1.1rem, 3.8vw, 4.6rem);
+    }
+    footer .hero-line .hero-sans,
+    footer .hero-line .hero-serif {
+        letter-spacing: 0;
+    }
+    footer .hero-line .hero-serif:first-of-type {
+        margin-left: 0.35em;
+    }
+
+    @media (max-width: 1100px) {
+      .perspective-wrapper { transform: scale(0.85); }
+    }
+    @media (max-width: 900px) {
+      .perspective-wrapper { transform: scale(0.65); }
+      .recognition-card { height: auto; flex-direction: column; }
+      .recognition-content { flex: 1; padding: 52px 36px 40px; width: 100%; }
+      .recognition-image { position: relative; width: 100%; height: 320px; clip-path: none; border-radius: 0 0 24px 24px; }
+      .recognition-headline { font-size: 38px; }
+    }
+    @media (max-width: 600px) {
+      .perspective-wrapper { transform: scale(0.48); height: 320px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="nav-container" class="smooth-transition fixed top-4 left-4 sm:top-6 sm:left-6 z-[1000] flex items-center bg-black/60 backdrop-blur-xl border border-white/10 shadow-2xl rounded-full p-2 max-w-[95vw]">
+    <a href="index.html" id="logo-container-wrap" class="z-10 shrink-0 relative flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 overflow-hidden rounded-full border border-white/10 bg-white/5 cursor-pointer p-1.5 no-underline">
+      <img id="logo-collapsed" src="https://i.postimg.cc/K892XdFR/sds-white-logo-01-(1).png" alt="Collapsed Logo" class="absolute inset-0 w-full h-full object-cover smooth-transition opacity-100 scale-100 p-1" />
+      <img id="logo-expanded" src="https://i.postimg.cc/JnjLHGwc/Untitled-design-(63).png" alt="Expanded Logo" class="absolute inset-0 w-full h-full object-contain smooth-transition opacity-0 scale-95 pointer-events-none p-0.5" />
+    </a>
+
+    <div id="nav-wrapper" class="smooth-transition flex items-center overflow-x-auto scrollbar-hide max-w-0 opacity-0 px-0">
+      <nav class="flex items-center w-max justify-between gap-4 sm:gap-6 pr-2" id="nav-links-wrapper">
+        </nav>
+    </div>
+
+    <div class="z-10 flex items-center shrink-0">
+      <div id="divider" class="smooth-transition h-6 w-px bg-white/20 mx-0 scale-y-0 opacity-0"></div>
+      <button id="toggle-btn" class="text-white hover:text-gray-300 transition-colors focus:outline-none p-2.5 rounded-full hover:bg-white/10 active:scale-95 duration-200 shrink-0 ml-1" aria-label="Open menu">
+        <div class="relative w-5 h-5 flex items-center justify-center">
+          <span id="menu-icon-wrapper" class="absolute collapsed smooth-transition">
+            <i data-lucide="menu" class="w-5 h-5 stroke-[1.5]"></i>
+          </span>
+          <span id="close-icon-wrapper" class="absolute collapsed smooth-transition">
+            <i data-lucide="x" class="w-5 h-5 stroke-[1.5]"></i>
+          </span>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <div id="nav-overlay" class="fixed inset-0 z-[999] hidden bg-black/40 backdrop-blur-sm transition-opacity duration-500 opacity-0"></div>
+
+  <div class="w-full max-w-[1200px] mx-auto px-4 md:px-8 flex flex-col items-center relative z-10 pt-10">
+    <header class="text-center w-full mb-8 pt-4 reveal-slide-up">
+      <h1 class="text-[#0a0a0a] m-0 p-0 flex flex-col items-center">
+        <span class="font-satoshi text-[3.2rem] md:text-[4.5rem] lg:text-[5.5rem] tracking-tight leading-[1.1] font-bold">
+          Ideas that move
+        </span>
+        <span class="font-serif-italic text-[3.6rem] md:text-[5.2rem] lg:text-[6.2rem] leading-[0.85] tracking-normal -mt-2 bg-gradient-to-r from-[#0c1334] to-[#27397f] bg-clip-text text-transparent">
+          brands forward
+        </span>
+      </h1>
+      <p class="mt-8 text-[15px] md:text-[17px] text-[#555555] max-w-md mx-auto font-normal leading-relaxed">
+        Insights, Strategies, And Creative Thinking From<br />
+        The Team Behind Sandy Design Studio.
+      </p>
+      <button class="btn-gradient mt-8 px-7 py-3 rounded-full font-semibold text-[14px] inline-flex items-center justify-center tracking-wider uppercase">
+        Explore Articles
+        <svg class="w-3.5 h-3.5 ml-2.5 transition-transform duration-300 group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+      </button>
+    </header>
+  </div>
+
+  <div class="carousel-container reveal-slide-up">
+    <main class="w-full">
+      <div class="perspective-wrapper" id="carousel">
+        <div class="card" data-index="0">
+          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop" alt="Abstract liquid design" />
+        </div>
+        <div class="card" data-index="1">
+          <img src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=600&auto=format&fit=crop" alt="Abstract shapes" />
+        </div>
+        <div class="card" data-index="2">
+          <img src="https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=600&auto=format&fit=crop" alt="Abstract art" />
+        </div>
+        <div class="card" data-index="3">
+          <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=600&auto=format&fit=crop" alt="Abstract tech" />
+        </div>
+        <div class="card" data-index="4">
+          <img src="https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=600&auto=format&fit=crop" alt="3D geometric render" />
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="recognition-section reveal-slide-up">
+    <div class="recognition-label">Featured</div>
+    <div class="recognition-card">
+      <div class="recognition-content">
+        <div class="recognition-kicker">Recognition</div>
+        <h2 class="recognition-headline">
+          Recognition<br />
+          Worth Sharing.
+        </h2>
+        <div class="recognition-divider"></div>
+        <p class="recognition-desc">
+          Recognition That Reflects The Trust We've<br />
+          Earned Through Thoughtful Branding, Strategic<br />
+          Creativity, And Meaningful Partnerships.
+        </p>
+        <a href="#" class="recognition-cta">
+          Explore Article <span>&rarr;</span>
+        </a>
+      </div>
+      <div class="recognition-image">
+        <span class="recognition-img-label">s d s</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full max-w-[1200px] mx-auto px-4 md:px-8 bg-transparent mt-8">
+    <header class="mb-12 mt-4 reveal-slide-up">
+      <p class="text-xs uppercase tracking-[0.3em] font-bold mb-4 text-[#27397f]">The Journal</p>
+      <h2 class="font-satoshi text-4xl md:text-6xl font-bold tracking-tight mb-4 leading-tight text-[#111111]">
+        Ideas That Build<br/>Better Brands.
+      </h2>
+      <p class="text-gray-600 text-lg">
+        Thoughts, Strategies And Stories From SDS Studio.
+      </p>
+    </header>
+
+    <nav class="mb-12 border-b border-gray-200 pb-4 overflow-x-auto whitespace-nowrap reveal-slide-up" aria-label="Category filters">
+      <ul class="flex space-x-8 text-xs uppercase tracking-widest font-semibold text-gray-500">
+        <li><a class="filter-link active" href="#">All</a></li>
+        <li><a class="filter-link" href="#">Branding</a></li>
+        <li><a class="filter-link" href="#">Strategy</a></li>
+        <li><a class="filter-link" href="#">Identity</a></li>
+        <li><a class="filter-link" href="#">Content</a></li>
+        <li><a class="filter-link" href="#">AI & Design</a></li>
+      </ul>
+    </nav>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+      
+      <article class="article-card flex flex-col sm:flex-row group cursor-pointer reveal-slide-up" onclick="window.location.href='blog01.html'">
+        <div class="p-8 flex flex-col justify-between w-full sm:w-1/2">
+          <div>
+            <span class="text-xl font-light text-[#27397f] mb-2 block font-satoshi">01 <span class="text-sm">-</span></span>
+            <p class="text-[11px] text-gray-400 uppercase tracking-[0.25em] mb-3">Branding & Strategy</p>
+            <h3 class="font-satoshi text-xl md:text-2xl font-bold leading-snug mb-6 text-[#111111] group-hover:text-[#27397f] transition-colors">The Future of Branding</h3>
+          </div>
+          <a class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#111111] group-hover:text-[#27397f] flex items-center transition-colors" href="blog01.html">Read Article →</a>
+        </div>
+        <div class="w-full sm:w-1/2 article-image-container min-h-[260px] relative">
+          <img alt="The Future of Branding visual" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&auto=format&fit=crop&q=80" />
+        </div>
+      </article>
+
+      <article class="article-card flex flex-col sm:flex-row group inactive-card reveal-slide-up">
+        <div class="p-8 flex flex-col justify-between w-full sm:w-1/2">
+          <div>
+            <span class="text-xl font-light text-[#27397f] mb-2 block font-satoshi">02 <span class="text-sm">-</span></span>
+            <p class="text-[11px] text-gray-400 uppercase tracking-[0.25em] mb-3">Content Strategy</p>
+            <h3 class="font-satoshi text-xl md:text-2xl font-bold leading-snug mb-6 text-[#111111] group-hover:text-[#27397f] transition-colors">Viral Content vs. Targeted Content: Why Targeted Converts Better?</h3>
+          </div>
+          <a class="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 flex items-center cursor-default" href="#" onclick="event.preventDefault();">Coming Soon</a>
+        </div>
+        <div class="w-full sm:w-1/2 article-image-container min-h-[260px] relative">
+          <img alt="Targeted Content visual" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&auto=format&fit=crop&q=80" />
+        </div>
+      </article>
+
+      <article class="article-card flex flex-col sm:flex-row group inactive-card reveal-slide-up">
+        <div class="p-8 flex flex-col justify-between w-full sm:w-1/2">
+          <div>
+            <span class="text-xl font-light text-[#27397f] mb-2 block font-satoshi">03 <span class="text-sm">-</span></span>
+            <p class="text-[11px] text-gray-400 uppercase tracking-[0.25em] mb-3">Brand Identity</p>
+            <h3 class="font-satoshi text-xl md:text-2xl font-bold leading-snug mb-6 text-[#111111] group-hover:text-[#27397f] transition-colors">What Type of Brand Does Your Business Actually Need?</h3>
+          </div>
+          <a class="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 flex items-center cursor-default" href="#" onclick="event.preventDefault();">Coming Soon</a>
+        </div>
+        <div class="w-full sm:w-1/2 article-image-container min-h-[260px] relative">
+          <img alt="Business Brand visual" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1542744094-3a31243364d0?w=800&auto=format&fit=crop&q=80" />
+        </div>
+      </article>
+
+      <article class="article-card flex flex-col sm:flex-row group inactive-card reveal-slide-up">
+        <div class="p-8 flex flex-col justify-between w-full sm:w-1/2">
+          <div>
+            <span class="text-xl font-light text-[#27397f] mb-2 block font-satoshi">04 <span class="text-sm">-</span></span>
+            <p class="text-[11px] text-gray-400 uppercase tracking-[0.25em] mb-3">Innovation & Design</p>
+            <h3 class="font-satoshi text-xl md:text-2xl font-bold leading-snug mb-6 text-[#111111] group-hover:text-[#27397f] transition-colors">AI-Assisted Design: Where It Helps and Where It Hurts Your Brand?</h3>
+          </div>
+          <a class="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 flex items-center cursor-default" href="#" onclick="event.preventDefault();">Coming Soon</a>
+        </div>
+        <div class="w-full sm:w-1/2 article-image-container min-h-[260px] relative">
+          <img alt="AI Assisted Design visual" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80" />
+        </div>
+      </article>
+
+    </section>
+  </div>
+
+  <footer class="w-full bg-gradient-to-br from-[#0C1334] via-[#27397f] to-[#5ea7db] text-white pt-16 pb-12 px-6 md:px-12 lg:px-20 border-t border-white/10 mt-16 rounded-t-[40px] shadow-[0_-10px_40px_rgba(12,19,52,0.35)] reveal-slide-up">
+      <div class="max-w-7xl mx-auto flex flex-col gap-8">
+          <div class="flex flex-col md:flex-row justify-between text-[14px] leading-relaxed font-normal tracking-wide">
+              <div class="flex flex-wrap gap-12 md:gap-16 lg:gap-24">
+                  <div class="flex flex-col gap-2.5 leading-loose">
+                      <a class="hover:text-gray-300 transition-colors" href="built.html">Built</a>
+                      <a class="hover:text-gray-300 transition-colors" href="studio.html">Studio</a>
+                      <a class="hover:text-gray-300 transition-colors" href="built.html">Projects</a>
+                  </div>
+                  <div class="flex flex-col gap-2.5 leading-loose">
+                      <a class="hover:text-gray-300 transition-colors" href="create.html">Create</a>
+                      <a class="hover:text-gray-300 transition-colors" href="think.html">Think</a>
+                      <a class="hover:text-gray-300 transition-colors" href="connect.html">Connect</a>
+                  </div>
+                  <div class="flex flex-col gap-2.5 leading-loose">
+                      <span class="text-white/80 text-sm">Chennai</span>
+                      <span class="text-white/60 text-sm">Tamil Nadu, India</span>
+                  </div>
+              </div>
+
+              <div class="flex flex-col gap-2.5 mt-6 md:mt-0 md:text-right leading-loose">
+                  <a class="hover:text-gray-300 transition-colors" href="tel:+916369325726">+91 63693 25726</a>
+                  <a class="hover:text-gray-300 transition-colors" href="mailto:admin@sandydesignstudio.com">admin@sandydesignstudio.com</a>
+                  <a class="hover:text-gray-300 transition-colors" href="#">Company Profile</a>
+              </div>
+          </div>
+
+          <div class="flex gap-4 mt-2">
+              <a aria-label="LinkedIn" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-[#0C1334] hover:bg-gray-200 transition-colors micro-hover" href="https://www.linkedin.com/company/sandydesignstudio"><i class="fa-brands fa-linkedin-in text-lg"></i></a>
+              <a aria-label="Instagram" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-[#0C1334] hover:bg-gray-200 transition-colors micro-hover" href="https://www.instagram.com/sandydesignstudio_"><i class="fa-brands fa-instagram text-lg"></i></a>
+              <a aria-label="Facebook" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-[#0C1334] hover:bg-gray-200 transition-colors micro-hover" href="#"><i class="fa-brands fa-facebook-f text-lg"></i></a>
+              <a aria-label="YouTube" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-[#0C1334] hover:bg-gray-200 transition-colors micro-hover" href="#"><i class="fa-brands fa-youtube text-lg"></i></a>
+          </div>
+
+          <hr class="border-t border-white/20 w-full mt-4 mb-6" />
+
+          <div class="flex-grow flex flex-col items-center justify-center text-center w-full pb-8">
+              <h1 class="hero-line">
+                  <span class="hero-sans text-white">Design that&nbsp;</span>
+                  <span class="hero-serif text-white">gives&nbsp; </span>
+                  <span class="hero-serif text-white">the&nbsp; </span>
+                  <span class="hero-serif text-white">brand&nbsp; </span>
+                  <span class="hero-serif text-white">it&nbsp; </span>
+                  <span class="hero-serif text-white">deserves&nbsp; </span>
+              </h1>
+          </div>
+      </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+
+      // GSAP ScrollTrigger Setup for Slide-Up Reveal Animation
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.utils.toArray('.reveal-slide-up').forEach(el => {
+        gsap.fromTo(el, 
+          { opacity: 0, y: 60 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+    });
+
+    (function() {
+        let isNavExpanded = false;
+        const navItemsList = [
+            { label: 'Built', href: 'built.html' },
+            { label: 'Create', href: 'create.html' },
+            { label: 'Studio', href: 'studio.html' },
+            { label: 'Think', href: 'think.html' },
+            { label: 'Connect', href: 'connect.html' }
+        ];
+
+        const navWrapper = document.getElementById('nav-wrapper');
+        const navLinksWrapper = document.getElementById('nav-links-wrapper');
+        const logoContainerWrap = document.getElementById('logo-container-wrap');
+        const logoCollapsed = document.getElementById('logo-collapsed');
+        const logoExpanded = document.getElementById('logo-expanded');
+        const divider = document.getElementById('divider');
+        const toggleBtn = document.getElementById('toggle-btn');
+        const menuIconWrapper = document.getElementById('menu-icon-wrapper');
+        const closeIconWrapper = document.getElementById('close-icon-wrapper');
+        const navOverlay = document.getElementById('nav-overlay');
+
+        function renderNavLinks() {
+            if (!navLinksWrapper) return;
+            navLinksWrapper.innerHTML = '';
+            let currentPath = window.location.pathname.split('/').pop().toLowerCase();
+            if (!currentPath || currentPath === '') {
+                currentPath = 'index.html';
+            }
+
+            navItemsList.forEach(item => {
+                const isActive = currentPath === item.href.toLowerCase();
+                const textColorClass = isActive ? 'text-white' : 'text-gray-400 group-hover:text-white';
+                const dotStateClass = isActive ? 'active' : 'inactive';
+                const linkHTML = `
+                    <a href="${item.href}" class="relative group text-sm sm:text-base font-medium transition-colors duration-300 focus:outline-none whitespace-nowrap py-2 px-1 no-underline">
+                        <span class="transition-colors duration-300 ${textColorClass}">
+                            ${item.label}
+                        </span>
+                        <span class="active-dot ${dotStateClass} absolute -bottom-1 left-1/2 w-1.5 h-1.5 rounded-full bg-white shadow-lg"></span>
+                    </a>
+                `;
+                navLinksWrapper.insertAdjacentHTML('beforeend', linkHTML);
+            });
+        }
+
+        function toggleNav() {
+            isNavExpanded = !isNavExpanded;
+            if (isNavExpanded) {
+                navWrapper.classList.remove('max-w-0', 'opacity-0', 'px-0');
+                navWrapper.classList.add('max-w-[800px]', 'opacity-100', 'px-4', 'sm:px-6');
+            } else {
+                navWrapper.classList.remove('max-w-[800px]', 'opacity-100', 'px-4', 'sm:px-6');
+                navWrapper.classList.add('max-w-0', 'opacity-0', 'px-0');
+            }
+
+            if (isNavExpanded) {
+                logoContainerWrap.style.width = '145px';
+                logoContainerWrap.style.backgroundColor = 'transparent';
+                logoContainerWrap.style.border = '0';
+                logoContainerWrap.style.borderRadius = '0';
+                logoContainerWrap.style.padding = '0 4px';
+                logoCollapsed.classList.remove('opacity-100', 'scale-100');
+                logoCollapsed.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
+                logoExpanded.classList.remove('opacity-0', 'scale-90', 'pointer-events-none');
+                logoExpanded.classList.add('opacity-100', 'scale-100');
+            } else {
+                logoExpanded.classList.remove('opacity-100', 'scale-100');
+                logoExpanded.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
+                logoContainerWrap.style.width = '';
+                logoContainerWrap.style.backgroundColor = '';
+                logoContainerWrap.style.border = '';
+                logoContainerWrap.style.borderRadius = '';
+                logoContainerWrap.style.padding = '';
+                logoCollapsed.classList.remove('opacity-0', 'scale-90', 'pointer-events-none');
+                logoCollapsed.classList.add('opacity-100', 'scale-100');
+            }
+
+            if (isNavExpanded) {
+                divider.classList.remove('scale-y-0', 'mx-0', 'opacity-0');
+                divider.classList.add('scale-y-100', 'mx-2', 'sm:mx-4', 'opacity-100');
+            } else {
+                divider.classList.remove('scale-y-100', 'mx-2', 'sm:mx-4', 'opacity-100');
+                divider.classList.add('scale-y-0', 'mx-0', 'opacity-0');
+            }
+
+            if (isNavExpanded) {
+                menuIconWrapper.classList.remove('collapsed');
+                menuIconWrapper.classList.add('expanded');
+                closeIconWrapper.classList.remove('collapsed');
+                closeIconWrapper.classList.add('expanded');
+                toggleBtn.setAttribute('aria-label', 'Close menu');
+            } else {
+                menuIconWrapper.classList.remove('expanded');
+                menuIconWrapper.classList.add('collapsed');
+                closeIconWrapper.classList.remove('expanded');
+                closeIconWrapper.classList.add('collapsed');
+                toggleBtn.setAttribute('aria-label', 'Open menu');
+            }
+
+            if (isNavExpanded) {
+                navOverlay.classList.remove('hidden');
+                setTimeout(() => {
+                    navOverlay.classList.remove('opacity-0');
+                    navOverlay.classList.add('opacity-100');
+                }, 10);
+            } else {
+                navOverlay.classList.remove('opacity-100');
+                navOverlay.classList.add('opacity-0');
+                setTimeout(() => {
+                    navOverlay.classList.add('hidden');
+                }, 500);
+            }
+        }
+
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', toggleNav);
+        }
+        if (navOverlay) {
+            navOverlay.addEventListener('click', () => {
+                if (isNavExpanded) toggleNav();
+            });
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isNavExpanded) {
+                toggleNav();
+            }
+        });
+
+        renderNavLinks();
+    })();
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 3D Carousel Logic
+      const cards = document.querySelectorAll('.card');
+      const wrapper = document.getElementById('carousel');
+      let activeIndex = 2;
+      let isAnimating = false;
+      let startX = 0;
+      let isDragging = false;
+      const ANIMATION_SPEED = 450; // Tuned for brisk, responsive movement
+
+      function updateCards() {
+        cards.forEach((card, i) => {
+          let diff = (i - activeIndex) % 5;
+          if (diff < -2) diff += 5;
+          if (diff > 2) diff -= 5;
+
+          card.className = 'card';
+
+          if (diff === 0) card.classList.add('pos-0');
+          else if (diff === -1) card.classList.add('pos-m1');
+          else if (diff === 1) card.classList.add('pos-p1');
+          else if (diff === -2) card.classList.add('pos-m2');
+          else if (diff === 2) card.classList.add('pos-p2');
+        });
+      }
+
+      function navigate(direction) {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        if (direction === 'next') activeIndex++;
+        else activeIndex--;
+
+        updateCards();
+
+        setTimeout(() => {
+          isAnimating = false;
+        }, ANIMATION_SPEED);
+      }
+
+      if (wrapper) {
+        wrapper.addEventListener('mousedown', (e) => {
+          startX = e.clientX;
+          isDragging = true;
+          wrapper.style.cursor = 'grabbing';
+        });
+
+        window.addEventListener('mousemove', (e) => {
+          if (!isDragging) return;
+          const diff = startX - e.clientX;
+          if (Math.abs(diff) > 35) { // Snappier threshold
+            if (diff > 0) navigate('next');
+            else navigate('prev');
+            isDragging = false;
+            wrapper.style.cursor = 'grab';
+          }
+        });
+
+        window.addEventListener('mouseup', () => {
+          if (isDragging) {
+            isDragging = false;
+            wrapper.style.cursor = 'grab';
+          }
+        });
+
+        let touchStartX = 0;
+        wrapper.addEventListener('touchstart', (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        wrapper.addEventListener('touchend', (e) => {
+          const touchEndX = e.changedTouches[0].screenX;
+          const diff = touchStartX - touchEndX;
+          if (Math.abs(diff) > 30) { // Snappier touch threshold
+            if (diff > 0) navigate('next');
+            else navigate('prev');
+          }
+        }, { passive: true });
+      }
+
+      cards.forEach((card, i) => {
+        card.addEventListener('click', () => {
+          if (isAnimating) return;
+          let diff = (i - activeIndex) % 5;
+          if (diff < -2) diff += 5;
+          if (diff > 2) diff -= 5;
+
+          if (diff === 1 || diff === -4) navigate('next');
+          else if (diff === -1 || diff === 4) navigate('prev');
+        });
+      });
+
+      // Filter Links Interactive Toggle
+      const filterLinks = document.querySelectorAll('nav .filter-link');
+      filterLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          filterLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+        });
+      });
+
+      updateCards();
+    });
+  </script>
+</body>
+</html>
