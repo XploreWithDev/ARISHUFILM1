@@ -97,7 +97,7 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* ===== HERO + SEAMLESS INFINITE CARDS (RESPONSIVE OPTIMIZATION) ===== */
+    /* ===== HERO + SEAMLESS INFINITE CARDS ===== */
     @-webkit-keyframes scrollUpContinuous {
       0% { -webkit-transform: translateY(0); transform: translateY(0); }
       100% { -webkit-transform: translateY(-50%); transform: translateY(-50%); }
@@ -124,11 +124,7 @@
     .heading-2lines .line1 { display: block; font-weight: 700; color: #000000; }
     .heading-2lines .line2 { display: block; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; color: #000000; }
 
-    /* RESPONSIVE HERO IMAGE CONTAINER HEIGHT ADJUSTMENT - Extended vertically for mobile */
-    .card-scroll-container { height: clamp(560px, 70vh, 600px); }
-    @media (max-width: 640px) {
-      .card-scroll-container { height: clamp(620px, 78vh, 700px); }
-    }
+    .card-scroll-container { height: clamp(380px, 45vh, 600px); }
 
     .card-img {
       background-size: cover;
@@ -276,7 +272,7 @@
     .project-card-arrow { color: #000000; flex-shrink: 0; margin-left: 16px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); width: 40px; height: 40px; border-radius: 50%; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; }
     .project-card:hover .project-card-arrow { background: linear-gradient(135deg, #0c1334 0%, #27397f 50%, #5ea7db 100%); color: #fff; border-color: #27397f; transform: translateX(4px); }
 
-    /* ===== VERTICAL CATEGORY SELECTOR & FAQ STYLES (RESPONSIVE OPTIMIZATION) ===== */
+    /* ===== VERTICAL CATEGORY SELECTOR & FAQ STYLES ===== */
     #category-selector {
       position: relative;
       width: 100%;
@@ -322,10 +318,10 @@
 
     @media (max-width: 1024px) {
       .cat-text {
-        font-size: 2.2rem;
+        font-size: 2.4rem;
       }
       #category-selector {
-        height: 280px;
+        height: 360px;
       }
     }
 
@@ -425,7 +421,7 @@
     }
 
     /* ============================================================
-       RESPONSIVE OPTIMIZATIONS (MOBILE / TABLET VIEWPORT & FAQ FIXES)
+       RESPONSIVE OPTIMIZATIONS (MOBILE / TABLET VIEWPORT FIXES)
        ============================================================ */
     @media (max-width: 1024px) {
       /* Stack Featured Works grid on tablet/mobile */
@@ -440,32 +436,16 @@
         grid-column: auto;
         height: 280px;
       }
-
-      /* Prevent FAQ pinned section from locking or trapping scroll on mobile/tablet */
-      #scroll-wrapper {
-        height: auto !important;
-        padding: 60px 0;
-      }
-      #sticky-container {
-        position: relative !important;
-        height: auto !important;
-        min-height: auto !important;
-      }
-      #sticky-container main {
-        max-height: none !important;
-        height: auto !important;
-        gap: 36px !important;
-      }
     }
 
     @media (max-width: 640px) {
       /* Scale category selector font size on smaller phones */
       .cat-text {
-        font-size: 1.8rem;
+        font-size: 2rem;
         letter-spacing: 0.05em;
       }
-      .paren-left { margin-right: 8px; }
-      .paren-right { margin-left: 8px; }
+      .paren-left { margin-right: 10px; }
+      .paren-right { margin-left: 10px; }
       
       /* Make footer tagline wrap smoothly on narrow viewports without breaking layout */
       .hero-line {
@@ -751,7 +731,7 @@
     </div>
   </section>
 
-  <!-- ===== FAQ SECTION (PINNED CATEGORY SWITCHER & MOBILE RESPONSIVE OPTIMIZATION) ===== -->
+  <!-- ===== FAQ SECTION (PINNED CATEGORY SWITCHER) ===== -->
   <div id="scroll-wrapper" class="relative h-[450vh] bg-white">
     <div id="sticky-container" class="sticky top-0 h-screen w-full flex items-center justify-center py-12 lg:py-0 px-6 md:px-12 overflow-hidden">
       <main class="max-w-[1360px] w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center h-full max-h-[860px]">
@@ -985,18 +965,11 @@
     gsap.to("#hero-text", { opacity: 1, y: 0, duration: 1.2, ease: "power3.out", delay: 0.2 });
     gsap.to("#hero-visual", { opacity: 1, scale: 1, duration: 1.5, ease: "power3.out", delay: 0.4 });
 
-    // Responsive Draggable Bounds for Hero Sliding Cards Track
-    const getDraggableBounds = () => {
-      const track = document.getElementById('scrolling-visual-track');
-      const trackHeight = track ? track.offsetHeight : 1200;
-      return { minTop: -(trackHeight / 2 - 80), maxTop: 80 };
-    };
-
     // Make Hero Cards Draggable & Smoothly Directable
     Draggable.create("#scrolling-visual-track", {
       type: "y",
       inertia: true,
-      bounds: getDraggableBounds(),
+      bounds: { minTop: -600, maxTop: 100 },
       onDragStart: () => {
         document.getElementById('scrolling-visual-track').style.animationPlayState = 'paused';
       },
@@ -1125,7 +1098,7 @@
     let currentIndex = -1;
     const categories = document.querySelectorAll('.category-item');
     const faqContainer = document.getElementById('faq-container');
-    const getSpacing = () => window.innerWidth < 1024 ? (window.innerWidth < 640 ? 55 : 65) : 88; 
+    const getSpacing = () => window.innerWidth < 1024 ? 70 : 88; 
 
     gsap.set(categories, { xPercent: -50, yPercent: -50 });
 
@@ -1147,7 +1120,7 @@
         gsap.to(cat, { y: targetY, duration: 0.6, ease: "power3.out", overwrite: true });
 
         if (relativeIndex === 0) {
-          gsap.to(wrapper, { scale: window.innerWidth < 640 ? 1.05 : 1.12, duration: 0.6, ease: "power3.out", overwrite: true });
+          gsap.to(wrapper, { scale: 1.12, duration: 0.6, ease: "power3.out", overwrite: true });
           gsap.to(textElement, { opacity: 1, color: '#111111', duration: 0.6, ease: "power3.out", overwrite: true });
           gsap.to(parenLeft, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out", overwrite: true });
           gsap.to(parenRight, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out", overwrite: true });
@@ -1244,31 +1217,23 @@
     function initScrollInteraction() {
       if (currentIndex === -1) updateState(0);
 
-      // Apply pinned scroll trigger on desktop viewports; use natural flow on mobile/tablet to prevent scroll trapping
-      if (window.innerWidth >= 1024) {
-        ScrollTrigger.create({
-          trigger: "#scroll-wrapper",
-          start: "top top",
-          end: "bottom bottom",
-          onUpdate: (self) => {
-            let newIndex = Math.min(4, Math.floor(self.progress * 5)); 
-            updateState(newIndex);
-          }
-        });
-      }
+      ScrollTrigger.create({
+        trigger: "#scroll-wrapper",
+        start: "top top",
+        end: "bottom bottom",
+        onUpdate: (self) => {
+          let newIndex = Math.min(4, Math.floor(self.progress * 5)); 
+          updateState(newIndex);
+        }
+      });
     }
 
     categories.forEach((cat, index) => {
       cat.addEventListener('click', () => {
-        if (window.innerWidth >= 1024) {
-          const wrapper = document.getElementById('scroll-wrapper');
-          const totalScroll = wrapper.offsetHeight - window.innerHeight;
-          const targetY = wrapper.offsetTop + (totalScroll * (index / 4)); 
-          lenis.scrollTo(targetY, { duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
-        } else {
-          // On mobile, clicking a category immediately switches the active FAQ group
-          updateState(index);
-        }
+        const wrapper = document.getElementById('scroll-wrapper');
+        const totalScroll = wrapper.offsetHeight - window.innerHeight;
+        const targetY = wrapper.offsetTop + (totalScroll * (index / 4)); 
+        lenis.scrollTo(targetY, { duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
       });
     });
 
