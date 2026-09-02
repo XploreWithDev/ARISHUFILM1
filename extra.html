@@ -1,761 +1,991 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Arishu Films · Featured Projects</title>
-  <!-- Google Fonts & Material Symbols -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0,1" />
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>ARISHU FILMS | Film Festival</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;family=Hanken+Grotesk:wght@300;400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&amp;family=Satoshi:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#c9c6c5",
+            "gold-accent": "#D4AF37",
+            "surface-container": "#201f1f",
+            "on-surface": "#e5e2e1",
+            "on-surface-variant": "#9ca3af",
+            "outline-variant": "#444748",
+            "surface": "#141313",
+            "surface-tint": "#c9c6c5"
+          },
+          spacing: {
+            "margin-mobile": "20px",
+            "container-max": "1440px",
+            "margin-desktop": "60px"
+          },
+          fontFamily: {
+            "headline-sm": ["Poppins", "sans-serif"],
+            "body-md": ["Satoshi", "sans-serif"],
+            "button-text": ["Satoshi", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+
   <style>
+    :root {
+      --bg-color: #060606;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --primary: #D4AF37;
+      --on-surface: #e5e2e1;
+      --on-surface-variant: #9ca3af;
+      --font-family: 'Satoshi', sans-serif;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: #0c0c0c;
+      background: #090909;
       color: #f5f0eb;
-      font-family: 'Inter', sans-serif;
-      line-height: 1.6;
+      font-family: 'Inter', 'Poppins', 'Satoshi', sans-serif;
+      line-height: 1.5;
       -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
     a { text-decoration: none; color: inherit; }
     img { display: block; max-width: 100%; height: auto; }
 
+    /* ---------- UTILITY ---------- */
     .text-gold { color: #d4af37; }
-    .bg-glass {
+    .bg-gold { background: #d4af37; }
+    .border-gold { border-color: #d4af37; }
+
+    .glass {
       background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      border: 1px solid rgba(212, 175, 55, 0.10);
-    }
-    .gold-divider {
-      width: 60px;
-      height: 2px;
-      background: #d4af37;
-      margin: 1rem 0;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(212, 175, 55, 0.08);
     }
 
     .container {
       max-width: 1400px;
       margin: 0 auto;
       padding: 2rem 2rem 4rem;
+      width: 100%;
     }
 
-    /* ----- header ----- */
-    .section-header {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      margin-bottom: 3rem;
-    }
-    .section-header .sub {
-      font-size: 0.7rem;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: #d4af37;
-    }
-    .section-header h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.2rem, 5vw, 3.6rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    /* ----- 3‑col project grid (cards) ----- */
-    .project-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-    }
-    @media (min-width: 640px) {
-      .project-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (min-width: 1024px) {
-      .project-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-
-    .project-card {
-      border-radius: 24px;
-      overflow: hidden;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(212, 175, 55, 0.06);
-      transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1), box-shadow 0.4s, border-color 0.3s;
-      cursor: pointer;
-    }
-    .project-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
-      border-color: rgba(212, 175, 55, 0.2);
-    }
-
-    .poster-wrap {
+    /* ---------- SECTION HEADER ---------- */
+    .festival-header {
       position: relative;
+      padding: 5rem 3rem;
+      border-radius: 32px;
       overflow: hidden;
-      aspect-ratio: 10 / 14;
-      background: #141414;
+      margin-bottom: 4rem;
+      background: #0c0c0c;
+      box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.05);
     }
-    .poster-wrap img {
+    .festival-header .bg-img {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.5s;
-      filter: brightness(0.90);
+      opacity: 0.25;
+      filter: brightness(0.6) saturate(0.7);
+      transition: opacity 1s;
     }
-    .project-card:hover .poster-wrap img {
-      transform: scale(1.06);
-      filter: brightness(1);
-    }
-
-    .hover-overlay {
+    .festival-header .grain {
       position: absolute;
       inset: 0;
-      background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%);
-      backdrop-filter: blur(3px);
-      -webkit-backdrop-filter: blur(3px);
-      opacity: 0;
-      transition: opacity 0.5s;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 1.5rem;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+      opacity: 0.15;
+      pointer-events: none;
     }
-    .project-card:hover .hover-overlay {
-      opacity: 1;
+    .festival-header .content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
     }
-    .hover-overlay .play-icon {
-      font-size: 3.8rem;
+    .festival-header .label {
+      font-size: 0.7rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
       color: #d4af37;
       margin-bottom: 0.5rem;
-      transition: transform 0.4s;
     }
-    .project-card:hover .hover-overlay .play-icon {
-      transform: scale(1.1);
+    .festival-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 4.8rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
     }
-    .hover-overlay h4 {
+    .festival-header h1 span { color: #d4af37; }
+    .festival-header .sub {
       font-size: 1.1rem;
-      font-weight: 600;
-      color: #fff;
-    }
-    .hover-overlay .divider {
-      width: 40px;
-      height: 2px;
-      background: #d4af37;
-      margin: 0.5rem auto;
-    }
-    .hover-overlay p {
-      color: rgba(255,255,255,0.7);
-      font-size: 0.85rem;
-      max-width: 200px;
+      color: rgba(245, 240, 235, 0.6);
+      max-width: 500px;
+      line-height: 1.6;
     }
 
-    .arrow-top {
+    /* ---------- EVENT GRID (2 cards) ---------- */
+    .event-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    @media (min-width: 768px) {
+      .event-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .event-card {
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(212, 175, 55, 0.06);
+      transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1), box-shadow 0.5s, border-color 0.4s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+    .event-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+      border-color: rgba(212, 175, 55, 0.3);
+    }
+
+    .event-card .img-wrap {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      background: #141414;
+    }
+    .event-card .img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .event-card:hover .img-wrap img {
+      transform: scale(1.06);
+    }
+    .event-card .img-overlay {
       position: absolute;
-      top: 1.2rem;
-      right: 1.2rem;
-      width: 2.5rem;
-      height: 2.5rem;
-      background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(4px);
+      inset: 0;
+      background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 100%);
+      transition: opacity 0.5s;
+    }
+    .event-card:hover .img-overlay {
+      background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%);
+    }
+
+    .event-card .float-arrow {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      width: 3rem;
+      height: 3rem;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(6px);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s 0.1s;
       color: #d4af37;
       border: 1px solid rgba(212, 175, 55, 0.15);
+      transition: transform 0.5s, opacity 0.3s;
+      opacity: 0;
     }
-    .project-card:hover .arrow-top {
+    .event-card:hover .float-arrow {
       opacity: 1;
+      transform: rotate(45deg);
     }
 
-    .card-body {
-      padding: 1.2rem 1.2rem 1.5rem;
-    }
-    .card-body .title-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.2rem;
-    }
-    .card-body .title-row h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
-      font-weight: 600;
-    }
-    .card-body .title-row .badge {
-      font-size: 0.6rem;
+    .status-badge {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.65rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
+      background: rgba(212, 175, 55, 0.15);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(212, 175, 55, 0.2);
       color: #d4af37;
       font-weight: 500;
+      transition: transform 0.4s, background 0.3s;
     }
-    .card-body .genre {
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(245, 240, 235, 0.35);
-      margin-bottom: 0.3rem;
+    .event-card:hover .status-badge {
+      transform: scale(1.04);
+      background: rgba(212, 175, 55, 0.25);
     }
-    .card-body .desc {
-      color: rgba(245, 240, 235, 0.6);
-      font-size: 0.9rem;
-      line-height: 1.6;
-      margin: 0.3rem 0 0.8rem;
-    }
-    .read-more {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      color: #d4af37;
-      font-weight: 500;
-      font-size: 0.85rem;
-      transition: gap 0.2s, color 0.2s;
-    }
-    .project-card:hover .read-more {
-      color: #fff;
-      gap: 0.7rem;
+    .status-badge.completed {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.1);
+      color: #aaa;
     }
 
-    /* ====== DETAIL PANEL (expands below card) ====== */
-    .detail-panel {
-      display: none;
-      margin-top: 1.5rem;
-      padding: 2rem 2rem 2.5rem;
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(212, 175, 55, 0.08);
-      animation: fadeSlide 0.5s ease;
-    }
-    .detail-panel.open {
-      display: block;
-    }
-    @keyframes fadeSlide {
-      0% { opacity: 0; transform: translateY(10px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    .detail-panel .detail-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    @media (min-width: 768px) {
-      .detail-panel .detail-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-    .detail-panel .detail-text h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
-      font-weight: 600;
-      margin-bottom: 0.2rem;
-    }
-    .detail-panel .detail-text .meta-line {
-      color: rgba(245, 240, 235, 0.4);
-      font-size: 0.8rem;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.8rem;
-    }
-    .detail-panel .detail-text p {
-      color: rgba(245, 240, 235, 0.75);
-      font-size: 0.95rem;
-      line-height: 1.8;
-      margin-bottom: 1rem;
-    }
-    .detail-panel .detail-text .quote {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      color: #d4af37;
-      font-size: 1.1rem;
-      border-left: 3px solid #d4af37;
-      padding-left: 1.2rem;
-      margin: 1rem 0;
-    }
-    .detail-panel .cast-crew {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.8rem 2rem;
-      margin: 1rem 0;
-    }
-    .detail-panel .cast-crew .item {
+    .event-card .body {
+      padding: 1.8rem 2rem 2.2rem;
+      flex: 1;
       display: flex;
       flex-direction: column;
     }
-    .detail-panel .cast-crew .item .role {
+    .event-card .body .title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 0.2rem;
+    }
+    .event-card .body .title .edition {
+      color: #d4af37;
+      font-weight: 400;
+    }
+    .event-card .body .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.8rem;
+      font-size: 0.85rem;
+      color: rgba(245, 240, 235, 0.5);
+      margin: 0.6rem 0 0.8rem;
+    }
+    .event-card .body .meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .event-card .body .desc {
+      color: rgba(245, 240, 235, 0.65);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 0.8rem;
+      flex: 1;
+    }
+    .event-card .body .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 0.8rem;
+      opacity: 0.7;
+      transition: opacity 0.4s, transform 0.4s;
+      transform: translateY(4px);
+    }
+    .event-card:hover .body .btn-row {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .btn-outline-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1.5rem;
+      border-radius: 40px;
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #f5f0eb;
+      transition: background 0.3s, border-color 0.3s, transform 0.2s;
+      cursor: pointer;
+      background: none;
+    }
+    .btn-outline-gold:hover {
+      background: rgba(212, 175, 55, 0.08);
+      border-color: #d4af37;
+      transform: scale(1.02);
+    }
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1.8rem;
+      border-radius: 40px;
+      background: #d4af37;
+      color: #090909;
+      font-weight: 600;
+      font-size: 0.8rem;
+      transition: background 0.3s, transform 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-gold:hover {
+      background: #e6c75a;
+      transform: scale(1.02);
+    }
+
+    /* ====== DETAIL PANEL ====== */
+    .detail-panel {
+      display: none;
+      margin-top: 1.5rem;
+      padding: 2.5rem 2.5rem 3rem;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(212, 175, 55, 0.06);
+      animation: fadeSlide 0.5s ease;
+    }
+    .detail-panel.open { display: block; }
+    @keyframes fadeSlide {
+      0% { opacity: 0; transform: translateY(12px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .detail-panel .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    @media (min-width: 768px) {
+      .detail-panel .detail-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .detail-panel h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .detail-panel .sub-meta {
+      color: rgba(245, 240, 235, 0.4);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+    .detail-panel p {
+      color: rgba(245, 240, 235, 0.7);
+      line-height: 1.8;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+    .detail-panel .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem 2rem;
+      margin: 1rem 0;
+    }
+    .detail-panel .info-grid .item {
+      display: flex;
+      flex-direction: column;
+    }
+    .detail-panel .info-grid .item .label {
       font-size: 0.65rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: #d4af37;
     }
-    .detail-panel .cast-crew .item .name {
+    .detail-panel .info-grid .item .value {
       font-weight: 500;
-      font-size: 0.9rem;
-    }
-
-    /* gallery inside detail */
-    .detail-gallery {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      margin-top: 1.2rem;
-    }
-    @media (min-width: 480px) {
-      .detail-gallery { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (min-width: 768px) {
-      .detail-gallery { grid-template-columns: repeat(3, 1fr); }
-    }
-    .detail-gallery .gallery-img {
-      border-radius: 16px;
-      overflow: hidden;
-      background: #141414;
-      transition: transform 0.3s;
-    }
-    .detail-gallery .gallery-img:hover {
-      transform: scale(1.02);
-    }
-    .detail-gallery .gallery-img img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-    .detail-gallery .gallery-img .cap {
-      padding: 0.4rem 0.6rem 0.6rem;
-      font-size: 0.75rem;
-      color: rgba(245, 240, 235, 0.5);
-      background: rgba(0,0,0,0.2);
-    }
-
-    .watch-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      margin-top: 1.2rem;
-      padding: 0.7rem 2.2rem;
-      background: #d4af37;
-      color: #0c0c0c;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: background 0.3s, transform 0.2s;
-      border: none;
-      cursor: pointer;
-    }
-    .watch-btn:hover {
-      background: #e6c75a;
-      transform: translateY(-2px);
     }
 
     .close-detail {
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      color: rgba(245, 240, 235, 0.4);
+      color: rgba(245, 240, 235, 0.3);
       font-size: 0.8rem;
       margin-top: 1.5rem;
       cursor: pointer;
-      transition: color 0.2s;
       background: none;
       border: none;
+      transition: color 0.2s;
     }
-    .close-detail:hover {
-      color: #d4af37;
-    }
+    .close-detail:hover { color: #d4af37; }
 
     .back-link {
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      color: rgba(245, 240, 235, 0.3);
+      color: rgba(245, 240, 235, 0.2);
       font-size: 0.8rem;
-      margin-top: 2rem;
+      margin-top: 3rem;
       transition: color 0.2s;
     }
-    .back-link:hover {
-      color: #d4af37;
+    .back-link:hover { color: #d4af37; }
+
+    .status-closed {
+      display: inline-block;
+      background: rgba(255, 0, 0, 0.1);
+      border: 1px solid rgba(255, 0, 0, 0.2);
+      color: #ff6b6b;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ===== Footer Styles ===== */
+    footer.site-footer {
+      width: 100%;
+      background-color: var(--bg-color);
+      border-top: 1px solid var(--border-color);
+      position: relative;
+      overflow: hidden;
+      margin-top: auto;
+      color: var(--on-surface);
+      font-family: var(--font-family);
+    }
+
+    .film-watermark {
+      position: absolute;
+      right: -20px;
+      bottom: -20px;
+      width: 16rem;
+      height: 16rem;
+      color: var(--primary);
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 0;
+      user-select: none;
+    }
+    @media (min-width: 768px) {
+      .film-watermark {
+        width: 22rem;
+        height: 22rem;
+        right: 0;
+        bottom: 0;
+        transform: translate(5rem, 5rem);
+      }
+    }
+
+    .footer-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 4rem 20px 3rem;
+      position: relative;
+      z-index: 10;
+    }
+    @media (min-width: 768px) {
+      .footer-inner {
+        padding: 5rem 60px 3.5rem;
+      }
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    @media (min-width: 1024px) {
+      .footer-grid {
+        grid-template-columns: repeat(12, 1fr);
+        gap: 2rem;
+      }
+      .col-brand {
+        grid-column: span 4;
+      }
+      .col-links {
+        grid-column: span 2;
+      }
+    }
+
+    @media (min-width: 640px) and (max-width: 1023px) {
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+      .col-brand {
+        grid-column: span 2;
+      }
+    }
+
+    .brand-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      text-decoration: none;
+      color: var(--on-surface);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.04em;
+    }
+
+    .brand-logo svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .brand-description {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: rgba(229, 226, 225, 0.6);
+      max-width: 22rem;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+      font-size: 0.85rem;
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      width: fit-content;
+      transition: color 0.3s ease;
+    }
+
+    .contact-link:hover {
+      color: var(--primary);
+    }
+
+    .column-title {
+      color: #FAFAFA;
+      font-family: 'Satoshi', sans-serif;
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-link-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-link-list a {
+      font-size: 0.9rem;
+      color: rgba(229, 226, 225, 0.55);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .footer-link-list a:hover {
+      color: var(--primary);
+      transform: translateX(3px);
+    }
+
+    .footer-divider {
+      height: 1px;
+      background-color: var(--border-color);
+      width: 100%;
+      margin: 3rem 0 2rem;
+    }
+
+    .footer-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 10;
+    }
+
+    @media (min-width: 768px) {
+      .footer-bottom {
+        flex-direction: row;
+      }
+      .legal-text {
+        text-align: left;
+      }
+    }
+
+    .legal-text {
+      font-size: 0.8rem;
+      color: rgba(229, 226, 225, 0.4);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .bottom-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .copyright-text {
+      font-size: 0.8rem;
+      color: rgba(229, 226, 225, 0.4);
+    }
+
+    .currency-select {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--on-surface-variant);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 0.75rem;
+      padding: 5px 10px;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .currency-select:hover,
+    .currency-select:focus {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .currency-select option {
+      background-color: #11141a;
+      color: var(--on-surface);
     }
   </style>
 </head>
-<body>
+<body class="font-body-md selection:bg-gold-accent selection:text-black">
 
-<div class="container">
-
-  <!-- header -->
-  <div class="section-header">
-    <span class="sub">Our Filmography</span>
-    <h2>Featured <span class="text-gold">Projects</span></h2>
-  </div>
-
-<!-- ===== PROJECT GRID (3 cards) ===== -->
-<div class="project-grid" id="projectGrid">
-
-  <!-- CARD 1: Four Days Left -->
-  <div class="project-card" data-target="detail1">
-    <div class="poster-wrap">
-      <img src="https://i.postimg.cc/qM5QTMhL/C86E4E99-A1AC-407B-A6E9-AE4D7611A12C.png" alt="Four Days Left" loading="lazy">
-      <div class="hover-overlay">
-        <span class="material-symbols-outlined play-icon">play_circle</span>
-        <h4>View Project</h4>
-        <div class="divider"></div>
-        <p>Explore the story, cast &amp; crew</p>
-      </div>
-      <div class="arrow-top">
-        <span class="material-symbols-outlined" style="font-size:1.3rem;">north_east</span>
-      </div>
-    </div>
-
-    <div class="card-body">
-      <div class="title-row">
-        <h3>Four Days Left</h3>
-        <span class="badge">Featured</span>
-      </div>
-
-      <div class="genre">Drama • Short Film • 2025</div>
-
-      <p class="desc">
-        A deeply personal story about silence, emotional pressure, resilience,
-        and the difficult choices that quietly shape our lives.
-      </p>
-
-      <span class="read-more">
-        Read More
-        <span class="material-symbols-outlined">arrow_forward</span>
+<!-- Top Navigation Bar -->
+<nav class="bg-surface/90 backdrop-blur-xl fixed top-0 w-full z-50 border-b border-white/10" id="main-nav">
+  <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 w-full max-w-container-max mx-auto">
+    <!-- Brand -->
+    <a href="/" class="flex items-center">
+      <span class="font-headline-sm text-headline-sm font-bold text-primary tracking-tight truncate max-w-[200px] md:max-w-none">
+        Arishu Films
       </span>
-    </div>
-  </div>
+    </a>
 
-  <!-- CARD 2: If You Say Yes -->
-  <div class="project-card" data-target="detail2">
-    <div class="poster-wrap">
-      <img src="https://i.postimg.cc/ZKCFVt7v/image.png" alt="If You Say Yes" loading="lazy">
-      <div class="hover-overlay">
-        <span class="material-symbols-outlined play-icon">play_circle</span>
-        <h4>View Project</h4>
-        <div class="divider"></div>
-        <p>Explore the story, cast &amp; crew</p>
-      </div>
-      <div class="arrow-top">
-        <span class="material-symbols-outlined" style="font-size:1.3rem;">north_east</span>
-      </div>
+    <!-- Navigation Links (Desktop) -->
+    <div class="hidden md:flex space-x-6 lg:space-x-8">
+      <a href="/" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">Home</a>
+      <a href="/talent" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">Talent</a>
+      <a href="/campaigns" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">Campaigns</a>
+      <a href="/membership" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">Membership</a>
+      <a href="/about" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">About</a>
+      <a href="/creator" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">Creator Hub</a>
     </div>
 
-    <div class="card-body">
-      <div class="title-row">
-        <h3>If You Say Yes</h3>
-        <span class="badge">Released</span>
+    <!-- Actions & Auth Area (Desktop) -->
+    <div class="hidden md:flex items-center space-x-3">
+      <select class="currency-select" aria-label="Select Currency">
+        <option value="GBP">GBP (£)</option>
+        <option value="USD">USD ($)</option>
+        <option value="EUR">EUR (€)</option>
+      </select>
+
+      <div id="desktop-logged-out">
+        <a href="/login" class="bg-primary text-[#0F1115] hover:bg-surface-tint active:scale-95 transition-transform duration-200 font-button-text text-button-text px-5 py-2.5 rounded inline-block whitespace-nowrap">
+          Login / Sign Up
+        </a>
       </div>
 
-      <div class="genre">Screenlife Romantic Drama • 2025</div>
-
-      <p class="desc">
-        A modern romance unfolding through screens, where every message carries
-        the weight of a lifetime.
-      </p>
-
-      <span class="read-more">
-        Read More
-        <span class="material-symbols-outlined">arrow_forward</span>
-      </span>
-    </div>
-  </div>
-
-  <!-- CARD 3: Just a Ride -->
-  <div class="project-card" data-target="detail3">
-    <div class="poster-wrap">
-      <img src="https://i.postimg.cc/bJy1nKSw/image.png" alt="Just a Ride" loading="lazy">
-      <div class="hover-overlay">
-        <span class="material-symbols-outlined play-icon">play_circle</span>
-        <h4>View Project</h4>
-        <div class="divider"></div>
-        <p>Explore the story, cast &amp; crew</p>
-      </div>
-      <div class="arrow-top">
-        <span class="material-symbols-outlined" style="font-size:1.3rem;">north_east</span>
+      <div id="desktop-logged-in" class="hidden items-center space-x-3">
+        <span class="font-body-md text-body-md text-on-surface font-semibold truncate max-w-[120px]" id="desktop-user-name">User</span>
+        <button id="desktop-sign-out" class="text-on-surface-variant hover:text-primary transition-colors font-button-text text-button-text px-3 py-2 cursor-pointer">Sign Out</button>
+        <a href="/dashboard" class="ml-1">
+          <img alt="Profile" class="w-9 h-9 rounded-full border border-outline-variant object-cover cursor-pointer hover:border-primary transition-colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDs9z_GQ51nXwa34oCbRqvwXAI08SpZGrdtvsHjDFFdZT8litisKiDr9IQKG-F23e2kDRFUGzqQyWbNdyUuX7mn1MAgwgH0l1erNX4lRbaDaIzJjjuOb4oVN_SGIyqxTWtYfFuSRWaTcZbCrNf8ksxtiV2AA34znxtB0r0PhqR1_7LWnlVKIKAla1GgOgzTnKl3PVPOu3S2T3waivmDJKU8cl_uMn82TjAidf7c4m-wPbIOw__C9E3w870nzzY-O2K0hx8N8aEacnkh"/>
+        </a>
       </div>
     </div>
 
-    <div class="card-body">
-      <div class="title-row">
-        <h3>Just a Ride</h3>
-        <span class="badge">In Development</span>
-      </div>
-
-      <div class="genre">Drama • 2026</div>
-
-      <p class="desc">
-        A raw, emotional journey of self-discovery set against the backdrop of a
-        cross-country road trip.
-      </p>
-
-      <span class="read-more">
-        Read More
-        <span class="material-symbols-outlined">arrow_forward</span>
-      </span>
-    </div>
-  </div>
-
-</div>
-
-  <!-- ===== DETAIL PANELS (hidden initially) ===== -->
-
-<div id="detail1" class="detail-panel">
-    <div class="detail-grid">
-        <div class="detail-text">
-            <h3>Four Days Left</h3>
-            <div class="meta-line">Drama · Short Film · 2025 | Written & Directed by Hariprasath Venkatesan</div>
-            <p><strong>Four Days Left</strong> is a film born from real emotion — the kind that builds slowly, quietly, under the surface of everyday life.</p>
-            <p>It's about the feeling of being stuck between two worlds. The pressure of timelines, rules, and choices that no one prepares you for. The loneliness that comes with keeping it all together while everything feels like it's falling apart.</p>
-            <div class="quote">"This isn't a film filled with spectacle. It's filled with silence, hesitation, unspoken love, and the weight of decisions made in small rooms."</div>
-            <p>I made this film for those navigating uncertain paths. For those who've had to make life-changing decisions with no clear right answer. And for those who understand that sometimes, strength is quiet.</p>
-
-            <h4 style="margin-top:1.2rem; font-weight:600;">Cast</h4>
-            <div class="cast-crew">
-                <div class="item"><span class="role">Illa</span><span class="name">Ahamed Azharudeen Rafeeq Abdulkhader</span></div>
-                <div class="item"><span class="role">Ms Emily</span><span class="name">Max Day</span></div>
-                <div class="item"><span class="role">Karen</span><span class="name">Karen Elizabeth Bucknall</span></div>
-                <div class="item"><span class="role">Ravi</span><span class="name">Shamas Munzoor Khan</span></div>
-                <div class="item"><span class="role">Maran</span><span class="name">Surj Kumar</span></div>
-            </div>
-
-            <h4 style="font-weight:600;">Crew</h4>
-            <div class="cast-crew">
-                <div class="item"><span class="role">Producer</span><span class="name">Arishu Films</span></div>
-                <div class="item"><span class="role">Assistant Director</span><span class="name">Aishwarya Kumana Kumar</span></div>
-                <div class="item"><span class="role">Director of Photography</span><span class="name">James Peakman</span></div>
-                <div class="item"><span class="role">Sound Recordist &amp; Mixer</span><span class="name">Andrew Simpson</span></div>
-                <div class="item"><span class="role">Editor</span><span class="name">Jimu Zhang</span></div>
-                <div class="item"><span class="role">Production Assistant</span><span class="name">Danyan Zhang</span></div>
-                <div class="item"><span class="role">Music</span><span class="name">Pixabay</span></div>
-            </div>
-
-            <!-- UPDATED: Four Days Left Button -->
-            <a href="https://youtu.be/O0oVAz4v6BE?si=MOI9C1E_RpVDeBJ6" target="_blank" class="watch-btn">
-                <span class="material-symbols-outlined">play_circle</span>
-                Click Here To Watch Full Movie
-            </a>
-        </div>
-
-        <div>
-            <h4 style="font-weight:600; margin-bottom:0.8rem;">Gallery</h4>
-            <div class="detail-gallery">
-                <div class="gallery-img"><img src="https://i.postimg.cc/8zTv92tQ/image.png" alt="still 1"><div class="cap">Frame 01 · Quiet tension</div></div>
-                <div class="gallery-img"><img src="https://i.postimg.cc/ZKSvvGGG/image.png" alt="still 2"><div class="cap">Frame 02 · Late night</div></div>
-                <div class="gallery-img"><img src="https://i.postimg.cc/nLgCFgYn/image.png" alt="still 3"><div class="cap">Frame 03 · The weight</div></div>
-            </div>
-            <button class="close-detail" onclick="closeDetail('detail1')"><span class="material-symbols-outlined">close</span> Close details</button>
-        </div>
-    </div>
-</div>
-
-<div id="detail2" class="detail-panel">
-    <div class="detail-grid">
-
-        <div class="detail-text">
-            <h3>If You Say Yes</h3>
-
-            <div class="meta-line">
-                Screenlife Romantic Drama · 2025 | Written & Directed by Hariprasath Venkatesan
-            </div>
-
-            <p><strong>If You Say Yes</strong> is a screenlife romantic short film that unfolds entirely through video calls, chats, and glowing laptop screens. When Sam finally confesses his love to his best friend Max, what starts as a simple text spirals into a tense, funny, and deeply intimate night of waiting.</p>
-
-            <p>As Sam anxiously replays every moment and Max wrestles with her feelings, their friends become silent witnesses to a modern love story shaped by distance, memory, and vulnerability.</p>
-
-            <div class="quote">
-                "Told in real time through digital windows, the film explores the fragile space between friendship and love — the fear of rejection, the comfort of familiarity, and the courage it takes to say yes."
-            </div>
-
-            <p>Quiet, heartfelt, and relatable, <strong>If You Say Yes</strong> captures how today's relationships live and breathe through screens, yet still carry the same timeless emotions.</p>
-
-            <h4 style="margin-top:1.2rem;font-weight:600;">Cast</h4>
-
-            <div class="cast-crew">
-                <div class="item"><span class="role">Sam</span><span class="name">Shamas Khan</span></div>
-                <div class="item"><span class="role">Max</span><span class="name">Maximally Max</span></div>
-                <div class="item"><span class="role">Henry</span><span class="name">Iam Sammehh</span></div>
-                <div class="item"><span class="role">Demi</span><span class="name">Demisavva</span></div>
-            </div>
-
-            <h4 style="font-weight:600;">Crew</h4>
-
-            <div class="cast-crew">
-                <div class="item"><span class="role">Written & Directed</span><span class="name">Hariprasath Venkatesan</span></div>
-                <div class="item"><span class="role">Assistant Director</span><span class="name">Aishu Kumar</span></div>
-                <div class="item"><span class="role">Cinematographer</span><span class="name">Jimatay</span></div>
-                <div class="item"><span class="role">Sound Recordist</span><span class="name">A. Simpson</span></div>
-                <div class="item"><span class="role">Still Photographer</span><span class="name">Arash H.R.C.</span></div>
-                <div class="item"><span class="role">Composer</span><span class="name">Josh Graesser</span></div>
-            </div>
-
-            <!-- UPDATED: If You Say Yes Button -->
-            <a href="https://www.youtube.com/watch?v=v7Mzvcw1Agc&t=190s" target="_blank" class="watch-btn">
-                <span class="material-symbols-outlined">play_circle</span>
-                Click Here To Watch Full Movie
-            </a>
-        </div>
-
-        <div>
-
-            <h4 style="font-weight:600;margin-bottom:0.8rem;">Gallery</h4>
-
-            <div class="detail-gallery">
-
-                <div class="gallery-img">
-                    <img src="https://i.postimg.cc/rFjs0KCb/image.png" alt="Screenlife Frame">
-                    <div class="cap">Screenlife Frame</div>
-                </div>
-
-                <div class="gallery-img">
-                    <img src="https://i.postimg.cc/mrHTwDCx/image.png" alt="Late Night Chat">
-                    <div class="cap">Late Night Chat</div>
-                </div>
-
-                <div class="gallery-img">
-                    <img src="https://i.postimg.cc/ZKbKSJt9/image.png" alt="Emotional Moment">
-                    <div class="cap">Emotional Moment</div>
-                </div>
-
-                <div class="gallery-img">
-                    <img src="https://i.postimg.cc/RCbbMT2t/image.png" alt="Official Certificate">
-                    <div class="cap">Official Certificate</div>
-                </div>
-
-                <div class="gallery-img">
-                    <img src="https://i.postimg.cc/J4FncSvt/Untitled-design-(50).png" alt="Award Badge">
-                    <div class="cap">Award Badge</div>
-                </div>
-
-            </div>
-
-            <button class="close-detail" onclick="closeDetail('detail2')">
-                <span class="material-symbols-outlined">close</span>
-                Close details
-            </button>
-
-        </div>
-
-    </div>
-</div>
-
-<div id="detail3" class="detail-panel">
-    <div class="detail-grid">
-
-        <!-- Left -->
-        <div class="detail-text">
-
-            <h3>Just a Ride: Different Roads, Same Heart (Development)</h3>
-
-            <div class="meta-line">
-                Writer: Arishu Films • July 26, 2025 • 1 min read
-            </div>
-
-            <p><strong>by Hariprasath Venkatesan</strong></p>
-
-            <div class="quote">
-                "Some journeys don't need distance — just a change in perspective."
-            </div>
-
-            <p>
-                <strong>Just a Ride</strong> is a quiet reflection on connection,
-                discomfort, and the quiet power of conversation. It's about what
-                happens when two people from different worlds share a few moments of
-                honesty on a silent night.
-            </p>
-
-            <p>
-                No drama. No preaching. Just a reminder: we're all trying to find our
-                way. And sometimes, the road teaches us more than the destination ever
-                could.
-            </p>
-
-            <h4 style="margin-top:1.5rem;font-weight:600;">
-                Project Status
-            </h4>
-
-            <div class="cast-crew">
-                <div class="item">
-                    <span class="role">Status</span>
-                    <span class="name" style="color:#d4af37;">In Development</span>
-                </div>
-
-                <div class="item">
-                    <span class="role">Writer & Director</span>
-                    <span class="name">Hariprasath Venkatesan</span>
-                </div>
-
-                <div class="item">
-                    <span class="role">Production</span>
-                    <span class="name">Arishu Films</span>
-                </div>
-
-                <div class="item">
-                    <span class="role">Release</span>
-                    <span class="name">To Be Announced</span>
-                </div>
-            </div>
-
-            <!-- UPDATED: Just a Ride Button (Disabled - In Development) -->
-            <a href="javascript:void(0);" class="watch-btn" style="opacity:.6;cursor:not-allowed;pointer-events:none;">
-                <span class="material-symbols-outlined">schedule</span>
-                In Development
-            </a>
-
-        </div>
-    </div>
-</div>
-
-    <!-- Right -->
-    <div>
-
-      <h4 style="font-weight:600;margin-bottom:0.8rem;">
-        Official Gallery
-      </h4>
-
-      <div style="
-        border:1px solid rgba(255,255,255,.08);
-        border-radius:20px;
-        padding:40px 30px;
-        text-align:center;
-        background:rgba(255,255,255,.02);
-      ">
-
-        <span class="material-symbols-outlined"
-              style="font-size:60px;color:#d4af37;margin-bottom:15px;display:block;">
-          movie
-        </span>
-
-        <h5 style="font-size:1.2rem;font-weight:600;margin-bottom:12px;">
-          Official Gallery Coming Soon
-        </h5>
-
-        <p style="color:rgba(255,255,255,.7);line-height:1.8;">
-          Just a Ride is currently in development.
-          Posters, production stills, behind-the-scenes photos,
-          teaser trailer, and the official gallery will be released
-          after filming begins.
-        </p>
-
-      </div>
-
-      <button class="close-detail" onclick="closeDetail('detail3')">
-        <span class="material-symbols-outlined">close</span>
-        Close details
+    <!-- Mobile Hamburger & Quick Controls -->
+    <div class="flex items-center gap-2 md:hidden">
+      <select class="currency-select text-xs py-1 px-1.5" aria-label="Select Currency Compact">
+        <option value="GBP">£</option>
+        <option value="USD">$</option>
+        <option value="EUR">€</option>
+      </select>
+      <button id="mobile-toggle" aria-label="Toggle navigation menu" class="text-on-surface focus:outline-none p-1.5">
+        <span class="material-symbols-outlined text-[28px]" id="mobile-toggle-icon">menu</span>
       </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-menu" class="hidden md:hidden bg-surface border-b border-white/10 px-margin-mobile py-6 space-y-4 flex flex-col absolute top-20 left-0 w-full z-40 shadow-2xl max-h-[calc(100vh-5rem)] overflow-y-auto">
+    <a href="/" class="text-body-lg font-body-lg text-on-surface-variant hover:text-primary">Home</a>
+    <a href="/talent" class="text-body-lg font-body-lg text-on-surface-variant hover:text-primary">Talent</a>
+    <a href="/campaigns" class="text-body-lg font-body-lg text-on-surface-variant hover:text-primary">Campaigns</a>
+    <a href="/membership" class="text-body-lg font-body-lg text-on-surface-variant hover:text-primary">Membership</a>
+    <a href="/about" class="text-body-lg font-body-lg text-on-surface-variant hover:text-primary">About</a>
+    <a href="/creator" class="text-body-lg font-body-lg text-on-surface-variant hover:text-primary">Creator Hub</a>
+    
+    <hr class="border-white/10 my-2" />
+
+    <div id="mobile-logged-out">
+      <a href="/login" class="bg-primary text-[#0F1115] hover:bg-surface-tint text-center font-button-text text-button-text py-3 rounded block w-full">
+        Login / Sign Up
+      </a>
+    </div>
+
+    <div id="mobile-logged-in" class="hidden flex-col space-y-3">
+      <span class="font-body-lg text-body-lg text-on-surface font-semibold px-2" id="mobile-user-name">User</span>
+      <button id="mobile-sign-out" class="text-left text-on-surface-variant hover:text-primary text-body-lg font-body-lg px-2 cursor-pointer">Sign Out</button>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Container -->
+<main class="flex-grow pt-32 pb-20 w-full">
+  <div class="container">
+
+    <!-- ===== FESTIVAL HERO ===== -->
+    <div class="festival-header">
+      <img class="bg-img" src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1400&q=80" alt="festival background" />
+      <div class="grain"></div>
+      <div class="content">
+        <div class="label">Film Festival</div>
+        <h1>Short <span>Spotlight</span></h1>
+        <p class="sub">Celebrating independent filmmakers through screenings, networking, audience engagement, and meaningful cinematic experiences.</p>
+      </div>
+    </div>
+
+    <!-- ===== EVENT GRID ===== -->
+    <div class="event-grid" id="eventGrid">
+
+      <!-- EVENT CARD 1: Second Edition -->
+      <div class="event-card" data-target="detailSecond">
+        <div class="img-wrap">
+          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80" alt="Short Spotlight Second Edition" loading="lazy" />
+          <div class="img-overlay"></div>
+          <div class="float-arrow"><span class="material-symbols-outlined">north_east</span></div>
+          <span class="status-badge">Now Accepting Submissions</span>
+        </div>
+        <div class="body">
+          <div class="title">Short Spotlight <span class="edition">· Second Edition</span></div>
+          <div class="meta">
+            <span><span class="material-symbols-outlined" style="font-size:1rem;">calendar_today</span> Fri 18 Sept</span>
+            <span><span class="material-symbols-outlined" style="font-size:1rem;">schedule</span> 4:00 – 7:00 PM</span>
+            <span><span class="material-symbols-outlined" style="font-size:1rem;">location_on</span> Midlands Arts Centre</span>
+          </div>
+          <p class="desc">Submissions are now open for Short Spotlight – Second Edition. Join us for another celebration of independent voices on the big screen.</p>
+          <div class="btn-row">
+            <a href="https://filmfreeway.com/ArishuFilms" target="_blank" class="btn-gold"><span class="material-symbols-outlined">send</span> FilmFreeway</a>
+            <span class="btn-outline-gold">Learn More</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- EVENT CARD 2: First Edition -->
+      <div class="event-card" data-target="detailFirst">
+        <div class="img-wrap">
+          <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80" alt="Short Spotlight First Edition" loading="lazy" />
+          <div class="img-overlay"></div>
+          <div class="float-arrow"><span class="material-symbols-outlined">north_east</span></div>
+          <span class="status-badge completed">Registration Closed</span>
+        </div>
+        <div class="body">
+          <div class="title">Short Spotlight <span class="edition">· First Edition</span></div>
+          <div class="meta">
+            <span><span class="material-symbols-outlined" style="font-size:1rem;">calendar_today</span> Tue 11 Feb</span>
+            <span><span class="material-symbols-outlined" style="font-size:1rem;">location_on</span> Birmingham</span>
+          </div>
+          <p class="desc">Arishu Short Film Spotlight is the first edition of the Arishu Film Festival, created to showcase independent short films and engage live audiences through cinema screenings and feedback.</p>
+          <div class="btn-row">
+            <span class="btn-outline-gold">See other events</span>
+            <span class="btn-outline-gold">Watch Coverage</span>
+          </div>
+        </div>
+      </div>
 
     </div>
 
+    <!-- ===== DETAIL PANELS ===== -->
+
+    <!-- DETAIL: Second Edition -->
+    <div id="detailSecond" class="detail-panel">
+      <div class="detail-grid">
+        <div>
+          <h3>Short Spotlight · Second Edition</h3>
+          <div class="sub-meta">18 Sept 2026 · 4:00 – 7:00 PM · Midlands Arts Centre, Birmingham</div>
+          
+          <h4 style="font-weight:600; margin-top:0.5rem;">About the Film Festival</h4>
+          <p>Submissions are now open for Short Spotlight – Second Edition.</p>
+          <p>After a successful first edition with great audience turnout and positive feedback, we're back to celebrate more independent voices on the big screen in Birmingham, UK.</p>
+          <p>We're inviting short films in <strong>Drama | Horror | Comedy</strong> with a runtime of <strong>1–20 minutes</strong>.</p>
+          <p>If you're an independent filmmaker with a story to tell, we'd love to see your work.</p>
+          <p style="font-size:0.9rem; color:#d4af37;"><strong>Presented by Arishu Films</strong></p>
+
+          <div style="display:flex; gap:1rem; flex-wrap:wrap; margin:1.2rem 0;">
+            <a href="https://filmfreeway.com/ArishuFilms" target="_blank" class="btn-gold"><span class="material-symbols-outlined">send</span> FilmFreeway</a>
+          </div>
+
+          <button class="close-detail" onclick="closeDetail('detailSecond')"><span class="material-symbols-outlined">close</span> Close details</button>
+        </div>
+        <div>
+          <h4 style="font-weight:600; margin-bottom:0.8rem;">Event Details</h4>
+          <div class="info-grid">
+            <div class="item"><span class="label">Date</span><span class="value">18 September 2026</span></div>
+            <div class="item"><span class="label">Time</span><span class="value">4:00 – 7:00 PM</span></div>
+            <div class="item"><span class="label">Venue</span><span class="value">Midlands Arts Centre</span></div>
+            <div class="item"><span class="label">Address</span><span class="value">Cannon Hill Park, Birmingham B12 9QH, UK</span></div>
+            <div class="item"><span class="label">Categories</span><span class="value">Drama · Horror · Comedy</span></div>
+            <div class="item"><span class="label">Runtime</span><span class="value">1 – 20 minutes</span></div>
+          </div>
+          <p style="font-size:0.85rem; color:rgba(245,240,235,0.4); margin-top:0.5rem;">Presented by Arishu Films</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- DETAIL: First Edition -->
+    <div id="detailFirst" class="detail-panel">
+      <div class="detail-grid">
+        <div>
+          <h3>Short Spotlight · First Edition</h3>
+          <div class="sub-meta">11 Feb 2025 · 4:00 PM · Birmingham</div>
+          
+          <div style="margin-bottom: 1rem;">
+            <span class="status-closed">Registration Closed</span>
+          </div>
+
+          <h4 style="font-weight:600; margin-top:0.5rem;">About the Film Festival</h4>
+          <p><strong>Terms and Conditions — Short Spotlight by Arishu Film Festival</strong></p>
+          
+          <p><strong>Eligibility:</strong><br />
+          Submissions are open to independent filmmakers of all backgrounds. Films must be original works between 1 and 30 minutes in length.</p>
+          
+          <p><strong>Submission Requirements:</strong><br />
+          All films must include English subtitles if the dialogue is in any other language. Films must be provided in a cinema screen ratio suitable for theatrical projection. Failure to meet these technical requirements may result in disqualification.</p>
+          
+          <p><strong>Rights and Permissions:</strong><br />
+          By submitting, you confirm that you hold all necessary rights for public exhibition and agree to Arishu Films' festival terms.</p>
+          
+          <p style="font-size:0.9rem; color:#d4af37; margin-top:0.5rem;"><strong>Presented by Arishu Films</strong></p>
+
+          <div style="display:flex; gap:1rem; flex-wrap:wrap; margin:1.2rem 0;"></div>
+
+          <button class="close-detail" onclick="closeDetail('detailFirst')"><span class="material-symbols-outlined">close</span> Close details</button>
+        </div>
+        <div>
+          <h4 style="font-weight:600; margin-bottom:0.8rem;">Event Details</h4>
+          <div class="info-grid">
+            <div class="item"><span class="label">Date</span><span class="value">11 February 2025</span></div>
+            <div class="item"><span class="label">Time</span><span class="value">4:00 PM</span></div>
+            <div class="item"><span class="label">Venue</span><span class="value">Birmingham</span></div>
+            <div class="item"><span class="label">Address</span><span class="value">Cannon Hill Park, Birmingham B12 9QH, UK</span></div>
+            <div class="item"><span class="label">Status</span><span class="value" style="color:#ff6b6b;">Registration Closed</span></div>
+            <div class="item"><span class="label">Runtime</span><span class="value">1 – 30 minutes</span></div>
+          </div>
+          <p style="font-size:0.85rem; color:rgba(245,240,235,0.4); margin-top:0.5rem;">Presented by Arishu Films</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- back link -->
+    <a href="#" class="back-link" onclick="closeAllDetails(); return false;">
+      <span class="material-symbols-outlined">arrow_back</span> Back to Festival
+    </a>
+
   </div>
-</div>
+</main>
+
+<!-- Footer Component -->
+<footer class="site-footer">
+  <svg viewBox="0 0 200 200" class="film-watermark" aria-hidden="true">
+    <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width="6" fill="none" />
+    <circle cx="100" cy="100" r="30" stroke="currentColor" stroke-width="4" fill="none" />
+    <line x1="100" y1="20" x2="100" y2="180" stroke="currentColor" stroke-width="4" />
+    <line x1="20" y1="100" x2="180" y2="100" stroke="currentColor" stroke-width="4" />
+  </svg>
+
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div class="col-brand brand-group">
+        <a href="/" class="brand-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="6" width="20" height="14" rx="2" />
+            <path d="M2 10h20" />
+            <path d="m6 6 4 4" />
+            <path d="m12 6 4 4" />
+            <path d="m18 6 4 4" />
+          </svg>
+          <span class="site-name">ARISHU<span class="text-gold-accent">.</span>FILMS</span>
+        </a>
+        <p class="brand-description">Empowering creators. Backing stories. Building the future of independent cinema.</p>
+        <a href="mailto:contact@arishufilms.com" class="contact-link" id="email-link">
+          <span class="material-symbols-outlined" style="font-size: 16px;" aria-hidden="true">mail</span>
+          <span id="email-label">contact@arishufilms.com</span>
+        </a>
+      </div>
+
+      <!-- Platform -->
+      <div class="col-links">
+        <h5 class="column-title">Platform</h5>
+        <ul class="footer-link-list">
+          <li><a href="/talent">Talent Discovery</a></li>
+          <li><a href="/campaigns">Campaigns</a></li>
+          <li><a href="/membership">Membership</a></li>
+          <li><a href="/how-it-works">How It Works</a></li>
+        </ul>
+      </div>
+
+      <!-- Company -->
+      <div class="col-links">
+        <h5 class="column-title">Company</h5>
+        <ul class="footer-link-list">
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/creator">Creator Hub</a></li>
+          <li><a href="/help">Help Centre</a></li>
+        </ul>
+      </div>
+
+      <!-- Support -->
+      <div class="col-links">
+        <h5 class="column-title">Support</h5>
+        <ul class="footer-link-list">
+          <li><a href="/help">Help Centre</a></li>
+          <li><a href="mailto:contact@arishufilms.com" class="email-href">Contact Us</a></li>
+          <li><a href="/help">Report a Problem</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div class="col-links">
+        <h5 class="column-title">Legal</h5>
+        <ul class="footer-link-list">
+          <li><a href="/terms">Terms &amp; Conditions</a></li>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms#refunds-and-cancellations">Refund Policy</a></li>
+          <li><a href="/terms#complaints-and-disputes">Complaints</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-bottom">
+      <p class="legal-text" id="legal-meta">
+        Arishu Films Ltd &middot; Registered in the United Kingdom &middot; Company No. 12345678
+      </p>
+      <div class="bottom-controls">
+        <select class="currency-select" aria-label="Select Currency">
+          <option value="GBP">GBP (£)</option>
+          <option value="USD">USD ($)</option>
+          <option value="EUR">EUR (€)</option>
+        </select>
+        <p class="copyright-text">
+          &copy; <span id="current-year"></span> <span class="site-name">ARISHU.FILMS</span>. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
 
 <script>
-  // Open detail panel when card is clicked
-  document.querySelectorAll('.project-card').forEach(card => {
+  // Open detail on card click
+  document.querySelectorAll('.event-card').forEach(card => {
     card.addEventListener('click', function(e) {
       const targetId = this.dataset.target;
-      // close all other panels
       document.querySelectorAll('.detail-panel').forEach(p => p.classList.remove('open'));
       const panel = document.getElementById(targetId);
       if (panel) {
@@ -766,12 +996,42 @@
   });
 
   function closeDetail(id) {
-    const panel = document.getElementById(id);
-    if (panel) panel.classList.remove('open');
+    document.getElementById(id).classList.remove('open');
   }
 
   function closeAllDetails() {
     document.querySelectorAll('.detail-panel').forEach(p => p.classList.remove('open'));
+  }
+
+  // Dynamic Year Update
+  document.getElementById("current-year").textContent = new Date().getFullYear();
+
+  // Mobile Menu Toggle Logic
+  const mobileToggle = document.getElementById('mobile-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileToggleIcon = document.getElementById('mobile-toggle-icon');
+
+  if (mobileToggle && mobileMenu) {
+    mobileToggle.addEventListener('click', () => {
+      const isHidden = mobileMenu.classList.contains('hidden');
+      if (isHidden) {
+        mobileMenu.classList.remove('hidden');
+        mobileToggleIcon.textContent = 'close';
+        document.body.style.overflow = 'hidden';
+      } else {
+        mobileMenu.classList.add('hidden');
+        mobileToggleIcon.textContent = 'menu';
+        document.body.style.overflow = '';
+      }
+    });
+
+    mobileMenu.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileToggleIcon.textContent = 'menu';
+        document.body.style.overflow = '';
+      });
+    });
   }
 </script>
 
