@@ -1,16 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Arishu Films · Film Festival</title>
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0,1" />
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>ARISHU FILMS | Film Festival</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;family=Hanken+Grotesk:wght@300;400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&amp;family=Satoshi:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#c9c6c5",
+            "gold-accent": "#D4AF37",
+            "surface-container": "#201f1f",
+            "on-surface": "#e5e2e1",
+            "on-surface-variant": "#9ca3af",
+            "outline-variant": "#444748",
+            "surface": "#141313",
+            "surface-tint": "#c9c6c5"
+          },
+          spacing: {
+            "margin-mobile": "20px",
+            "container-max": "1440px",
+            "margin-desktop": "60px"
+          },
+          fontFamily: {
+            "headline-sm": ["Poppins", "sans-serif"],
+            "body-md": ["Satoshi", "sans-serif"],
+            "button-text": ["Satoshi", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+
   <style>
-    /* ---------- RESET & BASE ---------- */
+    :root {
+      --bg-color: #060606;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --primary: #D4AF37;
+      --on-surface: #e5e2e1;
+      --on-surface-variant: #9ca3af;
+      --font-family: 'Satoshi', sans-serif;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background: #090909;
@@ -18,6 +58,9 @@
       font-family: 'Inter', 'Poppins', 'Satoshi', sans-serif;
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
     a { text-decoration: none; color: inherit; }
     img { display: block; max-width: 100%; height: auto; }
@@ -38,6 +81,7 @@
       max-width: 1400px;
       margin: 0 auto;
       padding: 2rem 2rem 4rem;
+      width: 100%;
     }
 
     /* ---------- SECTION HEADER ---------- */
@@ -368,30 +412,6 @@
     }
     .back-link:hover { color: #d4af37; }
 
-    .requirements-list {
-      list-style: none;
-      padding: 0;
-      color: rgba(245, 240, 235, 0.7);
-      font-size: 0.9rem;
-    }
-    .requirements-list li {
-      padding: 0.3rem 0;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
-    .requirements-list li::before {
-      content: "•";
-      color: #d4af37;
-      font-weight: 700;
-    }
-
-    .terms-text {
-      font-size: 0.85rem !important;
-      color: rgba(245, 240, 235, 0.5) !important;
-      line-height: 1.6 !important;
-    }
-
     .status-closed {
       display: inline-block;
       background: rgba(255, 0, 0, 0.1);
@@ -404,161 +424,562 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
     }
+
+    /* ===== Footer Styles ===== */
+    footer.site-footer {
+      width: 100%;
+      background-color: var(--bg-color);
+      border-top: 1px solid var(--border-color);
+      position: relative;
+      overflow: hidden;
+      margin-top: auto;
+      color: var(--on-surface);
+      font-family: var(--font-family);
+    }
+
+    .film-watermark {
+      position: absolute;
+      right: -20px;
+      bottom: -20px;
+      width: 16rem;
+      height: 16rem;
+      color: var(--primary);
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 0;
+      user-select: none;
+    }
+    @media (min-width: 768px) {
+      .film-watermark {
+        width: 22rem;
+        height: 22rem;
+        right: 0;
+        bottom: 0;
+        transform: translate(5rem, 5rem);
+      }
+    }
+
+    .footer-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 4rem 20px 3rem;
+      position: relative;
+      z-index: 10;
+    }
+    @media (min-width: 768px) {
+      .footer-inner {
+        padding: 5rem 60px 3.5rem;
+      }
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    @media (min-width: 1024px) {
+      .footer-grid {
+        grid-template-columns: repeat(12, 1fr);
+        gap: 2rem;
+      }
+      .col-brand {
+        grid-column: span 4;
+      }
+      .col-links {
+        grid-column: span 2;
+      }
+    }
+
+    @media (min-width: 640px) and (max-width: 1023px) {
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+      .col-brand {
+        grid-column: span 2;
+      }
+    }
+
+    .brand-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      text-decoration: none;
+      color: var(--on-surface);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.04em;
+    }
+
+    .brand-logo svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .brand-description {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: rgba(229, 226, 225, 0.6);
+      max-width: 22rem;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+      font-size: 0.85rem;
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      width: fit-content;
+      transition: color 0.3s ease;
+    }
+
+    .contact-link:hover {
+      color: var(--primary);
+    }
+
+    .column-title {
+      color: #FAFAFA;
+      font-family: 'Satoshi', sans-serif;
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-link-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-link-list a {
+      font-size: 0.9rem;
+      color: rgba(229, 226, 225, 0.55);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .footer-link-list a:hover {
+      color: var(--primary);
+      transform: translateX(3px);
+    }
+
+    .footer-divider {
+      height: 1px;
+      background-color: var(--border-color);
+      width: 100%;
+      margin: 3rem 0 2rem;
+    }
+
+    .footer-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 10;
+    }
+
+    @media (min-width: 768px) {
+      .footer-bottom {
+        flex-direction: row;
+      }
+      .legal-text {
+        text-align: left;
+      }
+    }
+
+    .legal-text {
+      font-size: 0.8rem;
+      color: rgba(229, 226, 225, 0.4);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .bottom-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .copyright-text {
+      font-size: 0.8rem;
+      color: rgba(229, 226, 225, 0.4);
+    }
+
+    .currency-select {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--on-surface-variant);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 0.75rem;
+      padding: 5px 10px;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .currency-select:hover,
+    .currency-select:focus {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .currency-select option {
+      background-color: #11141a;
+      color: var(--on-surface);
+    }
   </style>
 </head>
-<body>
+<body class="font-body-md selection:bg-gold-accent selection:text-black">
 
-<div class="container">
+<!-- Top Navigation Bar -->
+<nav class="bg-surface/90 backdrop-blur-xl fixed top-0 w-full z-50 border-b border-white/10" id="main-nav">
+  <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 w-full max-w-container-max mx-auto">
+    <!-- Brand -->
+    <a href="/" class="flex items-center">
+      <span class="font-headline-sm text-headline-sm font-bold text-primary tracking-tight truncate max-w-[200px] md:max-w-none">
+        Arishu Films
+      </span>
+    </a>
 
-  <!-- ===== FESTIVAL HERO ===== -->
-  <div class="festival-header">
-    <img class="bg-img" src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1400&q=80" alt="festival background" />
-    <div class="grain"></div>
-    <div class="content">
-      <div class="label">Film Festival</div>
-      <h1>Short <span>Spotlight</span></h1>
-      <p class="sub">Celebrating independent filmmakers through screenings, networking, audience engagement, and meaningful cinematic experiences.</p>
+    <!-- Navigation Links (Desktop) -->
+    <div class="hidden md:flex space-x-6 lg:space-x-8">
+      <a href="/" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">Home</a>
+      <a href="/talent" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">Talent</a>
+      <a href="/campaigns" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">Campaigns</a>
+      <a href="/membership" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">Membership</a>
+      <a href="/about" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">About</a>
+      <a href="/creator" class="nav-link transition-all duration-200 font-body-md text-body-md text-on-surface-variant hover:text-primary">Creator Hub</a>
+    </div>
+
+    <!-- Actions & Auth Area (Desktop) -->
+    <div class="hidden md:flex items-center space-x-3">
+      <select class="currency-select" aria-label="Select Currency">
+        <option value="GBP">GBP (£)</option>
+        <option value="USD">USD ($)</option>
+        <option value="EUR">EUR (€)</option>
+      </select>
+
+      <div id="desktop-logged-out">
+        <a href="/login" class="bg-primary text-[#0F1115] hover:bg-surface-tint active:scale-95 transition-transform duration-200 font-button-text text-button-text px-5 py-2.5 rounded inline-block whitespace-nowrap">
+          Login / Sign Up
+        </a>
+      </div>
+
+      <div id="desktop-logged-in" class="hidden items-center space-x-3">
+        <span class="font-body-md text-body-md text-on-surface font-semibold truncate max-w-[120px]" id="desktop-user-name">User</span>
+        <button id="desktop-sign-out" class="text-on-surface-variant hover:text-primary transition-colors font-button-text text-button-text px-3 py-2 cursor-pointer">Sign Out</button>
+        <a href="/dashboard" class="ml-1">
+          <img alt="Profile" class="w-9 h-9 rounded-full border border-outline-variant object-cover cursor-pointer hover:border-primary transition-colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDs9z_GQ51nXwa34oCbRqvwXAI08SpZGrdtvsHjDFFdZT8litisKiDr9IQKG-F23e2kDRFUGzqQyWbNdyUuX7mn1MAgwgH0l1erNX4lRbaDaIzJjjuOb4oVN_SGIyqxTWtYfFuSRWaTcZbCrNf8ksxtiV2AA34znxtB0r0PhqR1_7LWnlVKIKAla1GgOgzTnKl3PVPOu3S2T3waivmDJKU8cl_uMn82TjAidf7c4m-wPbIOw__C9E3w870nzzY-O2K0hx8N8aEacnkh"/>
+        </a>
+      </div>
+    </div>
+
+    <!-- Mobile Hamburger & Quick Controls -->
+    <div class="flex items-center gap-2 md:hidden">
+      <select class="currency-select text-xs py-1 px-1.5" aria-label="Select Currency Compact">
+        <option value="GBP">£</option>
+        <option value="USD">$</option>
+        <option value="EUR">€</option>
+      </select>
+      <button id="mobile-toggle" aria-label="Toggle navigation menu" class="text-on-surface focus:outline-none p-1.5">
+        <span class="material-symbols-outlined text-[28px]" id="mobile-toggle-icon">menu</span>
+      </button>
     </div>
   </div>
 
-  <!-- ===== EVENT GRID ===== -->
-  <div class="event-grid" id="eventGrid">
+  <!-- Mobile Drawer -->
+  <div id="mobile-menu" class="hidden md:hidden bg-surface border-b border-white/10 px-margin-mobile py-6 space-y-4 flex flex-col absolute top-20 left-0 w-full z-40 shadow-2xl max-h-[calc(100vh-5rem)] overflow-y-auto">
+    <a href="/" class="text-body-lg font-body-lg text-on-surface-variant hover:text-primary">Home</a>
+    <a href="/talent" class="text-body-lg font-body-lg text-on-surface-variant hover:text-primary">Talent</a>
+    <a href="/campaigns" class="text-body-lg font-body-lg text-on-surface-variant hover:text-primary">Campaigns</a>
+    <a href="/membership" class="text-body-lg font-body-lg text-on-surface-variant hover:text-primary">Membership</a>
+    <a href="/about" class="text-body-lg font-body-lg text-on-surface-variant hover:text-primary">About</a>
+    <a href="/creator" class="text-body-lg font-body-lg text-on-surface-variant hover:text-primary">Creator Hub</a>
+    
+    <hr class="border-white/10 my-2" />
 
-    <!-- EVENT CARD 1: Second Edition -->
-    <div class="event-card" data-target="detailSecond">
-      <div class="img-wrap">
-        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80" alt="Short Spotlight Second Edition" loading="lazy" />
-        <div class="img-overlay"></div>
-        <div class="float-arrow"><span class="material-symbols-outlined">north_east</span></div>
-        <span class="status-badge">Now Accepting Submissions</span>
-      </div>
-      <div class="body">
-        <div class="title">Short Spotlight <span class="edition">· Second Edition</span></div>
-        <div class="meta">
-          <span><span class="material-symbols-outlined" style="font-size:1rem;">calendar_today</span> Fri 18 Sept</span>
-          <span><span class="material-symbols-outlined" style="font-size:1rem;">schedule</span> 4:00 – 7:00 PM</span>
-          <span><span class="material-symbols-outlined" style="font-size:1rem;">location_on</span> Midlands Arts Centre</span>
-        </div>
-        <p class="desc">Submissions are now open for Short Spotlight – Second Edition. Join us for another celebration of independent voices on the big screen.</p>
-        <div class="btn-row">
-          <a href="https://filmfreeway.com/ArishuFilms" target="_blank" class="btn-gold"><span class="material-symbols-outlined">send</span> FilmFreeway</a>
-          <span class="btn-outline-gold">Learn More</span>
-        </div>
-      </div>
+    <div id="mobile-logged-out">
+      <a href="/login" class="bg-primary text-[#0F1115] hover:bg-surface-tint text-center font-button-text text-button-text py-3 rounded block w-full">
+        Login / Sign Up
+      </a>
     </div>
 
-    <!-- EVENT CARD 2: First Edition -->
-    <div class="event-card" data-target="detailFirst">
-      <div class="img-wrap">
-        <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80" alt="Short Spotlight First Edition" loading="lazy" />
-        <div class="img-overlay"></div>
-        <div class="float-arrow"><span class="material-symbols-outlined">north_east</span></div>
-        <span class="status-badge completed">Registration Closed</span>
-      </div>
-      <div class="body">
-        <div class="title">Short Spotlight <span class="edition">· First Edition</span></div>
-        <div class="meta">
-          <span><span class="material-symbols-outlined" style="font-size:1rem;">calendar_today</span> Tue 11 Feb</span>
-          <span><span class="material-symbols-outlined" style="font-size:1rem;">location_on</span> Birmingham</span>
-        </div>
-        <p class="desc">Arishu Short Film Spotlight is the first edition of the Arishu Film Festival, created to showcase independent short films and engage live audiences through cinema screenings and feedback.</p>
-        <div class="btn-row">
-          <span class="btn-outline-gold">See other events</span>
-          <span class="btn-outline-gold">Watch Coverage</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- ===== DETAIL PANELS ===== -->
-
-  <!-- DETAIL: Second Edition -->
-  <div id="detailSecond" class="detail-panel">
-    <div class="detail-grid">
-      <div>
-        <h3>Short Spotlight · Second Edition</h3>
-        <div class="sub-meta">18 Sept 2026 · 4:00 – 7:00 PM · Midlands Arts Centre, Birmingham</div>
-        
-        <h4 style="font-weight:600; margin-top:0.5rem;">About the Film Festival</h4>
-        <p>Submissions are now open for Short Spotlight – Second Edition.</p>
-        <p>After a successful first edition with great audience turnout and positive feedback, we're back to celebrate more independent voices on the big screen in Birmingham, UK.</p>
-        <p>We're inviting short films in <strong>Drama | Horror | Comedy</strong> with a runtime of <strong>1–20 minutes</strong>.</p>
-        <p>If you're an independent filmmaker with a story to tell, we'd love to see your work.</p>
-        <p style="font-size:0.9rem; color:#d4af37;"><strong>Presented by Arishu Films</strong></p>
-
-        <div style="display:flex; gap:1rem; flex-wrap:wrap; margin:1.2rem 0;">
-          <a href="https://filmfreeway.com/ArishuFilms" target="_blank" class="btn-gold"><span class="material-symbols-outlined">send</span> FilmFreeway</a>
-        
-        </div>
-
-        <button class="close-detail" onclick="closeDetail('detailSecond')"><span class="material-symbols-outlined">close</span> Close details</button>
-      </div>
-      <div>
-        <h4 style="font-weight:600; margin-bottom:0.8rem;">Event Details</h4>
-        <div class="info-grid">
-          <div class="item"><span class="label">Date</span><span class="value">18 September 2026</span></div>
-          <div class="item"><span class="label">Time</span><span class="value">4:00 – 7:00 PM</span></div>
-          <div class="item"><span class="label">Venue</span><span class="value">Midlands Arts Centre</span></div>
-          <div class="item"><span class="label">Address</span><span class="value">Cannon Hill Park, Birmingham B12 9QH, UK</span></div>
-          <div class="item"><span class="label">Categories</span><span class="value">Drama · Horror · Comedy</span></div>
-          <div class="item"><span class="label">Runtime</span><span class="value">1 – 20 minutes</span></div>
-        </div>
-        <p style="font-size:0.85rem; color:rgba(245,240,235,0.4); margin-top:0.5rem;">Presented by Arishu Films</p>
-      </div>
+    <div id="mobile-logged-in" class="hidden flex-col space-y-3">
+      <span class="font-body-lg text-body-lg text-on-surface font-semibold px-2" id="mobile-user-name">User</span>
+      <button id="mobile-sign-out" class="text-left text-on-surface-variant hover:text-primary text-body-lg font-body-lg px-2 cursor-pointer">Sign Out</button>
     </div>
   </div>
+</nav>
 
-  <!-- DETAIL: First Edition -->
-  <div id="detailFirst" class="detail-panel">
-    <div class="detail-grid">
-      <div>
-        <h3>Short Spotlight · First Edition</h3>
-        <div class="sub-meta">11 Feb 2025 · 4:00 PM · Birmingham</div>
-        
-        <div style="margin-bottom: 1rem;">
-          <span class="status-closed">Registration Closed</span>
-        </div>
+<!-- Main Container -->
+<main class="flex-grow pt-32 pb-20 w-full">
+  <div class="container">
 
-        <h4 style="font-weight:600; margin-top:0.5rem;">About the Film Festival</h4>
-        <p><strong>Terms and Conditions — Short Spotlight by Arishu Film Festival</strong></p>
-        
-        <p><strong>Eligibility:</strong><br />
-        Submissions are open to independent filmmakers of all backgrounds. Films must be original works between 1 and 30 minutes in length.</p>
-        
-        <p><strong>Submission Requirements:</strong><br />
-        All films must include English subtitles if the dialogue is in any other language. Films must be provided in a cinema screen ratio suitable for theatrical projection. Failure to meet these technical requirements may result in disqualification.</p>
-        
-        <p><strong>Rights and Permissions:</strong><br />
-        By submitting, you confirm that you hold all necessary rights for public exhibition and agree to Arishu Films' festival terms.</p>
-        
-        <p style="font-size:0.9rem; color:#d4af37; margin-top:0.5rem;"><strong>Presented by Arishu Films</strong></p>
-
-        <div style="display:flex; gap:1rem; flex-wrap:wrap; margin:1.2rem 0;">
-
-        <button class="close-detail" onclick="closeDetail('detailFirst')"><span class="material-symbols-outlined">close</span> Close details</button>
+    <!-- ===== FESTIVAL HERO ===== -->
+    <div class="festival-header">
+      <img class="bg-img" src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1400&q=80" alt="festival background" />
+      <div class="grain"></div>
+      <div class="content">
+        <div class="label">Film Festival</div>
+        <h1>Short <span>Spotlight</span></h1>
+        <p class="sub">Celebrating independent filmmakers through screenings, networking, audience engagement, and meaningful cinematic experiences.</p>
       </div>
-      <div>
-        <h4 style="font-weight:600; margin-bottom:0.8rem;">Event Details</h4>
-        <div class="info-grid">
-          <div class="item"><span class="label">Date</span><span class="value">11 February 2025</span></div>
-          <div class="item"><span class="label">Time</span><span class="value">4:00 PM</span></div>
-          <div class="item"><span class="label">Venue</span><span class="value">Birmingham</span></div>
-          <div class="item"><span class="label">Address</span><span class="value">Cannon Hill Park, Birmingham B12 9QH, UK</span></div>
-          <div class="item"><span class="label">Status</span><span class="value" style="color:#ff6b6b;">Registration Closed</span></div>
-          <div class="item"><span class="label">Runtime</span><span class="value">1 – 30 minutes</span></div>
+    </div>
+
+    <!-- ===== EVENT GRID ===== -->
+    <div class="event-grid" id="eventGrid">
+
+      <!-- EVENT CARD 1: Second Edition -->
+      <div class="event-card" data-target="detailSecond">
+        <div class="img-wrap">
+          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80" alt="Short Spotlight Second Edition" loading="lazy" />
+          <div class="img-overlay"></div>
+          <div class="float-arrow"><span class="material-symbols-outlined">north_east</span></div>
+          <span class="status-badge">Now Accepting Submissions</span>
         </div>
-        <p style="font-size:0.85rem; color:rgba(245,240,235,0.4); margin-top:0.5rem;">Presented by Arishu Films</p>
+        <div class="body">
+          <div class="title">Short Spotlight <span class="edition">· Second Edition</span></div>
+          <div class="meta">
+            <span><span class="material-symbols-outlined" style="font-size:1rem;">calendar_today</span> Fri 18 Sept</span>
+            <span><span class="material-symbols-outlined" style="font-size:1rem;">schedule</span> 4:00 – 7:00 PM</span>
+            <span><span class="material-symbols-outlined" style="font-size:1rem;">location_on</span> Midlands Arts Centre</span>
+          </div>
+          <p class="desc">Submissions are now open for Short Spotlight – Second Edition. Join us for another celebration of independent voices on the big screen.</p>
+          <div class="btn-row">
+            <a href="https://filmfreeway.com/ArishuFilms" target="_blank" class="btn-gold"><span class="material-symbols-outlined">send</span> FilmFreeway</a>
+            <span class="btn-outline-gold">Learn More</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- EVENT CARD 2: First Edition -->
+      <div class="event-card" data-target="detailFirst">
+        <div class="img-wrap">
+          <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80" alt="Short Spotlight First Edition" loading="lazy" />
+          <div class="img-overlay"></div>
+          <div class="float-arrow"><span class="material-symbols-outlined">north_east</span></div>
+          <span class="status-badge completed">Registration Closed</span>
+        </div>
+        <div class="body">
+          <div class="title">Short Spotlight <span class="edition">· First Edition</span></div>
+          <div class="meta">
+            <span><span class="material-symbols-outlined" style="font-size:1rem;">calendar_today</span> Tue 11 Feb</span>
+            <span><span class="material-symbols-outlined" style="font-size:1rem;">location_on</span> Birmingham</span>
+          </div>
+          <p class="desc">Arishu Short Film Spotlight is the first edition of the Arishu Film Festival, created to showcase independent short films and engage live audiences through cinema screenings and feedback.</p>
+          <div class="btn-row">
+            <span class="btn-outline-gold">See other events</span>
+            <span class="btn-outline-gold">Watch Coverage</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ===== DETAIL PANELS ===== -->
+
+    <!-- DETAIL: Second Edition -->
+    <div id="detailSecond" class="detail-panel">
+      <div class="detail-grid">
+        <div>
+          <h3>Short Spotlight · Second Edition</h3>
+          <div class="sub-meta">18 Sept 2026 · 4:00 – 7:00 PM · Midlands Arts Centre, Birmingham</div>
+          
+          <h4 style="font-weight:600; margin-top:0.5rem;">About the Film Festival</h4>
+          <p>Submissions are now open for Short Spotlight – Second Edition.</p>
+          <p>After a successful first edition with great audience turnout and positive feedback, we're back to celebrate more independent voices on the big screen in Birmingham, UK.</p>
+          <p>We're inviting short films in <strong>Drama | Horror | Comedy</strong> with a runtime of <strong>1–20 minutes</strong>.</p>
+          <p>If you're an independent filmmaker with a story to tell, we'd love to see your work.</p>
+          <p style="font-size:0.9rem; color:#d4af37;"><strong>Presented by Arishu Films</strong></p>
+
+          <div style="display:flex; gap:1rem; flex-wrap:wrap; margin:1.2rem 0;">
+            <a href="https://filmfreeway.com/ArishuFilms" target="_blank" class="btn-gold"><span class="material-symbols-outlined">send</span> FilmFreeway</a>
+          </div>
+
+          <button class="close-detail" onclick="closeDetail('detailSecond')"><span class="material-symbols-outlined">close</span> Close details</button>
+        </div>
+        <div>
+          <h4 style="font-weight:600; margin-bottom:0.8rem;">Event Details</h4>
+          <div class="info-grid">
+            <div class="item"><span class="label">Date</span><span class="value">18 September 2026</span></div>
+            <div class="item"><span class="label">Time</span><span class="value">4:00 – 7:00 PM</span></div>
+            <div class="item"><span class="label">Venue</span><span class="value">Midlands Arts Centre</span></div>
+            <div class="item"><span class="label">Address</span><span class="value">Cannon Hill Park, Birmingham B12 9QH, UK</span></div>
+            <div class="item"><span class="label">Categories</span><span class="value">Drama · Horror · Comedy</span></div>
+            <div class="item"><span class="label">Runtime</span><span class="value">1 – 20 minutes</span></div>
+          </div>
+          <p style="font-size:0.85rem; color:rgba(245,240,235,0.4); margin-top:0.5rem;">Presented by Arishu Films</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- DETAIL: First Edition -->
+    <div id="detailFirst" class="detail-panel">
+      <div class="detail-grid">
+        <div>
+          <h3>Short Spotlight · First Edition</h3>
+          <div class="sub-meta">11 Feb 2025 · 4:00 PM · Birmingham</div>
+          
+          <div style="margin-bottom: 1rem;">
+            <span class="status-closed">Registration Closed</span>
+          </div>
+
+          <h4 style="font-weight:600; margin-top:0.5rem;">About the Film Festival</h4>
+          <p><strong>Terms and Conditions — Short Spotlight by Arishu Film Festival</strong></p>
+          
+          <p><strong>Eligibility:</strong><br />
+          Submissions are open to independent filmmakers of all backgrounds. Films must be original works between 1 and 30 minutes in length.</p>
+          
+          <p><strong>Submission Requirements:</strong><br />
+          All films must include English subtitles if the dialogue is in any other language. Films must be provided in a cinema screen ratio suitable for theatrical projection. Failure to meet these technical requirements may result in disqualification.</p>
+          
+          <p><strong>Rights and Permissions:</strong><br />
+          By submitting, you confirm that you hold all necessary rights for public exhibition and agree to Arishu Films' festival terms.</p>
+          
+          <p style="font-size:0.9rem; color:#d4af37; margin-top:0.5rem;"><strong>Presented by Arishu Films</strong></p>
+
+          <div style="display:flex; gap:1rem; flex-wrap:wrap; margin:1.2rem 0;"></div>
+
+          <button class="close-detail" onclick="closeDetail('detailFirst')"><span class="material-symbols-outlined">close</span> Close details</button>
+        </div>
+        <div>
+          <h4 style="font-weight:600; margin-bottom:0.8rem;">Event Details</h4>
+          <div class="info-grid">
+            <div class="item"><span class="label">Date</span><span class="value">11 February 2025</span></div>
+            <div class="item"><span class="label">Time</span><span class="value">4:00 PM</span></div>
+            <div class="item"><span class="label">Venue</span><span class="value">Birmingham</span></div>
+            <div class="item"><span class="label">Address</span><span class="value">Cannon Hill Park, Birmingham B12 9QH, UK</span></div>
+            <div class="item"><span class="label">Status</span><span class="value" style="color:#ff6b6b;">Registration Closed</span></div>
+            <div class="item"><span class="label">Runtime</span><span class="value">1 – 30 minutes</span></div>
+          </div>
+          <p style="font-size:0.85rem; color:rgba(245,240,235,0.4); margin-top:0.5rem;">Presented by Arishu Films</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- back link -->
+    <a href="#" class="back-link" onclick="closeAllDetails(); return false;">
+      <span class="material-symbols-outlined">arrow_back</span> Back to Festival
+    </a>
+
+  </div>
+</main>
+
+<!-- Footer Component -->
+<footer class="site-footer">
+  <svg viewBox="0 0 200 200" class="film-watermark" aria-hidden="true">
+    <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width="6" fill="none" />
+    <circle cx="100" cy="100" r="30" stroke="currentColor" stroke-width="4" fill="none" />
+    <line x1="100" y1="20" x2="100" y2="180" stroke="currentColor" stroke-width="4" />
+    <line x1="20" y1="100" x2="180" y2="100" stroke="currentColor" stroke-width="4" />
+  </svg>
+
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div class="col-brand brand-group">
+        <a href="/" class="brand-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="6" width="20" height="14" rx="2" />
+            <path d="M2 10h20" />
+            <path d="m6 6 4 4" />
+            <path d="m12 6 4 4" />
+            <path d="m18 6 4 4" />
+          </svg>
+          <span class="site-name">ARISHU<span class="text-gold-accent">.</span>FILMS</span>
+        </a>
+        <p class="brand-description">Empowering creators. Backing stories. Building the future of independent cinema.</p>
+        <a href="mailto:contact@arishufilms.com" class="contact-link" id="email-link">
+          <span class="material-symbols-outlined" style="font-size: 16px;" aria-hidden="true">mail</span>
+          <span id="email-label">contact@arishufilms.com</span>
+        </a>
+      </div>
+
+      <!-- Platform -->
+      <div class="col-links">
+        <h5 class="column-title">Platform</h5>
+        <ul class="footer-link-list">
+          <li><a href="/talent">Talent Discovery</a></li>
+          <li><a href="/campaigns">Campaigns</a></li>
+          <li><a href="/membership">Membership</a></li>
+          <li><a href="/how-it-works">How It Works</a></li>
+        </ul>
+      </div>
+
+      <!-- Company -->
+      <div class="col-links">
+        <h5 class="column-title">Company</h5>
+        <ul class="footer-link-list">
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/creator">Creator Hub</a></li>
+          <li><a href="/help">Help Centre</a></li>
+        </ul>
+      </div>
+
+      <!-- Support -->
+      <div class="col-links">
+        <h5 class="column-title">Support</h5>
+        <ul class="footer-link-list">
+          <li><a href="/help">Help Centre</a></li>
+          <li><a href="mailto:contact@arishufilms.com" class="email-href">Contact Us</a></li>
+          <li><a href="/help">Report a Problem</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div class="col-links">
+        <h5 class="column-title">Legal</h5>
+        <ul class="footer-link-list">
+          <li><a href="/terms">Terms &amp; Conditions</a></li>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms#refunds-and-cancellations">Refund Policy</a></li>
+          <li><a href="/terms#complaints-and-disputes">Complaints</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-bottom">
+      <p class="legal-text" id="legal-meta">
+        Arishu Films Ltd &middot; Registered in the United Kingdom &middot; Company No. 12345678
+      </p>
+      <div class="bottom-controls">
+        <select class="currency-select" aria-label="Select Currency">
+          <option value="GBP">GBP (£)</option>
+          <option value="USD">USD ($)</option>
+          <option value="EUR">EUR (€)</option>
+        </select>
+        <p class="copyright-text">
+          &copy; <span id="current-year"></span> <span class="site-name">ARISHU.FILMS</span>. All rights reserved.
+        </p>
       </div>
     </div>
   </div>
-
-  <!-- back link -->
-  <a href="#" class="back-link" onclick="closeAllDetails(); return false;">
-    <span class="material-symbols-outlined">arrow_back</span> Back to Festival
-  </a>
-
-</div>
+</footer>
 
 <script>
   // Open detail on card click
@@ -582,23 +1003,35 @@
     document.querySelectorAll('.detail-panel').forEach(p => p.classList.remove('open'));
   }
 
-  // Share function
-  function shareEvent(title, details) {
-    if (navigator.share) {
-      navigator.share({
-        title: title,
-        text: `Check out ${title}: ${details}`,
-        url: window.location.href
-      }).catch(() => {});
-    } else {
-      // Fallback: copy to clipboard
-      const text = `${title}\n${details}\n${window.location.href}`;
-      navigator.clipboard.writeText(text).then(() => {
-        alert('Event details copied to clipboard! Share it with your friends.');
-      }).catch(() => {
-        prompt('Copy this link to share:', window.location.href);
+  // Dynamic Year Update
+  document.getElementById("current-year").textContent = new Date().getFullYear();
+
+  // Mobile Menu Toggle Logic
+  const mobileToggle = document.getElementById('mobile-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileToggleIcon = document.getElementById('mobile-toggle-icon');
+
+  if (mobileToggle && mobileMenu) {
+    mobileToggle.addEventListener('click', () => {
+      const isHidden = mobileMenu.classList.contains('hidden');
+      if (isHidden) {
+        mobileMenu.classList.remove('hidden');
+        mobileToggleIcon.textContent = 'close';
+        document.body.style.overflow = 'hidden';
+      } else {
+        mobileMenu.classList.add('hidden');
+        mobileToggleIcon.textContent = 'menu';
+        document.body.style.overflow = '';
+      }
+    });
+
+    mobileMenu.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileToggleIcon.textContent = 'menu';
+        document.body.style.overflow = '';
       });
-    }
+    });
   }
 </script>
 
