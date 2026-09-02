@@ -1,1749 +1,301 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-    <title>SDS · Where Visionary Brands Begin</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
-    <!-- FontAwesome for Footer Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"DM Sans"', 'sans-serif'],
-                        serif: ['"Playfair Display"', 'serif'],
-                        inter: ['"Inter"', 'sans-serif'],
-                    },
-                    colors: {
-                        sds: {
-                            deep: '#0C1334',
-                            mid: '#27397f',
-                            accent: '#5ea7db',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Lucide Icons for Navigation Toggle -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <!-- ========================================================= NAVIGATION STYLES ========================================================= -->
-    <style>
-        .smooth-transition { transition: all 500ms cubic-bezier(0.25, 1, 0.5, 1); }
-        .active-dot { transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1); }
-        .active-dot.active { opacity: 1; transform: scale(1) translateX(-50%); box-shadow: 0 0 8px rgba(255, 255, 255, 0.6); }
-        .active-dot.inactive { opacity: 0; transform: scale(0) translateX(-50%); }
-        #menu-icon-wrapper.expanded { transform: rotate(90deg) scale(0); opacity: 0; }
-        #menu-icon-wrapper.collapsed { transform: rotate(0) scale(1); opacity: 1; }
-        #close-icon-wrapper.expanded { transform: rotate(0) scale(1); opacity: 1; }
-        #close-icon-wrapper.collapsed { transform: rotate(-90deg) scale(0); opacity: 0; }
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-        #logo-container-wrap { transition: width 450ms cubic-bezier(0.22, 1, 0.36, 1), background-color 400ms ease, border 400ms ease, border-radius 400ms ease, padding 400ms ease; }
-        
-        /* Unified Brand Button 3-Color Gradient Style */
-        .brand-btn, .btn-submit, .glow-btn, .services-carousel-root .services-hero .know-more {
-            background: linear-gradient(135deg, #0C1334 0%, #27397f 50%, #5ea7db 100%) !important;
-            color: #ffffff !important;
-            transition: all 0.3s ease;
-        }
-        .brand-btn:hover, .btn-submit:hover, .glow-btn:hover, .services-carousel-root .services-hero .know-more:hover {
-            background: linear-gradient(135deg, #5ea7db 0%, #27397f 50%, #0C1334 100%) !important;
-            color: #ffffff !important;
-        }
-    </style>
-
-    <!-- ========================================================= PAGE STYLES ========================================================= -->
-    <style>
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html {
-            overflow-x: hidden;
-            width: 100%;
-            -webkit-text-size-adjust: 100%;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #000;
-            color: #fff;
-            overflow-x: hidden;
-            width: 100%;
-            position: relative;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            padding-top: 0;
-        }
-
-        /* Slide-up reveal base state */
-        .reveal-slide-up {
-            opacity: 0;
-            will-change: transform, opacity;
-        }
-
-        @media (hover: hover) and (pointer: fine) {
-            .micro-hover {
-                transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, background-color 0.35s ease, border-color 0.35s ease;
-            }
-            .micro-hover:hover {
-                transform: translateY(-3px) scale(1.02);
-                background-color: rgba(94, 167, 219, 0.05);
-                border-color: rgba(94, 167, 219, 0.3);
-                box-shadow: 0 10px 25px -5px rgba(12, 19, 52, 0.2);
-            }
-        }
-
-        .glow-btn {
-            position: relative;
-            overflow: hidden;
-        }
-        .glow-btn::after {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.7s ease;
-        }
-        .glow-btn:hover::after {
-            transform: translateX(100%);
-        }
-
-        .video-container {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #000;
-            overflow: hidden;
-            position: relative;
-            min-height: 50vh;
-            height: 100vh;
-            height: 100dvh;
-        }
-        .video-container video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            min-width: 100%;
-            min-height: 100%;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            background: #000;
-        }
-
-        #horizontal-section {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            background: linear-gradient(135deg, #0C1334 0%, #27397f 100%);
-            height: 100vh;
-            height: 100dvh;
-        }
-        .horizontal-track {
-            display: flex;
-            flex-wrap: nowrap;
-            will-change: transform;
-            height: 100%;
-            align-items: center;
-            width: max-content;
-        }
-        
-        .logo-grid-wrapper {
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-        }
-        @media (max-width: 767px) {
-            .logo-grid-wrapper {
-                width: max-content;
-                min-width: 100vw;
-                padding: 1.5rem 1.25rem;
-            }
-        }
-        @media (min-width: 768px) {
-            .logo-grid-wrapper {
-                width: 100vw;
-                padding: 2rem 1.5rem;
-            }
-        }
-
-        .logo-grid {
-            display: grid;
-            gap: 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            border-left: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        @media (max-width: 767px) {
-            .logo-grid {
-                grid-template-rows: repeat(4, 76px);
-                grid-auto-flow: column;
-                grid-auto-columns: clamp(120px, 32vw, 150px);
-                width: max-content;
-            }
-        }
-        @media (min-width: 768px) and (max-width: 1023px) {
-            .logo-grid {
-                grid-template-columns: repeat(6, 1fr);
-                width: 100%;
-                max-width: 960px;
-            }
-        }
-        @media (min-width: 1024px) {
-            .logo-grid {
-                grid-template-columns: repeat(6, 1fr);
-                width: 100%;
-                max-width: 1400px;
-            }
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem;
-            border-right: 1px solid rgba(255, 255, 255, 0.08);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(255, 255, 255, 0.01);
-            transition: background-color 0.3s ease;
-        }
-        @media (max-width: 767px) {
-            .logo-container { height: 76px; }
-        }
-        @media (min-width: 768px) and (max-width: 1023px) {
-            .logo-container { height: 100px; padding: 1rem 0.75rem; }
-        }
-        @media (min-width: 1024px) {
-            .logo-container { height: 140px; padding: 1.5rem 1rem; }
-        }
-        .logo-container:hover {
-            background: rgba(94, 167, 219, 0.05);
-        }
-        .logo-img {
-            max-width: 82%;
-            max-height: 48px;
-            object-fit: contain;
-            transition: transform 0.3s ease;
-        }
-        @media (min-width: 1024px) {
-            .logo-img { max-height: 70px; }
-        }
-        .logo-container:hover .logo-img {
-            transform: scale(1.08);
-        }
-
-        .cards-wrapper {
-            flex-shrink: 0;
-            display: flex;
-            gap: clamp(16px, 3vw, 28px);
-            padding: 1.5rem clamp(1rem, 3vw, 2.5rem);
-            align-items: center;
-            height: 100%;
-            width: max-content;
-        }
-        
-        .project-card-wrapper {
-            flex-shrink: 0;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            will-change: transform, opacity;
-        }
-
-        .project-card {
-            border-radius: 28px;
-            overflow: hidden;
-            width: min(84vw, 360px);
-            height: min(68vh, 480px);
-            min-height: 360px;
-            position: relative;
-            background: #0C1334;
-            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6);
-            will-change: transform, box-shadow;
-            z-index: 1;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        @media (min-width: 640px) {
-            .project-card {
-                width: 440px;
-                height: min(72vh, 520px);
-                min-height: 420px;
-                border-radius: 32px;
-            }
-        }
-        @media (min-width: 1024px) {
-            .project-card {
-                width: 520px;
-                height: 100%;
-                min-height: 460px;
-            }
-        }
-
-        .project-image {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transform: scale(1.3) translate(0px, 0px);
-            will-change: transform;
-            z-index: 1;
-            border-radius: inherit;
-            transition: none;
-        }
-        .project-card .card-content-bottom {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 1.25rem 1.25rem 1.5rem 1.25rem;
-            z-index: 3;
-            background: linear-gradient(to top, rgba(12, 19, 52, 0.95) 0%, rgba(12, 19, 52, 0.6) 65%, transparent 100%);
-        }
-        @media (min-width: 768px) {
-            .project-card .card-content-bottom {
-                padding: 1.5rem 1.5rem 2rem 1.5rem;
-            }
-        }
-        
-        .project-card .card-content-bottom h2 {
-            font-size: clamp(1.2rem, 3vw, 1.5rem);
-            font-weight: 500;
-            letter-spacing: -0.02em;
-            color: #fff;
-            margin-bottom: 0.25rem;
-        }
-        .project-card .card-content-bottom p {
-            color: rgba(255, 255, 255, 0.95);
-            font-size: clamp(0.78rem, 2vw, 0.875rem);
-            line-height: 1.45;
-            max-width: 95%;
-            margin-bottom: 0.5rem;
-        }
-        .project-card .card-content-bottom .tags {
-            color: #8ac0e5;
-            font-size: 0.65rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .blog-section {
-            background: #f7f7f7;
-            padding: clamp(2.5rem, 5vh, 4rem) 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            width: 100%;
-        }
-        .blog-container {
-            max-width: 1560px;
-            width: calc(100% - clamp(24px, 5vw, 120px));
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .blog-header {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: flex-end;
-            width: 100%;
-            margin-bottom: clamp(2rem, 4vw, 5rem);
-            gap: 1.5rem;
-        }
-        .blog-header-left {
-            flex: 0 0 100%;
-            max-width: 100%;
-        }
-        @media (min-width: 1024px) {
-            .blog-header-left { flex: 0 0 55%; max-width: 55%; }
-        }
-        .blog-header-left h1 {
-            font-size: clamp(2.2rem, 5.5vw, 4.8rem);
-            font-weight: 400;
-            color: #8a8a8a;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-        }
-        .blog-header-left h1 .italic {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            color: #0C1334;
-            font-weight: 500;
-        }
-        .blog-header-right {
-            flex: 0 0 100%;
-            max-width: 100%;
-            text-align: left;
-        }
-        @media (min-width: 1024px) {
-            .blog-header-right { flex: 0 0 35%; max-width: 35%; text-align: right; }
-        }
-        .blog-header-right p {
-            font-size: clamp(0.85rem, 1vw, 1.05rem);
-            color: #444;
-            line-height: 1.6;
-            font-weight: 400;
-        }
-        .blog-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-            width: 100%;
-        }
-        @media (min-width: 640px) {
-            .blog-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-        }
-        @media (min-width: 1024px) {
-            .blog-grid { grid-template-columns: repeat(4, 1fr); gap: 1.75rem; }
-        }
-
-        .blog-card-link {
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-            height: 100%;
-            width: 100%;
-        }
-        .blog-card {
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            border-radius: 20px;
-            background: #e5e5e5;
-            transition: box-shadow 0.35s ease, transform 0.35s ease, background-color 0.35s ease, border-color 0.35s ease;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid rgba(12, 19, 52, 0.08);
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transform: translateY(60px);
-        }
-        @media (min-width: 640px) {
-            .blog-card { aspect-ratio: 16 / 14; }
-        }
-        @media (hover: hover) and (pointer: fine) {
-            .blog-card:hover {
-                transform: translateY(-6px) !important;
-                background-color: rgba(94, 167, 219, 0.05);
-                border-color: rgba(94, 167, 219, 0.3);
-                box-shadow: 0 15px 35px rgba(12, 19, 52, 0.1);
-            }
-        }
-        .blog-card .card-image-wrap {
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-            flex: 0 0 55%;
-            min-height: 170px;
-            border-radius: 20px 20px 0 0;
-        }
-        @media (min-width: 640px) {
-            .blog-card .card-image-wrap { flex: 0 0 60%; }
-        }
-        @media (min-width: 1024px) {
-            .blog-card .card-image-wrap { flex: 0 0 65%; min-height: auto; }
-        }
-        .blog-card .card-image-wrap img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        .blog-card:hover .card-image-wrap img { transform: scale(1.06); }
-        .blog-card .card-content {
-            flex: 1;
-            padding: 1rem 1.25rem 1.25rem 1.25rem;
-            background: transparent;
-            color: #0C1334;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            border-radius: 0 0 20px 20px;
-        }
-        .blog-card .card-content .tag {
-            font-size: 0.65rem;
-            font-weight: 600;
-            color: #0C1334;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-            margin-bottom: 0.2rem;
-        }
-        .blog-card .card-content h2 {
-            font-size: clamp(0.95rem, 1.1vw, 1.2rem);
-            font-weight: 500;
-            line-height: 1.3;
-            color: #0C1334;
-            margin-top: 0.1rem;
-        }
-        .blog-card .card-content .meta {
-            font-size: 0.6rem;
-            color: #777;
-            margin-top: 0.25rem;
-        }
-
-        .remarkable-section {
-            background: #ffffff;
-            position: relative;
-            z-index: 1;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: clamp(2.5rem, 5vh, 4rem) 0;
-            width: 100%;
-        }
-        .remarkable-section .container { position: relative; z-index: 2; width: 100%; }
-        .remarkable-section .form-input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid rgba(12, 19, 52, 0.2);
-            padding: 0.6rem 0;
-            font-size: 16px; /* Prevents auto-zoom on iOS */
-            color: #0C1334;
-            border-radius: 0;
-            transition: border-color 0.3s ease;
-        }
-        @media (min-width: 768px) {
-            .remarkable-section .form-input { font-size: 0.875rem; }
-        }
-        .remarkable-section .form-input:focus { outline: none; border-bottom-color: #0C1334; }
-        .remarkable-section .form-input::placeholder { color: rgba(12, 19, 52, 0.5); font-weight: 300; }
-        .remarkable-section .service-tag {
-            padding: 0.45rem 1rem;
-            border-radius: 40px;
-            border: 1px solid rgba(12, 19, 52, 0.15);
-            background: rgba(12, 19, 52, 0.04);
-            color: #0C1334;
-            font-size: clamp(0.68rem, 1.8vw, 0.75rem);
-            font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            cursor: pointer;
-            user-select: none;
-            white-space: nowrap;
-        }
-        .remarkable-section .service-tag:hover {
-            transform: translateY(-2px);
-            background: rgba(94, 167, 219, 0.1);
-            border-color: rgba(94, 167, 219, 0.4);
-        }
-        .remarkable-section .service-tag.selected {
-            background: linear-gradient(135deg, #0C1334 0%, #27397f 50%, #5ea7db 100%) !important;
-            color: #fff !important;
-            border-color: transparent !important;
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(12, 19, 52, 0.3);
-        }
-
-        .remarkable-section .btn-submit {
-            position: relative;
-            overflow: hidden;
-            border: none;
-            padding: 0.85rem 2rem;
-            border-radius: 40px;
-            font-weight: 500;
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            z-index: 1;
-            box-shadow: 0 4px 15px rgba(12, 19, 52, 0.2);
-            width: 100%;
-        }
-        @media (min-width: 640px) {
-            .remarkable-section .btn-submit { width: auto; }
-        }
-        .remarkable-section .btn-submit i { font-size: 1.2rem; }
-        .remarkable-section .heading-black { color: #0C1334; }
-        .remarkable-section .heading-blue { color: #5ea7db; }
-
-        /* ========================================================= SERVICES CARD DECK ANIMATION CSS ========================================================= */
-        .services-carousel-root {
-            background: #f5f5f5;
-            padding-bottom: 2.5rem;
-            padding-top: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-            width: 100%;
-        }
-        .services-carousel-root .services-hero {
-            padding: 1.5rem clamp(1rem, 4vw, 2.5rem) 0.5rem clamp(1rem, 4vw, 2.5rem);
-            max-width: 1280px;
-            margin: 0 auto;
-            width: 100%;
-        }
-        .services-carousel-root .services-hero .line1 {
-            font-size: clamp(1.6rem, 4.5vw, 3.5rem);
-            font-weight: 700;
-            color: #0C1334;
-            letter-spacing: -0.02em;
-            font-family: 'Inter', sans-serif;
-            line-height: 1.1;
-        }
-        .services-carousel-root .services-hero .line2 {
-            font-size: clamp(2rem, 5.5vw, 4.5rem);
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            margin-top: -0.1rem;
-            font-weight: 500;
-            line-height: 1.1;
-        }
-        .services-carousel-root .services-hero .know-more {
-            display: inline-block;
-            margin-top: clamp(0.75rem, 1.5vh, 1.25rem);
-            padding: 0.45rem 1.6rem;
-            border-radius: 40px;
-            font-size: clamp(0.7rem, 0.9vw, 0.85rem);
-            font-weight: 500;
-            align-self: flex-start;
-            text-decoration: none;
-            font-family: 'Inter', sans-serif;
-            box-shadow: 0 4px 15px rgba(12, 19, 52, 0.2);
-        }
-        .services-carousel-root .services-hero .divider-line {
-            width: 100%;
-            height: 1px;
-            background: #d0d0d0;
-            margin-top: clamp(0.75rem, 1.5vh, 1.25rem);
-        }
-
-        .services-carousel-root .carousel-wrapper {
-            position: relative;
-            padding: 0 1rem;
-            margin-top: 1.5rem;
-            max-width: 1280px;
-            margin-left: auto;
-            margin-right: auto;
-            width: 100%;
-            height: min(68vh, 680px);
-            min-height: 480px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            perspective: 1500px;
-            touch-action: pan-y;
-        }
-        @media (min-width: 768px) {
-            .services-carousel-root .carousel-wrapper {
-                height: 75vh;
-                min-height: 600px;
-            }
-        }
-
-        .services-carousel-root .carousel-track {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-        }
-
-        .services-carousel-root .service-card {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: min(86vw, 320px);
-            height: min(58vh, 480px);
-            min-height: 400px;
-            border-radius: 28px;
-            overflow: hidden;
-            background: #0C1334;
-            border: 1px solid rgba(94, 167, 219, 0.15);
-            transform-origin: center center;
-            will-change: transform, opacity, filter, box-shadow;
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
-        }
-        @media (min-width: 480px) {
-            .services-carousel-root .service-card {
-                width: 340px;
-                height: 520px;
-                min-height: 440px;
-                border-radius: 32px;
-            }
-        }
-        @media (min-width: 768px) {
-            .services-carousel-root .service-card {
-                width: 420px;
-                height: 560px;
-            }
-        }
-
-        .services-carousel-root .service-card img {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            pointer-events: none;
-            will-change: transform;
-        }
-        
-        .services-carousel-root .card-overlay {
-            background: linear-gradient(to top, rgba(12, 19, 52, 0.95) 0%, rgba(12, 19, 52, 0.45) 50%, rgba(0, 0, 0, 0) 100%);
-            position: absolute;
-            inset: 0;
-            z-index: 2;
-        }
-        .services-carousel-root .card-content {
-            position: absolute;
-            bottom: clamp(1.25rem, 3vh, 2rem);
-            left: clamp(1.25rem, 3vw, 2rem);
-            right: clamp(1.25rem, 3vw, 2rem);
-            z-index: 10;
-            color: #5ea7db;
-            will-change: transform, opacity;
-        }
-
-        .services-carousel-root .card-content .title {
-            font-size: clamp(1.35rem, 3.8vw, 1.8rem);
-            font-weight: 600;
-            line-height: 1.2;
-            margin-bottom: 0.35rem;
-            font-family: 'Inter', sans-serif;
-            letter-spacing: -0.01em;
-            color: #fff;
-        }
-        .services-carousel-root .card-content .details {
-            font-size: clamp(0.7rem, 2.2vw, 0.75rem);
-            color: #e5e7eb;
-            line-height: 1.5;
-            max-height: 4.8rem;
-            overflow-y: auto;
-            padding-right: 0.25rem;
-            scrollbar-width: thin;
-            font-family: 'Inter', sans-serif;
-        }
-        .services-carousel-root .card-content .details::-webkit-scrollbar { width: 3px; background: transparent; }
-        .services-carousel-root .card-content .details::-webkit-scrollbar-thumb { background: rgba(94, 167, 219, 0.5); border-radius: 10px; }
-        
-        .carousel-dots {
-            display: flex;
-            justify-content: center;
-            gap: 0.6rem;
-            margin-top: 1rem;
-            padding-bottom: 0.5rem;
-            position: relative;
-            z-index: 20;
-        }
-        .carousel-dots .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #ccc;
-            border: none;
-            padding: 0;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.3s;
-            flex-shrink: 0;
-        }
-        .carousel-dots .dot.active { background: #0C1334; transform: scale(1.3); }
-        .carousel-dots .dot:hover { background: #5ea7db; }
-        @media (max-width: 640px) {
-            .carousel-dots .dot { width: 7px; height: 7px; }
-        }
-
-        .hero-line {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: baseline;
-            gap: 0.2em 0.35em;
-            width: 100%;
-            text-align: center;
-        }
-        .hero-sans {
-            font-family: 'Inter', sans-serif;
-            font-weight: 400;
-            letter-spacing: -0.03em;
-            font-size: clamp(1.2rem, 3.5vw, 4.2rem);
-        }
-        .hero-serif {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            font-size: clamp(1.3rem, 3.8vw, 4.6rem);
-        }
-
-        /* ========================================================= FOOTER (0C1334 -> 27397F GRADIENT) ========================================================= */
-        .footer-gradient {
-            background: linear-gradient(135deg, #0C1334 0%, #27397f 100%);
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-        }
-        footer .hero-line .hero-sans,
-        footer .hero-line .hero-serif {
-            letter-spacing: 0;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- ========================================================= NAVIGATION ========================================================= -->
-    <div id="nav-container" class="smooth-transition fixed top-4 left-3 sm:left-6 z-[1000] flex items-center bg-black/60 backdrop-blur-xl border border-white/10 shadow-2xl rounded-full p-1.5 sm:p-2 max-w-[calc(100vw-1.5rem)] sm:max-w-[95vw]">
-        <!-- Logo Container linking to index.html -->
-        <a href="index.html" id="logo-container-wrap" class="z-10 shrink-0 relative flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 overflow-hidden rounded-full border border-white/10 bg-white/5 cursor-pointer p-1.5 no-underline micro-hover">
-            <img id="logo-collapsed" src="https://i.postimg.cc/K892XdFR/sds-white-logo-01-(1).png" alt="Collapsed Logo" class="absolute inset-0 w-full h-full object-cover smooth-transition opacity-100 scale-100 p-1" />
-            <img id="logo-expanded" src="https://i.postimg.cc/JnjLHGwc/Untitled-design-(63).png" alt="Expanded Logo" class="absolute inset-0 w-full h-full object-contain smooth-transition opacity-0 scale-95 pointer-events-none p-0.5" />
-        </a>
-
-        <!-- Navigation Items Wrapper -->
-        <div id="nav-wrapper" class="smooth-transition flex items-center overflow-x-auto scrollbar-hide max-w-0 opacity-0 px-0 flex-1 min-w-0">
-            <nav class="flex items-center w-max justify-between gap-3 sm:gap-6 pr-2" id="nav-links-wrapper">
-                <!-- Injected via JS -->
-            </nav>
-        </div>
-
-        <!-- Right side actions -->
-        <div class="z-10 flex items-center shrink-0">
-            <div id="divider" class="smooth-transition h-6 w-px bg-white/20 mx-0 scale-y-0 opacity-0"></div>
-            <button id="toggle-btn" class="text-white hover:text-gray-300 transition-colors focus:outline-none p-2 sm:p-2.5 rounded-full hover:bg-white/10 active:scale-95 duration-200 shrink-0 ml-1 micro-hover" aria-label="Open menu">
-                <div class="relative w-5 h-5 flex items-center justify-center">
-                    <span id="menu-icon-wrapper" class="absolute collapsed smooth-transition">
-                        <i data-lucide="menu" class="w-5 h-5 stroke-[1.5]"></i>
-                    </span>
-                    <span id="close-icon-wrapper" class="absolute collapsed smooth-transition">
-                        <i data-lucide="x" class="w-5 h-5 stroke-[1.5]"></i>
-                    </span>
-                </div>
-            </button>
-        </div>
-    </div>
-
-    <!-- Click outside to close overlay -->
-    <div id="nav-overlay" class="fixed inset-0 z-[999] hidden bg-black/50 backdrop-blur-sm transition-opacity duration-500 opacity-0"></div>
-
-    <!-- ========================================================= PAGE CONTENT ========================================================= -->
-    <div class="w-full overflow-hidden">
-        <!-- HERO -->
-        <main class="relative min-h-[100dvh] bg-white flex flex-col justify-center overflow-hidden w-full">
-            <!-- Hero Background Video -->
-            <div class="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-                <video autoplay loop muted playsinline class="absolute top-1/2 left-1/2 min-w-full min-h-full w-full h-full object-cover transform -translate-x-1/2 -translate-y-1/2">
-                    <source src="https://res.cloudinary.com/pudbk2ft/video/upload/v1788256725/background_flowing_abstract_grey_and_white_blurred_waves_graphic_motion_design_video_animation_ultr_480p.mp4" type="video/mp4" />
-                </video>
-            </div>
-
-            <div class="relative z-20 flex-1 flex items-center px-4 sm:px-8 md:px-16 lg:px-24 pt-24 sm:pt-28 pb-16 w-full">
-                <div class="max-w-7xl mx-auto w-full">
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center w-full">
-                        <!-- Left Text Column -->
-                        <div class="lg:col-span-7 w-full reveal-slide-up">
-                            <h1 class="text-[2.15rem] min-[390px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.2rem] leading-[1.08] font-light mb-4 text-[#0C1334] tracking-tight">
-                                BRANDS WITH AMBITION.<br />
-                                <span class="font-serif italic font-medium bg-gradient-to-r from-[#0C1334] via-[#27397f] to-[#5ea7db] bg-clip-text text-transparent">BUILT BY SDS.</span>
-                            </h1>
-                            <p class="text-xs sm:text-sm md:text-base tracking-[0.2em] uppercase text-[#0C1334]/70 mb-2 font-semibold">
-                                Clear. Creative. Communication.
-                            </p>
-                            <p class="text-sm sm:text-base md:text-lg text-[#0C1334]/80 mb-8 max-w-md leading-relaxed">
-                                From strategy to execution, we build brands ready for what’s next.
-                            </p>
-                            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
-                                <a class="brand-btn inline-flex items-center justify-center px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-medium transition-all duration-300 group micro-hover glow-btn shadow-lg w-full sm:w-auto text-sm sm:text-base" href="connect.html">
-                                    Start a Project
-                                    <svg class="w-4 h-4 sm:w-5 sm:h-5 ml-2 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
-                                </a>
-                                <a class="brand-btn inline-flex items-center justify-center px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-medium transition-all duration-300 group micro-hover glow-btn shadow-lg w-full sm:w-auto text-sm sm:text-base" href="built.html">
-                                    See Our Work
-                                    <svg class="w-4 h-4 sm:w-5 sm:h-5 ml-2 transform group-hover:translate-y-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- Right Image Column -->
-                        <div class="lg:col-span-5 w-full flex justify-center lg:justify-end reveal-slide-up mt-4 lg:mt-0">
-                            <div class="relative w-full max-w-[260px] min-[400px]:max-w-[300px] sm:max-w-xs md:max-w-sm lg:max-w-none aspect-[4/5] flex items-center justify-center">
-                                <img
-                                    src="https://i.postimg.cc/d1NyW5KP/sds-website-logo-01-1.webp"
-                                    alt="SDS Visual Showcase"
-                                    class="w-full h-full object-contain"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <!-- VIDEO -->
-        <div class="video-container">
-            <video id="myVideo" autoplay loop muted playsinline>
-                <source src="https://res.cloudinary.com/x0yralpr/video/upload/v1787914908/FINAL_TO_GK_BRO_1.mp4" type="video/mp4" />
-            </video>
-        </div>
-
-        <!-- HORIZONTAL SCROLL -->
-        <section id="horizontal-section">
-            <div class="horizontal-track absolute top-0 left-0 h-full flex items-stretch">
-                <!-- LOGO GRID -->
-                <div class="logo-grid-wrapper h-full flex items-center reveal-slide-up">
-                    <div class="logo-grid">
-                        <div class="logo-container"><img class="logo-img" src="https://i.postimg.cc/3rgBz5Mq/logo-2.png" alt="Skild AI" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://i.postimg.cc/wBy5VncZ/Logo-1.png" alt="Reliance Nippon" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://i.postimg.cc/BvL5gRcr/Logo-1-(1).png" alt="Manipal Cigna" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://i.postimg.cc/pdhQZ3JN/Logo-2-(1).png" alt="Alt+ Beauty" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://i.postimg.cc/KYk7NCrd/Logo-2-(2).png" alt="Progenesis" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://i.postimg.cc/MGM0Dgbg/Logo-2-(3).png" alt="Adani" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://i.postimg.cc/JhD3qScY/Logo-2-(4).png" alt="PhonePe" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDR1nFtCZCxEHUEFJOGR4bGvO00Og-axE9DH_azk8TN6mhofT1-sQF2dpCE3pG9axV2O--y7NNH7rv4e5no4TciFxr4dU2S-XmspORruYuzQ7SeuY08Eqy364NurIAYkJkPh-s5myZTDDbGEuEiTGdmhnlLsoBofY-Iog3MU16Bdhgd_G5au36e59Bdx_OnQb8wuzudvtpjfzyiwudeixlQ_9XnwzP0UOcI-5inAsNgjRshRAkuHO48" alt="IndusInd" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGsQZla69YvdbS4Olqs1zgl12t3Q_r7hHikMTtL8-v89vPrO1IKWDuNwDYUd6KKyLMgsa-6ZD4Lxm2gOrHCG0-IZTlxPx_5IUj4UYF77tuHM8i4yEMw_ZaiJbXR6_3zZurWtMJ2Eh8ihujORNRLtxtcGiQKxYxSpupZHfLpGeiNykPB1gcUiPLduLer2JjgSs2Q1UhGhhSO1fh4pcWWpX1SkWDd-aDPYWy8Vb8ibePWe9W86A-kQnz" alt="Landmark" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGaXxC4qvAXbOcsRGhk3QrkJ2pk8ms7byeBUnmHwUzLOArWDYzb3Fj2A76HaSuhq2JYyLdlulHIKdsR_XBFpBic_Se0LcAXx-eYsFHhdVDIJJcX9d6mVJJvlrQuwNjTImYV3NZaIaeqe6Gahn4QQAibGB2bB2Eyu09R_RVXXYUG2ll6__EZ5uOLBMwWR__Tw-W2LXHBOfFGGMqT8dvg1FYVU0WpqEwfJTL02gwOTbZnaqaGAPev3Ts" alt="Protean" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAARLlccOpcUq6LuoOk0vM4wSXHqWz7TvfhdSkvmW5Qe7tH2HpmYb-mD3S0wDv3IF6wikGSgGCa_ZrUqSHJ8F2zmGcK4kwbHyYMsn6fibmYowUG7q1hJo8YWnjp8-S9YkCfZ61UqSobscYnwzqCRymjJ6hDKCyHsQXlgZ71vlKlXXAgtqO58crbGjb3ei8v9JXDMl6JJ3wNPur2J6jDJLxGT-k5Ki2apq-6TYUHZ6hin20bB8Z6hwon" alt="Alloid" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBG9dQOk4JyP3GxNI7AWkmS_E9b75bCECw0ipcEqtV7HxTUTV1Y0PVkBZZfoYJbMcTgmmZR208goJK7EKrb4zci5ZnsQ1PfGL2XCNux5FHsyJc7YFHvpevI-HuIK9o9Y57Gdd7ck1WdGMYioR-V0qAfR8x42xy2O6vN-U23OdBM_tjZVteOvrAVaURL3hVty37MRHEGirp-Wm7OTi8NqQDKZ7H9fcTgwDjTvl2MO6KvdjR2SUbPwlQN" alt="Housing.com" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZSRcgqZ1jTiVzK9OqK-5iB3l8zuI9ouNiYaKBdK5u7eULUEXykNPAHgu7nCNqtXWhkwTVwboBHhU0hPi_02tPZX7Q4-BIx0iFU3knqfobp7fsh7GiinEwWxrRvJly5g98YNhT13GVbo68M954AvK5V9qD8Q1EJKNH5gtT8GzXE3DeMLV3u5a0VEda7kKfdsOAmo-5JfUm-1Z0h77cAwXCHqhNqSezkearCIXc-LVlxSvS-K_UCRZv" alt="Benne & Brew" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVoSxMcTMqJw1Pwm-MHHtQDz79ZmcQGaqnBf1WnR2UZ92f7d5JA7De2lGXv-mQA9WrA7xZzo9olKqk21jLg_JONfKf5yMVO5ko87IuVxHdex-5EO36eE7Fp2jghpA49eA6Bafj5N967eco56V3ClXRvHDrlt7exFXouYfyQRfmIj33qaN6EyjABO9_igcArzx6gW5kJUPiO660Sz8dOzd0MP_7zw3lzPvrN1-Oklb6AikxAYBSQ495" alt="Metaroll" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlhvbDht16MWFlqKWqdoilcXS5ezWPXWs7-LkkNPtVrQxcpEHOJcCozfdcrJssiFFkUYmrkj2orNbBu6B8uYNoM5SNydG_pqIBEORUdDbs97Za3QTylFrjMsbXfAz1AuUjoRn3a0txkSOKXppcRBe-t69E-296gKx7MKBbufdNvV7qtMgxQnUki9PNavMC6J4KOxFl5D8WWLFBj1GYlMqj1vd-3NiEmmykEafk0Bi_V1YrQcF_9M14" alt="Studio Odd & Even" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCY9QRbg6cLb62wCrewjYqGLF2sFPs7KP4gnRBt82MNvDENUspxKMZ093TssPilRwxxyv3SQaERBNLQAYiEyzslc0R6E_OGd3OxnZCLtbBcf8O8Bo1j2lN3TbJ69tcUVf9Zdr_GSkj1JfNpoGq2XxdEbwQ1Fg1og-nv9zakthoKnZWg_uuZdR8qLyflyvlIkkE0QxlTFQ1wE6gg3j_FNpz2v_25i45sPdHvep9Ox-vhF4Rp_RAtfh1n" alt="Skild AI" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXEvUUBeELQe-SCBzW_aDTxzZKHRqyzdPtOabrS0LNakdHcyHjCyKK44H7x_mn4YVxbszxPt_80baDHo_Fa14-eVrZuPQyrizQGt_ZKlVV7mn6KL45gnUYyjJvMZ1Ng_2wfcOK9bc_CrAfWGlJCjXGBy4Xd4M0QNXadDQjpJdN4J6kCZGGEN_mfR-GP7gcLPFe16uanE-NsXfckUge-K2vl5HapGVEMBOJP2k6fcBywMKcjjR14B8J" alt="Reliance Nippon" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEB_SdUfy6EM_uwMhstJ0ZRuQaorIY5JBCmVlKtEBLbWJ3WcFK5Y_bwb2JkN-px2vffF5cFWe80ZyJt5UnKmp-UddKv_OGpVQqJm8s8mdUZt-aVDkmtNCrj2jWqIDQd4aJaHWYt8dVfTOAIE79vUJRZo2xgMJqN3DYVWi1kkgtGj7Yix04NzPBL4KyvRv4wYMfmFK4UrOc8oJ1MsQF1oOricUgcjPJ3m_KDwQz7g7YLYxhgSPDgOOj" alt="Manipal Cigna" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8lJP1_DbW_-6_10-xYa_rXtHBfsLKLC1Rhrh7dSiaNaCimMXI1Um9JyG1MD7Ka_KoWtvB158bMhGRSzLJc5OyJNK5HAmFO_x-Jj8iHy1ebdUYC6cFscOfwag95MUOoY6khDKvOEp9243qo331Xd4V2VpO2qYaRROqAa7zeYxErHoQ4_DRphzUgXl0vVNpuICJOXTP6mvXZK3iko_6IdayXjB8Hb2YUdfSlDBf1EMyhIUMKSYpa4JK" alt="Alt+ Beauty" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_WGX5H0d-crC5gnoTlJx5R9m33rOIN7KWDANiDYOPfEwtKtqLwIZ71AR9U1LtGSEdVg1zyHa8NNup1S5aF5uUbtSUxfoqy3j8qZjEWo48yJ-UN6HElN641RpK37pXAPotEvwQtqFEP3qSgAktMEnvYiGYt8q_B-KFgV99cVKHghKdta8fGDNbjA0MExCWNvmIU9B-XPspzXtfxdsZ_4cDnDpo13tk1Bi9AJ_4DdGZ7qsvIcKztG6d" alt="Progenesis" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAH-5anEnH6Ao8Ac4KSJyb7_7-swUlYxIPuAHld74NLJUCc4ymeiLhXedu3mbWZ5gKGplZt6cu-NVg0wIbHtUfX51DONvIwGw-nYXxwJAGc1jieA0GHYoTLB2QIYv7Lco38LRUqEf3fgUjQcexBwk49SpKSS2g_0CRWA63XeCPSMt7CSyXujvPZk5Ca48VnfnnwTnCZhwx_kVjtSRHtsKtLr0n8R9y2tb0rG-bIfJnlKcP6Tjw02EoD" alt="Adani" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5npJcdg0jxkaApQnHxo8U61Nz6chlbSHz-KtoMiQIeane-g1mmOuoNm3pUC76Z7h7Kj34f9HWOVz2PNpeR36wn2kAWhh992X5-VVtn-qzGI5bspZJMI6CcorOSwuBG7xEdXejrz-AKkuOSjAHQDN9FFQGUjJJcMKADXtSbdqWzG2aWF6EexMaa7C-UNPqIEcmh_7UQ5rllirp_HkShChD9O5RpL3TzGbNpYf5EiAWV9iaJtZagQ_t" alt="PhonePe" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDR1nFtCZCxEHUEFJOGR4bGvO00Og-axE9DH_azk8TN6mhofT1-sQF2dpCE3pG9axV2O--y7NNH7rv4e5no4TciFxr4dU2S-XmspORruYuzQ7SeuY08Eqy364NurIAYkJkPh-s5myZTDDbGEuEiTGdmhnlLsoBofY-Iog3MU16Bdhgd_G5au36e59Bdx_OnQb8wuzudvtpjfzyiwudeixlQ_9XnwzP0UOcI-5inAsNgjRshRAkuHO48" alt="IndusInd" /></div>
-                        <div class="logo-container"><img class="logo-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGsQZla69YvdbS4Olqs1zgl12t3Q_r7hHikMTtL8-v89vPrO1IKWDuNwDYUd6KKyLMgsa-6ZD4Lxm2gOrHCG0-IZTlxPx_5IUj4UYF77tuHM8i4yEMw_ZaiJbXR6_3zZurWtMJ2Eh8ihujORNRLtxtcGiQKxYxSpupZHfLpGeiNykPB1gcUiPLduLer2JjgSs2Q1UhGhhSO1fh4pcWWpX1SkWDd-aDPYWy8Vb8ibePWe9W86A-kQnz" alt="Landmark" /></div>
-                    </div>
-                </div>
-
-                <!-- PROJECT CARDS -->
-                <div class="cards-wrapper h-full flex items-center">
-                    <div class="project-card-wrapper">
-                        <div class="project-card group cursor-pointer" data-project>
-                            <img class="project-image" src="https://i.postimg.cc/k4cqMXzp/Vee-Aura-colour-Tone-copy-combos-that-final-one-pdf-(1).jpg" alt="VEEAURA" />
-                            <div class="card-content-bottom">
-                                <h2>VEEAURA</h2>
-                                <p>Brand Strategy · Positioning · Visual Identity<br />From strategy to growth, we handle it all.</p>
-                                <div class="tags">Brand Strategy · Positioning · Visual Identity</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card-wrapper">
-                        <div class="project-card group cursor-pointer" data-project>
-                            <img class="project-image" src="https://p16-capcut-sign-useast8.capcutcdn-us.com/tos-useast5-v-2795c799-tx/oYABxnngA0twE2tuFOCD0IQDJgVQZAHCUZfJfj~tplv-4d650qgzx3-image.image?lk3s=2d54f6b1&x-expires=1818786053&x-signature=Ut9L6%2B1IyEDp5Twy0bACzHgJIy8%3D" alt="SARAN BUILDERS" />
-                            <div class="card-content-bottom">
-                                <h2>SARAN BUILDERS</h2>
-                                <p>Brand Identity · Digital Experience · Creative Direction<br />Building recognition through a consistent visual language.</p>
-                                <div class="tags">Brand Identity · Digital Experience · Creative Direction</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card-wrapper">
-                        <div class="project-card group cursor-pointer" data-project>
-                            <img class="project-image" src="https://i.postimg.cc/G2Qd3h6w/Colour-crafts-cover-images.jpg" alt="COLORCRAFT" />
-                            <div class="card-content-bottom">
-                                <h2>COLORCRAFT</h2>
-                                <p>Brand Strategy · Packaging · Visual Identity<br />Turning a crowded category into a distinctive brand opportunity.</p>
-                                <div class="tags">Brand Strategy · Packaging · Visual Identity</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SERVICES CAROUSEL (UPDATED DECK) -->
-        <section class="services-carousel-root w-full">
-            <div class="services-hero reveal-slide-up">
-                <div class="flex flex-wrap items-end justify-between gap-4">
-                    <div>
-                        <div class="line1">From strategy to growth,</div>
-                        <div class="line2 bg-gradient-to-r from-[#0C1334] via-[#27397f] to-[#5ea7db] bg-clip-text text-transparent">we handle it all.</div>
-                    </div>
-                    <a href="studio.html" class="know-more">Know more</a>
-                </div>
-                <div class="divider-line"></div>
-            </div>
-
-            <div class="w-full max-w-7xl mx-auto carousel-wrapper px-4 reveal-slide-up" id="carouselWrapper">
-                <div class="carousel-track" id="carousel"></div>
-            </div>
-
-            <div class="carousel-dots reveal-slide-up" id="carouselDots"></div>
-        </section>
-
-        <!-- BLOG -->
-        <section class="blog-section">
-            <div class="blog-container">
-                <div class="blog-header reveal-slide-up">
-                    <div class="blog-header-left">
-                        <h1>Thoughts from<br /><span class="italic">the studio floor.</span></h1>
-                    </div>
-                    <div class="blog-header-right">
-                        <p>What we're learning about branding, business, and the gap between them.</p>
-                    </div>
-                </div>
-                <div class="blog-grid">
-                    <a href="blog01.html" class="blog-card-link">
-                        <article class="blog-card group" data-card>
-                            <div class="card-image-wrap"><img alt="Your Business Has Grown. Has Your Brand?" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcBouc1chIvVv3g7nx1Qtcj56TLm0jVzwJXrq6ssUX4bx13izvcl4nnfV2G9VQ-gH099HWH4XXV-jISLpTigaOBnE9Lqio6v61-pcDkJM_ZnRJRYNEsXrzx3WQCCi7Fk4gtxqDxu8ACvELq7BD7PV4WGklRi_7hDLK7myw14qdn8pOBFpfub_3vHEW6SlGZO3zt4-CCyrDymYZqrUbFGMqbO_6HNMwXfD8S9MkTU5hJjNH_Y4lZptm" /></div> 
-                            <div class="card-content"><span class="tag">Design</span><h2>Your Business Has Grown. Has Your Brand?</h2><p class="meta">1 min read · 31 Dec 2025</p></div> 
-                        </article>
-                    </a>
-                    <article class="blog-card group" data-card>
-                        <div class="card-image-wrap"><img alt="Why do good companies still look small on the internet?" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8N7zXqTwxwUZKvBuW-CbmBwPpbJjs5FLmfdsNGM-tyxE8H3BthQemN-dVz7k7tf-xA2m6FxUNgROM2Hc8aVGMYwrtxDkuAtN5S8FzxGHbuoSf1m8QxwpVW210B5thvi0sVfNbraED6Mrlg3kid4FhUbzN80s0k2Py7v9dGgPrKpCnK5Na7PLacOzsS5TdZN7XuykphiXqINxkXu-KM2r576AU81b7rQdci9Wjg5ulV9eh_spGGe6f" /></div>
-                        <div class="card-content"><span class="tag">Strategy</span><h2>Why do good companies still look small on the internet?</h2><p class="meta">1 min read · 31 Dec 2025</p></div>
-                    </article>
-                    <article class="blog-card group" data-card>
-                        <div class="card-image-wrap"><img alt="The Real Cost of an Inconsistent Brand?" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWrkQ8lItyjIQlrYrNDJbB1EADxLb8uSXapWwsqMurFB930sJ4QLRnbqP5ON-5KLyO1rbCSBG9D3pJ5Ai5HXzh1wYJQMEAoVZKWelt73fPJU44mvOYzT5v55zBsaRgtrz8Z-pUJDJSnrm3q5pwFNh2LP1LivAhqKfyyb_xLtI0dyTdO-0TS419kuhQ_vWn-47USWtZ-IqO-B4jKQmwxrsvK7ztRaMnd7I7gQzwxv3HhI0GwAYz_6D3" /></div>
-                        <div class="card-content"><span class="tag">Branding</span><h2>The Real Cost of an Inconsistent Brand?</h2><p class="meta">1 min read · 31 Dec 2025</p></div>
-                    </article>
-                    <article class="blog-card group" data-card>
-                        <div class="card-image-wrap"><img alt="Why Do Technical Companies Struggle to Explain What They Do?" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLhOHAdIS_fE_oTDYAOey6KJVM2OqabSnB_7D_wx4zXFQWLpI4N6u8AIwcSliKOGkzLuZp-hIxI435dDcReLUZYYFio38h35CBCGmhU1DNhKtE9BxrnLAIWxOvYjndx4h9MZy9UOKAPW0baQ0f1E6I2SV5YOV7pSfnBf1X_6Yxeb-DYpBFFebHS1FS4zw76wxA1Yn1NZYeNdJgWpkAV0SvTrn7RaIvwif583AoyHNvH8KHxJPC70Di" /></div>
-                        <div class="card-content"><span class="tag">Strategy</span><h2>Why Do Technical Companies Struggle to Explain What They Do?</h2><p class="meta">1 min read · 31 Dec 2025</p></div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- REMARKABLE SECTION -->
-        <section class="remarkable-section" id="remarkableSection">
-            <div class="container mx-auto px-4 sm:px-8 md:px-12 lg:px-20 w-full">
-                <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-                    <div class="lg:col-span-5 reveal-slide-up">
-                        <div class="mb-4 sm:mb-6">
-                            <span class="text-xs sm:text-sm font-medium tracking-widest uppercase text-[#0C1334]/70 block">CONTACT</span>
-                            <div class="flex items-center w-16 mt-1">
-                                <div class="h-[2px] bg-[#0C1334] flex-grow"></div>
-                                <div class="w-1.5 h-1.5 rounded-full bg-[#0C1334] ml-[-1px]"></div>
-                            </div>
-                        </div>
-                        <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-tight">
-                            <span class="heading-black">Let's Give Your Business</span><br />
-                            <span class="heading-blue font-semibold bg-gradient-to-r from-[#0C1334] via-[#27397f] to-[#5ea7db] bg-clip-text text-transparent">the brand it deserves.</span>
-                        </h2>
-                        <p class="text-[#0C1334]/80 text-sm sm:text-base md:text-lg mt-4 sm:mt-6 max-w-sm leading-relaxed">
-                            We're ready to bring your vision to life. Tell us what you need, and let's create something extraordinary together.
-                        </p>
-                    </div>
-
-                    <div class="lg:col-span-7 reveal-slide-up">
-                        <div class="max-w-2xl">
-                            <p class="text-xs sm:text-sm font-medium tracking-wide text-[#0C1334]/90 mb-4 sm:mb-6">WHAT DO YOU NEED?</p>
-
-                            <div class="flex flex-wrap gap-2 md:gap-2.5 mb-8 sm:mb-10" id="servicesTags">
-                                <span class="service-tag">Brand Identity</span>
-                                <span class="service-tag">Brand Story</span>
-                                <span class="service-tag">Brand Strategy</span>
-                                <span class="service-tag">Graphic Design</span>
-                                <span class="service-tag">Video Production</span>
-                                <span class="service-tag">Video Editing</span>
-                                <span class="service-tag">Content Strategy</span>
-                                <span class="service-tag">Growth Marketing</span>
-                                <span class="service-tag">Something Else</span>
-                            </div>
-
-                            <form class="flex flex-col gap-6 sm:gap-8" id="contactForm">
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
-                                    <input id="name" type="text" placeholder="Your name" class="form-input" required>
-                                    <input id="business" type="text" placeholder="Business name" class="form-input">
-                                </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
-                                    <input id="email" type="email" placeholder="Email address" class="form-input" required>
-                                    <input id="phone" type="tel" placeholder="Phone number" class="form-input">
-                                </div>
-                                <div>
-                                    <input id="service" type="text" placeholder="What do you need?" class="form-input pb-3">
-                                </div>
-                                <div>
-                                    <textarea id="message" placeholder="Tell us about your project" class="form-input pb-3 resize-none" rows="2"></textarea>
-                                </div>
-
-                                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mt-2">
-                                    <button type="submit" class="btn-submit glow-btn">
-                                        START A CONVERSATION 
-                                    </button>
-                                    <span class="text-[#0C1334]/60 text-xs sm:text-sm italic text-center sm:text-left">we usually reply within 24 hours.</span>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ========================================================= FOOTER (0C1334 -> 27397F GRADIENT) ========================================================= -->
-        <footer class="w-full footer-gradient text-white pt-12 sm:pt-16 pb-8 sm:pb-12 px-4 sm:px-8 md:px-12 lg:px-20 border-t border-white/10">
-            <div class="max-w-7xl mx-auto flex flex-col gap-8 reveal-slide-up">
-                <div class="flex flex-col md:flex-row justify-between text-[14px] leading-relaxed font-normal tracking-wide gap-8 md:gap-0">
-                    <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-8 sm:gap-12 md:gap-16 lg:gap-24">
-                        <div class="flex flex-col gap-2.5 leading-loose">
-                            <a class="hover:text-gray-300 transition-colors" href="built.html">Built</a>
-                            <a class="hover:text-gray-300 transition-colors" href="studio.html">Studio</a>
-                            <a class="hover:text-gray-300 transition-colors" href="built.html">Projects</a>
-                        </div>
-                        <div class="flex flex-col gap-2.5 leading-loose">
-                            <a class="hover:text-gray-300 transition-colors" href="create.html">Create</a>
-                            <a class="hover:text-gray-300 transition-colors" href="think.html">Think</a>
-                            <a class="hover:text-gray-300 transition-colors" href="connect.html">Connect</a>
-                        </div>
-                        <div class="flex flex-col gap-2.5 leading-loose col-span-2 sm:col-span-1">
-                            <span class="text-white/80 text-sm">Chennai</span>
-                            <span class="text-white/60 text-sm">Tamil Nadu, India</span>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col gap-2.5 md:text-right leading-loose">
-                        <a class="hover:text-gray-300 transition-colors" href="tel:+916369325726">+91 63693 25726</a>
-                        <a class="hover:text-gray-300 transition-colors break-all sm:break-normal" href="mailto:admin@sandydesignstudio.com">admin@sandydesignstudio.com</a>
-                        <a class="hover:text-gray-300 transition-colors" href="#">Company Profile</a>
-                    </div>
-                </div>
-
-                <div class="flex gap-3 sm:gap-4 mt-2">
-                    <a aria-label="LinkedIn" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-[#0C1334] hover:bg-gray-200 transition-colors micro-hover" href="https://www.linkedin.com/company/sandydesignstudio"><i class="fa-brands fa-linkedin-in text-lg"></i></a>
-                    <a aria-label="Instagram" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-[#0C1334] hover:bg-gray-200 transition-colors micro-hover" href="https://www.instagram.com/sandydesignstudio_"><i class="fa-brands fa-instagram text-lg"></i></a>
-                    <a aria-label="Facebook" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-[#0C1334] hover:bg-gray-200 transition-colors micro-hover" href="#"><i class="fa-brands fa-facebook-f text-lg"></i></a>
-                    <a aria-label="YouTube" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-[#0C1334] hover:bg-gray-200 transition-colors micro-hover" href="#"><i class="fa-brands fa-youtube text-lg"></i></a>
-                </div>
-
-                <hr class="border-t border-white/20 w-full mt-2 sm:mt-4 mb-4 sm:mb-6" />
-
-                <div class="flex-grow flex flex-col items-center justify-center text-center w-full pb-4 sm:pb-8">
-                    <h1 class="hero-line">
-                        <span class="hero-sans text-white">Design that&nbsp;</span>
-                        <span class="hero-serif text-white">gives&nbsp;</span>
-                        <span class="hero-serif text-white">the&nbsp;</span>
-                        <span class="hero-serif text-white">brand&nbsp;</span>
-                        <span class="hero-serif text-white">it&nbsp;</span>
-                        <span class="hero-serif text-white">deserves</span>
-                    </h1>
-                </div>
-            </div>
-        </footer>
-    </div>
-
-    <!-- JAVASCRIPT LIBRARIES -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-    <!-- ========================================================= NAVIGATION JAVASCRIPT ========================================================= -->
-    <script>
-        lucide.createIcons();
-
-        (function() {
-            let isNavExpanded = false;
-            const navItemsList = [
-                { label: 'Built', href: 'built.html' },
-                { label: 'Create', href: 'create.html' },
-                { label: 'Studio', href: 'studio.html' },
-                { label: 'Think', href: 'think.html' },
-                { label: 'Connect', href: 'connect.html' }
-            ];
-
-            const navWrapper = document.getElementById('nav-wrapper');
-            const navLinksWrapper = document.getElementById('nav-links-wrapper');
-            const logoContainerWrap = document.getElementById('logo-container-wrap');
-            const logoCollapsed = document.getElementById('logo-collapsed');
-            const logoExpanded = document.getElementById('logo-expanded');
-            const divider = document.getElementById('divider');
-            const toggleBtn = document.getElementById('toggle-btn');
-            const menuIconWrapper = document.getElementById('menu-icon-wrapper');
-            const closeIconWrapper = document.getElementById('close-icon-wrapper');
-            const navOverlay = document.getElementById('nav-overlay');
-
-            function renderNavLinks() {
-                if (!navLinksWrapper) return;
-                navLinksWrapper.innerHTML = '';
-                let currentPath = window.location.pathname.split('/').pop().toLowerCase();
-                if (!currentPath || currentPath === '') {
-                    currentPath = 'index.html';
-                }
-
-                navItemsList.forEach(item => {
-                    const isActive = currentPath === item.href.toLowerCase();
-                    const textColorClass = isActive ? 'text-white' : 'text-gray-300 hover:text-white';
-                    const dotStateClass = isActive ? 'active' : 'inactive';
-                    const linkHTML = `
-                        <a href="${item.href}" class="relative group text-xs sm:text-sm md:text-base font-medium transition-colors duration-300 focus:outline-none whitespace-nowrap py-2 px-1 sm:px-1.5 no-underline">
-                            <span class="transition-colors duration-300 ${textColorClass}">
-                                ${item.label}
-                            </span>
-                            <span class="active-dot ${dotStateClass} absolute -bottom-1 left-1/2 w-1.5 h-1.5 rounded-full bg-white shadow-lg"></span>
-                        </a>
-                    `;
-                    navLinksWrapper.insertAdjacentHTML('beforeend', linkHTML);
-                });
-            }
-
-            function toggleNav() {
-                isNavExpanded = !isNavExpanded;
-                const isMobile = window.innerWidth < 640;
-
-                if (isNavExpanded) {
-                    navWrapper.classList.remove('max-w-0', 'opacity-0', 'px-0');
-                    navWrapper.classList.add('max-w-[800px]', 'opacity-100', 'px-2', 'sm:px-6');
-                } else {
-                    navWrapper.classList.remove('max-w-[800px]', 'opacity-100', 'px-2', 'sm:px-6');
-                    navWrapper.classList.add('max-w-0', 'opacity-0', 'px-0');
-                }
-
-                if (isNavExpanded) {
-                    logoContainerWrap.style.width = isMobile ? '105px' : '145px';
-                    logoContainerWrap.style.backgroundColor = 'transparent';
-                    logoContainerWrap.style.border = '0';
-                    logoContainerWrap.style.borderRadius = '0';
-                    logoContainerWrap.style.padding = '0 4px';
-                    logoCollapsed.classList.remove('opacity-100', 'scale-100');
-                    logoCollapsed.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
-                    logoExpanded.classList.remove('opacity-0', 'scale-90', 'pointer-events-none');
-                    logoExpanded.classList.add('opacity-100', 'scale-100');
-                    document.body.style.overflow = 'hidden';
-                } else {
-                    logoExpanded.classList.remove('opacity-100', 'scale-100');
-                    logoExpanded.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
-                    logoContainerWrap.style.width = '';
-                    logoContainerWrap.style.backgroundColor = '';
-                    logoContainerWrap.style.border = '';
-                    logoContainerWrap.style.borderRadius = '';
-                    logoContainerWrap.style.padding = '';
-                    logoCollapsed.classList.remove('opacity-0', 'scale-90', 'pointer-events-none');
-                    logoCollapsed.classList.add('opacity-100', 'scale-100');
-                    document.body.style.overflow = '';
-                }
-
-                if (isNavExpanded) {
-                    divider.classList.remove('scale-y-0', 'mx-0', 'opacity-0');
-                    divider.classList.add('scale-y-100', 'mx-1.5', 'sm:mx-4', 'opacity-100');
-                } else {
-                    divider.classList.remove('scale-y-100', 'mx-1.5', 'sm:mx-4', 'opacity-100');
-                    divider.classList.add('scale-y-0', 'mx-0', 'opacity-0');
-                }
-
-                if (isNavExpanded) {
-                    menuIconWrapper.classList.remove('collapsed');
-                    menuIconWrapper.classList.add('expanded');
-                    closeIconWrapper.classList.remove('collapsed');
-                    closeIconWrapper.classList.add('expanded');
-                    toggleBtn.setAttribute('aria-label', 'Close menu');
-                } else {
-                    menuIconWrapper.classList.remove('expanded');
-                    menuIconWrapper.classList.add('collapsed');
-                    closeIconWrapper.classList.remove('expanded');
-                    closeIconWrapper.classList.add('collapsed');
-                    toggleBtn.setAttribute('aria-label', 'Open menu');
-                }
-
-                if (isNavExpanded) {
-                    navOverlay.classList.remove('hidden');
-                    setTimeout(() => {
-                        navOverlay.classList.remove('opacity-0');
-                        navOverlay.classList.add('opacity-100');
-                    }, 10);
-                } else {
-                    navOverlay.classList.remove('opacity-100');
-                    navOverlay.classList.add('opacity-0');
-                    setTimeout(() => {
-                        navOverlay.classList.add('hidden');
-                    }, 400);
-                }
-            }
-
-            if (toggleBtn) {
-                toggleBtn.addEventListener('click', toggleNav);
-            }
-            if (navOverlay) {
-                navOverlay.addEventListener('click', () => {
-                    if (isNavExpanded) toggleNav();
-                });
-            }
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && isNavExpanded) {
-                    toggleNav();
-                }
-            });
-
-            renderNavLinks();
-        })();
-    </script>
-
-    <!-- ========================================================= PAGE FUNCTIONALITY JAVASCRIPT ========================================================= -->
-    <script>
-        gsap.registerPlugin(ScrollTrigger);
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            const section = document.querySelector('#horizontal-section');
-            const track = document.querySelector('.horizontal-track');
-            
-            if (section && track) {
-                const getScrollDistance = () => track.scrollWidth - window.innerWidth;
-
-                const horizontalScrollTween = gsap.to(track, {
-                    x: () => -getScrollDistance(),
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: section,
-                        pin: true,
-                        scrub: 1.2,
-                        invalidateOnRefresh: true,
-                        end: () => '+=' + getScrollDistance(),
-                        anticipatePin: 1,
-                    }
-                });
-
-                const isSmall = window.innerWidth < 640;
-                gsap.utils.toArray('.project-card-wrapper').forEach(cardWrapper => {
-                    gsap.fromTo(cardWrapper, 
-                        { scale: isSmall ? 0.82 : 0.65, opacity: 0.3, transformOrigin: "center center" },
-                        {
-                            scale: 1,
-                            opacity: 1,
-                            ease: "power2.out",
-                            scrollTrigger: {
-                                trigger: cardWrapper,
-                                containerAnimation: horizontalScrollTween,
-                                start: "left 95%",
-                                end: "center 85%",
-                                scrub: true
-                            }
-                        }
-                    );
-                });
-            }
-
-            // GLOBAL SLIDE UP REVEAL ANIMATIONS
-            gsap.utils.toArray('.reveal-slide-up').forEach(el => {
-                gsap.fromTo(el, 
-                    { opacity: 0, y: 50 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 1.1,
-                        ease: "power3.out",
-                        scrollTrigger: {
-                            trigger: el,
-                            start: "top 88%",
-                            toggleActions: "play none none reverse"
-                        }
-                    }
-                );
-            });
-
-            // Dedicated staggered slide-up animation for the THINK Blog cards
-            gsap.fromTo('.blog-card', 
-                { opacity: 0, y: 60 },
-                {
-                    opacity: 1, 
-                    y: 0, 
-                    duration: 0.9,
-                    stagger: 0.12,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: '.blog-grid',
-                        start: "top 85%",
-                        toggleActions: "play none none reverse"
-                    }
-                }
-            );
-        });
-
-        // ========================================================= SERVICES CARD DECK ANIMATION JS ========================================================= 
-        (function() {
-            const isMobile = window.innerWidth < 640;
-            const CONFIG = {
-                STACK_OFFSET: isMobile ? 26 : 38,
-                STACK_SCALE: isMobile ? 0.04 : 0.05,
-                STACK_ROTATION: isMobile ? 1.5 : 2,
-                STACK_DEPTH: isMobile ? 35 : 50,
-                IMAGE_PARALLAX: 15,
-                ANIMATION_SMOOTHNESS: 1.2,
-                MAX_VISIBLE_STACK: 3,
-                SCROLL_VH_PER_CARD: isMobile ? 0.45 : 0.55
-            };
-
-            const services = [
-                { id: '01', title: 'Brand Strategy', subtitle: 'Find your place.', details: 'Brand Positioning · Market Research · Audience Definition · Competitive Analysis · Brand Architecture', quote: '"We don\'t know how we\'re different."' },
-                { id: '02', title: 'Brand Story', subtitle: 'Give people a reason to care.', details: 'Brand Name · Positioning Statement · Tagline · Narrative Document', quote: '"Nobody understands what we actually do."' },
-                { id: '03', title: 'Brand Identity', subtitle: 'Make it recognisable.', details: 'Logo Design · Visual Identity · Typography · Colour Systems · Brand Guidelines', quote: '"Our brand looks different everywhere."' },
-                { id: '04', title: 'Graphic Design', subtitle: 'Make every touchpoint feel intentional.', details: 'Brand Collateral · Presentation Design · Print Design · Packaging · Marketing Materials', quote: '"Our presentation doesn\'t match our capability."' },
-                { id: '05', title: 'Content Strategy', subtitle: 'Know what to say before you start posting.', details: 'Content Pillars · Content Calendar · Messaging Framework · Channel Strategy', quote: '"We\'re posting, but it feels random, not planned."' },
-                { id: '06', title: 'Video Production', subtitle: 'Show the work. Tell the story.', details: 'Corporate Films · Brand Films · Interviews · Event Coverage · Social Video', quote: '"We have no real footage of our own work."' },
-                { id: '07', title: 'Video Editing', subtitle: 'Turn footage into communication.', details: 'Post-Production · Motion Graphics · Reels · Sound Design · Colour Grading', quote: '"Our videos don\'t look as polished as our competitors\'."' },
-                { id: '08', title: 'Platform Building', subtitle: 'Turn your social presence into a brand people recognise.', details: 'Social Media Management (SMM) · Content Planning · Platform Handling · Publishing & Scheduling · Community Management', quote: '"We’re active online, but our presence doesn’t feel like a brand."' },
-                { id: '09', title: 'Growth Marketing', subtitle: 'Turn attention into action.', details: 'Social Media Marketing · Performance Marketing · SEO · Lead Generation · Google Ads · Meta Ads', quote: '"We\'re doing all this, but it isn\'t leading to results."' }
-            ];
-
-            const bgImages = [
-                'https://lh3.googleusercontent.com/aida-public/AB6AXuAoXnzIlKcj4gK5FbcjrFUHiF2aUkMVhlc11L-8cqlxutIRxEaAuqef6535mqZXRkH3BJDzyGoqpWhBlKGwQNT7yTNQBBfgBZ41ClyBGEpYQuahra4mmBZW2ZiKOJTHmaomCNLOTaOy7rqdljgYDWxHF0MYlMdknec-ZYNXPHaGehQfVHGeJTY3CSLDzcAFlaOGh7Z5q85V43gvSN0IUAtrBmC3fDIm_-jiShSo8fBZOH7rBn6ucAj8',
-                'https://lh3.googleusercontent.com/aida-public/AB6AXuAU2maDoBRSFwkqD2QEnCXZ1DwdqJRQIkUDiexfTy7RryotfDa2L-Ypg7mCcl7AHFJT1fEjZdBOyLqCnYwLhd2CnORgalPLCw6OeqjbeACWHT8O6kYw4g0ZXoLmwCw2XZACR15tPmfNg9FrccgaEO-TUYYk_IrfWl2wXSGscOqmXHZGyhUfzrnkOjS3_L3uvTVH0vsMSt1E2XgreINDtwxT-mdQ7anDRejqN4WxPTdQlWU-PkJIeK3a',
-                'https://lh3.googleusercontent.com/aida-public/AB6AXuD9pF_zppXjmMLgmW-OfTyr2ux5rUP-vz76O080f8wminDyHo2c71qq2CcWfemJRu0-G4G-MLeSyB8TE06WSBR9WgXJ26NJDDuZ8_QuEfuFFuNun_TtIovJNAn-asRupvNh-gGklpiGXeU7pH2IJzFR2ukoQKsfiOLmN0p_NnAQvj7N-v2fUYyi9wRPMDkMcpqCXt64W2r8hWkgWEaLH-VT93nPjZYzfkHhyUYDV697JsKmcJA0-VKt'
-            ];
-
-            const section = document.querySelector('.services-carousel-root');
-            const carouselWrapper = document.getElementById('carouselWrapper');
-            const carousel = document.getElementById('carousel');
-            const dotsContainer = document.getElementById('carouselDots');
-            
-            if (!carousel || !carouselWrapper) return;
-
-            gsap.set(carouselWrapper, { perspective: 1500 });
-            gsap.set(carousel, { transformStyle: "preserve-3d" });
-
-            carousel.innerHTML = '';
-            services.forEach((svc, index) => {
-                const card = document.createElement('div');
-                card.className = 'service-card group';
-
-                const img = document.createElement('img');
-                img.src = bgImages[index % bgImages.length];
-                img.alt = svc.title;
-                img.loading = 'lazy';
-                card.appendChild(img);
-
-                const overlay = document.createElement('div');
-                overlay.className = 'absolute inset-0 card-overlay';
-                card.appendChild(overlay);
-
-                const content = document.createElement('div');
-                content.className = 'card-content';
-
-                const title = document.createElement('h3');
-                title.className = 'title';
-                title.innerHTML = `<span class="text-xs text-gray-300 block mb-1 tracking-widest font-sans">${svc.id}</span>${svc.title}`;
-                content.appendChild(title);
-
-                const subtitle = document.createElement('div');
-                subtitle.className = 'text-xs sm:text-sm font-semibold text-white mb-1.5 sm:mb-2 font-inter opacity-90';
-                subtitle.textContent = svc.subtitle;
-                content.appendChild(subtitle);
-
-                const details = document.createElement('div');
-                details.className = 'details';
-                details.textContent = svc.details;
-                content.appendChild(details);
-
-                if (svc.quote) {
-                    const quote = document.createElement('div');
-                    quote.className = 'mt-3 sm:mt-4 text-[0.68rem] sm:text-[0.7rem] italic text-gray-300 font-serif border-l-2 border-white/50 pl-2.5 sm:pl-3 leading-relaxed';
-                    quote.textContent = svc.quote;
-                    content.appendChild(quote);
-                }
-
-                card.appendChild(content);
-                carousel.appendChild(card);
-            });
-
-            dotsContainer.innerHTML = '';
-            services.forEach((_, i) => {
-                const dot = document.createElement('button');
-                dot.className = 'dot' + (i === 0 ? ' active' : '');
-                dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
-                dot.dataset.index = i;
-                dotsContainer.appendChild(dot);
-            });
-            const dots = dotsContainer.querySelectorAll('.dot');
-            function updateDots(index) {
-                dots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === index);
-                });
-            }
-
-            window.addEventListener("load", () => {
-                const cards = document.querySelectorAll('.service-card');
-                
-                function getCardState(cardIndex, activeIndex) {
-                    const relativePos = cardIndex - activeIndex;
-                    const isSmallScreen = window.innerWidth < 640;
-                    
-                    if (relativePos < 0) {
-                        return {
-                            y: isSmallScreen ? -160 : -220, 
-                            scale: 0.88,
-                            opacity: 0,
-                            rotationZ: 0,
-                            z: 120,
-                            filter: "brightness(1) saturate(1)",
-                            ease: "power2.out"
-                        };
-                    } else if (relativePos === 0) {
-                        return {
-                            y: 0,
-                            scale: 1,
-                            opacity: 1,
-                            rotationZ: 0,
-                            z: 0,
-                            filter: "brightness(1) saturate(1)",
-                            ease: "power2.out"
-                        };
-                    } else {
-                        const isVisible = relativePos <= CONFIG.MAX_VISIBLE_STACK;
-                        const idx = isVisible ? relativePos : CONFIG.MAX_VISIBLE_STACK;
-                        
-                        return {
-                            y: CONFIG.STACK_OFFSET * idx,
-                            scale: 1 - (CONFIG.STACK_SCALE * idx),
-                            opacity: isVisible ? 1 - (0.2 * idx) : 0,
-                            rotationZ: (idx % 2 !== 0 ? CONFIG.STACK_ROTATION : -CONFIG.STACK_ROTATION) * idx,
-                            z: -CONFIG.STACK_DEPTH * idx,
-                            filter: `brightness(${1 - (0.15 * idx)}) saturate(0.85)`,
-                            ease: "power2.out"
-                        };
-                    }
-                }
-
-                cards.forEach((card, i) => {
-                    gsap.set(card, { 
-                        xPercent: -50, 
-                        yPercent: -50,
-                        ...getCardState(i, 0)
-                    });
-                    
-                    const img = card.querySelector('img');
-                    gsap.set(img, { scale: i === 0 ? 1 : 1 + (CONFIG.IMAGE_PARALLAX / 100) });
-
-                    const content = card.querySelector('.card-content');
-                    gsap.set(content, { opacity: i === 0 ? 1 : 0, y: i === 0 ? 0 : 20 });
-                });
-
-                const tl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: section,
-                        pin: true,
-                        scrub: CONFIG.ANIMATION_SMOOTHNESS || 1.2, 
-                        invalidateOnRefresh: true,
-                        anticipatePin: 1,
-                        start: "center center",
-                        end: () => "+=" + (window.innerHeight * CONFIG.SCROLL_VH_PER_CARD * (services.length - 1)),
-                        onUpdate: (self) => {
-                            const progress = self.progress;
-                            const activeIndex = Math.round(progress * (services.length - 1));
-                            updateDots(activeIndex);
-                        }
-                    }
-                });
-
-                for (let step = 0; step < services.length - 1; step++) {
-                    const nextActiveIndex = step + 1;
-                    
-                    cards.forEach((card, i) => {
-                        const state = getCardState(i, nextActiveIndex);
-                        const relIdx = i - nextActiveIndex;
-                        
-                        tl.to(card, {
-                            ...state,
-                            duration: 1,
-                            overwrite: "auto"
-                        }, step);
-                        
-                        const img = card.querySelector('img');
-                        tl.to(img, {
-                            scale: relIdx === 0 ? 1 : (relIdx < 0 ? 1.05 : 1 + (CONFIG.IMAGE_PARALLAX / 100)),
-                            duration: 1,
-                            ease: "power2.out"
-                        }, step);
-
-                        const content = card.querySelector('.card-content');
-                        tl.to(content, {
-                            opacity: relIdx === 0 ? 1 : 0,
-                            y: relIdx === 0 ? 0 : (relIdx < 0 ? -20 : 20),
-                            duration: 1,
-                            ease: "power2.out"
-                        }, step);
-                    });
-                }
-
-                // Smooth scrolling via dots
-                dots.forEach((dot, i) => {
-                    dot.addEventListener('click', () => {
-                        if (tl.scrollTrigger) {
-                            const start = tl.scrollTrigger.start;
-                            const end = tl.scrollTrigger.end;
-                            const totalScroll = end - start;
-                            const progress = i / (services.length - 1);
-                            
-                            window.scrollTo({
-                                top: start + (totalScroll * progress),
-                                behavior: 'smooth'
-                            });
-                        }
-                    });
-                });
-
-                // Touch swipe interaction for mobile
-                let touchStartX = 0;
-                let touchStartY = 0;
-                carouselWrapper.addEventListener('touchstart', (e) => {
-                    touchStartX = e.changedTouches[0].screenX;
-                    touchStartY = e.changedTouches[0].screenY;
-                }, { passive: true });
-
-                carouselWrapper.addEventListener('touchend', (e) => {
-                    const touchEndX = e.changedTouches[0].screenX;
-                    const touchEndY = e.changedTouches[0].screenY;
-                    const diffX = touchStartX - touchEndX;
-                    const diffY = touchStartY - touchEndY;
-                    
-                    if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
-                        if (tl && tl.scrollTrigger) {
-                            const curProgress = tl.scrollTrigger.progress;
-                            const curIdx = Math.round(curProgress * (services.length - 1));
-                            let targetIdx = curIdx;
-                            if (diffX > 0 && curIdx < services.length - 1) {
-                                targetIdx = curIdx + 1;
-                            } else if (diffX < 0 && curIdx > 0) {
-                                targetIdx = curIdx - 1;
-                            }
-                            if (targetIdx !== curIdx) {
-                                const start = tl.scrollTrigger.start;
-                                const totalScroll = tl.scrollTrigger.end - start;
-                                window.scrollTo({
-                                    top: start + (totalScroll * (targetIdx / (services.length - 1))),
-                                    behavior: 'smooth'
-                                });
-                            }
-                        }
-                    }
-                }, { passive: true });
-
-                ScrollTrigger.refresh();
-            });
-        })();
-
-        // PROJECT CARD HOVER (GSAP) - Desktop only
-        (function() {
-            if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-
-            const projectCards = document.querySelectorAll('.project-card');
-            let currentlyHovered = null;
-
-            projectCards.forEach(card => {
-                const img = card.querySelector('.project-image');
-
-                card.addEventListener('mouseenter', function() {
-                    if (currentlyHovered && currentlyHovered !== this) {
-                        const prev = currentlyHovered;
-                        gsap.to(prev, { y: 0, scale: 1, boxShadow: '0 20px 40px -12px rgba(0,0,0,0.6)', zIndex: 1, opacity: 1, filter: 'brightness(1) saturate(1)', duration: 0.45, ease: 'power3.out', overwrite: 'auto' });
-                        const prevImg = prev.querySelector('.project-image');
-                        if (prevImg) gsap.to(prevImg, { scale: 1.3, duration: 0.45, ease: 'power3.out', overwrite: 'auto' });
-                    }
-
-                    projectCards.forEach(other => {
-                        if (other !== this) {
-                            gsap.to(other, { opacity: 0.72, filter: 'brightness(0.75) saturate(0.85)', duration: 0.45, ease: 'power3.out', overwrite: 'auto' });
-                            gsap.to(other, { zIndex: 1, duration: 0.45, ease: 'power3.out', overwrite: 'auto' });
-                        }
-                    });
-
-                    gsap.to(this, { y: -12, scale: 1.035, boxShadow: '0 24px 55px rgba(0,0,0,0.5)', zIndex: 20, opacity: 1, filter: 'brightness(1) saturate(1)', duration: 0.45, ease: 'power3.out', overwrite: 'auto' });
-                    if (img) gsap.to(img, { scale: 1.35, duration: 0.6, ease: 'power3.out', overwrite: 'auto' });
-
-                    currentlyHovered = this;
-                });
-
-                card.addEventListener('mouseleave', function() {
-                    if (currentlyHovered !== this) return;
-
-                    gsap.to(this, { y: 0, scale: 1, boxShadow: '0 20px 40px -12px rgba(0,0,0,0.6)', zIndex: 1, opacity: 1, filter: 'brightness(1) saturate(1)', duration: 0.45, ease: 'power3.out', overwrite: 'auto' });
-                    if (img) gsap.to(img, { scale: 1.3, duration: 0.45, ease: 'power3.out', overwrite: 'auto' });
-
-                    projectCards.forEach(other => {
-                        if (other !== this) {
-                            gsap.to(other, { opacity: 1, filter: 'brightness(1) saturate(1)', duration: 0.45, ease: 'power3.out', overwrite: 'auto' });
-                            gsap.to(other, { y: 0, scale: 1, boxShadow: '0 20px 40px -12px rgba(0,0,0,0.6)', zIndex: 1, duration: 0.45, ease: 'power3.out', overwrite: 'auto' });
-                            const otherImg = other.querySelector('.project-image');
-                            if (otherImg) gsap.to(otherImg, { scale: 1.3, duration: 0.45, ease: 'power3.out', overwrite: 'auto' });
-                        }
-                    });
-
-                    currentlyHovered = null;
-                });
-            });
-        })();
-
-        // CONTACT FORM LOGIC
-        (function() {
-            const tags = document.querySelectorAll('.service-tag');
-            const serviceInput = document.getElementById('service');
-            let selectedTags = [];
-
-            tags.forEach(tag => {
-                tag.addEventListener('click', () => {
-                    tag.classList.toggle('selected');
-                    const text = tag.innerText;
-                    if (selectedTags.includes(text)) {
-                        selectedTags = selectedTags.filter(t => t !== text);
-                    } else {
-                        selectedTags.push(text);
-                    }
-                    if (serviceInput) serviceInput.value = selectedTags.join(', ');
-                });
-            });
-
-            const contactForm = document.getElementById("contactForm");
-            if (contactForm) {
-                contactForm.addEventListener("submit", function(e) {
-                    e.preventDefault();
-                    const name = document.getElementById("name").value;
-                    const business = document.getElementById("business").value || "Not provided";
-                    const email = document.getElementById("email").value;
-                    const phone = document.getElementById("phone").value || "Not provided";
-                    const service = document.getElementById("service").value || "Not specified";
-                    const message = document.getElementById("message").value || "No message provided";
-
-                    const subject = encodeURIComponent("New Website Enquiry — Sandy Design Studio");
-                    const body = encodeURIComponent(
-`┌─────────────────────────────────────────┐
-│        NEW WEBSITE ENQUIRY              │
-├─────────────────────────────────────────┤
-│ Name:     ${name}
-│ Business: ${business}
-│ Email:    ${email}
-│ Phone:    ${phone}
-│ Service:  ${service}
-├─────────────────────────────────────────┤
-│ MESSAGE:
-│ ${message}
-└─────────────────────────────────────────/`
-                    );
-
-                    window.location.href = `mailto:admin@sandydesignstudio.com?subject=${subject}&body=${body}`;
-                });
-            }
-        })();
-
-        // Handle window orientation and resize debounce
-        let resizeTimer;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(() => {
-                ScrollTrigger.refresh();
-            }, 250);
-        });
-        window.addEventListener('orientationchange', () => {
-            setTimeout(() => {
-                ScrollTrigger.refresh();
-            }, 300);
-        });
-    </script>
-</body>
-</html>
+I want you to test and FIX the responsiveness of this exact website:
+
+https://arishufilm-1.vercel.app/
+
+Do a complete mobile-first responsive audit of the existing page. Do not redesign it.
+
+I am specifically having bugs on mobile, so treat mobile as the highest priority.
+
+Test these viewport sizes:
+320 × 568
+360 × 800
+375 × 812
+390 × 844
+414 × 896
+430 × 932
+768 × 1024
+820 × 1180
+1024 × 768
+1280 × 800
+1440 × 900
+1920 × 1080
+
+Also check mobile landscape.
+
+IMPORTANT — FIX THE ROOT CAUSES
+
+Do not just add random media queries until things look okay.
+
+Inspect the complete HTML, CSS, Tailwind classes and JavaScript/GSAP logic.
+
+Find the actual causes of:
+
+horizontal page scrolling
+elements overflowing the viewport
+sections being cut off
+blank/hidden content
+incorrect section heights
+broken scroll animations
+broken horizontal scrolling
+cards going off-screen
+navigation overlapping content
+buttons overflowing
+text wrapping badly
+footer overflowing
+images/videos creating unexpected dimensions
+touch scrolling problems
+
+Then fix the underlying code.
+
+1. MOBILE NAVIGATION
+
+Make the floating navigation work perfectly at 320px–767px.
+
+It must:
+
+never exceed the viewport width
+never cause horizontal scrolling
+keep the menu button accessible
+keep the logo visible
+expand within the viewport
+close correctly
+work with touch
+not cover important content incorrectly
+prevent background scrolling while the menu is open if necessary
+
+Preserve the current navigation design.
+
+2. HERO
+
+Make the hero perfect on small phones.
+
+Check:
+
+heading wrapping
+italic heading
+paragraph width
+CTA buttons
+right-side image
+video background
+top spacing caused by the floating navigation
+
+At 320px and 360px especially, nothing may extend outside the viewport.
+
+The CTA buttons should stack naturally on small screens.
+
+Do not shrink text so much that it becomes unreadable.
+
+3. VIDEO SECTION
+
+The video must behave correctly on mobile Safari, Chrome and Android browsers.
+
+Do not rely blindly on height: 100vh.
+
+Use an appropriate mobile viewport strategy such as 100svh/100dvh where appropriate, with fallbacks.
+
+The video must:
+
+remain centered
+cover the section
+not overflow horizontally
+not create unexpected blank space
+not push the next section incorrectly
+4. PROJECT / LOGO HORIZONTAL SECTION
+
+This is a major priority.
+
+The current implementation uses GSAP ScrollTrigger to pin the section and translate a width: max-content horizontal track.
+
+The JavaScript currently calculates horizontal movement using:
+
+track.scrollWidth - window.innerWidth
+
+and uses a pinned 100vh section.
+
+Audit this carefully for mobile.
+
+On mobile:
+
+vertical scrolling must remain smooth
+the horizontal project experience must still work
+touch interaction must work naturally
+cards must fit the viewport
+cards must not become desktop-sized
+the logo grid must not cause page-level horizontal overflow
+the final card must be reachable
+the animation must not stop early
+the page must not become stuck
+resizing/orientation changes must refresh ScrollTrigger correctly
+
+Make the GSAP calculations responsive to the actual viewport and track dimensions.
+
+Do not hard-code desktop assumptions.
+
+If necessary, use different behavior for mobile and desktop, but preserve the same visual concept.
+
+5. PROJECT CARDS
+
+The current project cards have fixed dimensions.
+
+Make their dimensions responsive.
+
+On mobile:
+
+width: min(82vw, ...)
+
+or an equivalent responsive calculation is acceptable.
+
+Make sure cards remain visually large and premium without exceeding the viewport.
+
+Keep:
+
+rounded corners
+image treatment
+typography
+shadows
+project information
+
+unchanged visually.
+
+6. SERVICES CAROUSEL
+
+Audit the entire services card deck on mobile.
+
+The current implementation uses fixed card dimensions and a 3D/stacked animation.
+
+Make sure:
+
+cards fit within 320px screens
+cards never overflow horizontally
+cards remain centered
+text remains readable
+card height is appropriate
+the deck doesn't become clipped
+touch interaction works
+dots remain visible
+the carousel doesn't interfere with normal vertical scrolling
+
+Keep the existing visual card-deck design.
+
+7. BLOG
+
+Mobile should be:
+
+one card per row
+
+with:
+
+proper image height
+readable title
+comfortable spacing
+no horizontal overflow
+correct card animation
+
+Tablet should be two columns.
+
+Desktop should retain the existing four-column appearance.
+
+8. CONTACT / FORM
+
+On mobile:
+
+inputs must fit the viewport
+service tags must wrap
+buttons must fit
+labels must remain readable
+no elements may overlap
+form spacing must be comfortable
+
+Do not change the design.
+
+9. FOOTER
+
+Make the footer fully responsive.
+
+Mobile:
+
+stack the columns
+keep contact details readable
+social icons fit on one row
+CTA heading wraps naturally
+no text is clipped
+no horizontal overflow
+
+Keep the footer gradient exactly:
+
+linear-gradient(135deg, #0C1334 0%, #27397f 100%)
+
+Do not add #5ea7db back to the footer.
+
+10. HOVER EFFECTS ON MOBILE
+
+Remember that mobile devices do not have a traditional hover state.
+
+Important interactions must work with touch.
+
+Do not rely on :hover for functionality.
+
+Also, do not bring back the hover animation on the Start a Project button.
+
+11. ANIMATIONS
+
+Preserve the existing animations where they work.
+
+But prevent mobile from getting stuck with:
+
+opacity: 0
+
+or
+
+transform: translateY(...)
+
+because an animation failed to trigger.
+
+Make sure ScrollTrigger refreshes correctly after:
+
+page load
+images loading
+video loading
+orientation changes
+viewport resizing
+12. IMPORTANT — DON'T BREAK DESKTOP
+
+After fixing mobile, verify that desktop still looks essentially identical to the current version.
+
+Do not redesign anything.
+
+Do not change:
+
+branding
+colors
+fonts
+images
+content
+overall visual style
+section order
+13. FINAL REQUIREMENT
+
+Before returning the code, perform a complete responsive audit and fix all root-level issues you find, not just the first visible problem.
+
+Check specifically for:
+
+overflow-x
+width: 100vw
+width: max-content
+min-width
+fixed widths
+fixed heights
+100vh
+position: absolute
+position: fixed
+transform
+translate
+GSAP ScrollTrigger
+resize handling
+touch interaction
+
+Do not give me a list of suggested fixes. Actually implement the fixes.
+
+Return the complete updated HTML file so I can replace my current file directly.
+
+The final result must be production-ready and responsive on mobile, tablet, laptop, desktop and large desktop.
