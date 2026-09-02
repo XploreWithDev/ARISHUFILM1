@@ -124,8 +124,11 @@
     .heading-2lines .line1 { display: block; font-weight: 700; color: #000000; }
     .heading-2lines .line2 { display: block; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; color: #000000; }
 
-    /* RESPONSIVE HERO VIDEO / IMAGE CONTAINER HEIGHT ADJUSTMENT */
-    .card-scroll-container { height: clamp(480px, 60vh, 600px); }
+    /* RESPONSIVE HERO IMAGE CONTAINER HEIGHT ADJUSTMENT - Extended vertically for mobile */
+    .card-scroll-container { height: clamp(560px, 70vh, 600px); }
+    @media (max-width: 640px) {
+      .card-scroll-container { height: clamp(620px, 78vh, 700px); }
+    }
 
     .card-img {
       background-size: cover;
@@ -273,7 +276,7 @@
     .project-card-arrow { color: #000000; flex-shrink: 0; margin-left: 16px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); width: 40px; height: 40px; border-radius: 50%; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; }
     .project-card:hover .project-card-arrow { background: linear-gradient(135deg, #0c1334 0%, #27397f 50%, #5ea7db 100%); color: #fff; border-color: #27397f; transform: translateX(4px); }
 
-    /* ===== VERTICAL CATEGORY SELECTOR & FAQ STYLES ===== */
+    /* ===== VERTICAL CATEGORY SELECTOR & FAQ STYLES (RESPONSIVE OPTIMIZATION) ===== */
     #category-selector {
       position: relative;
       width: 100%;
