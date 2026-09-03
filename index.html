@@ -515,16 +515,38 @@
 
     /* ---------- MOBILE BALANCE FOR ABOUT SECTION ---------- */
     @media (max-width: 767px) {
-      /* Balance the text column: Move the text + black line group 20px toward the center */
+      /* 1. Break the strict 50/50 grid layout to let the text column widen */
+      .card-hero .card-body {
+        display: block; 
+        position: relative;
+      }
+      
+      /* Widen the text container to ~280px so the paragraph has fewer lines */
+      .card-hero .card-left {
+        width: 100%;
+        max-width: 280px; 
+        position: relative;
+        z-index: 2; /* Keep text above in case of bounding box overlaps */
+      }
+      
+      /* 2 & 5. Undo the previous right-shift so the black line stays in its natural place */
       .card-hero .hero-accent {
-        transform: translateX(20px);
+        transform: none !important;
       }
 
-      /* Adjust circle graphic: 
-         Desktop has transform: translateX(-20px). 
-         We shift it an additional 15px left (to -35px) and 65px down to balance the visual weight. */
+      /* 4. Position the right column absolutely so it doesn't squish the text */
+      .card-hero .card-right {
+        position: absolute;
+        right: 0;
+        top: 25%; /* Start lowering it toward the paragraph */
+        z-index: 1; /* Sit behind the text */
+        width: auto;
+      }
+
+      /* 3. Move circle graphic down ~50px and nudge it right to maintain a clean gap */
       .card-hero .hero-logo-outer {
-        transform: translate(-35px, 65px);
+        /* Overrides desktop's translateX(-20px) */
+        transform: translate(15px, 50px); 
       }
     }
   </style>
