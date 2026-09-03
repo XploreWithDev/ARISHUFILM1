@@ -515,6 +515,11 @@
 
     /* ---------- MOBILE BALANCE FOR ABOUT SECTION ---------- */
     @media (max-width: 767px) {
+      /* Slow down the cards scroll speed by increasing scroll area */
+      .cards-wrapper {
+        height: 500vh !important; 
+      }
+
       /* Stack elements vertically and center the whole block */
       .card-hero .card-body {
         display: flex; 
@@ -549,9 +554,9 @@
         z-index: 1; 
       }
 
-      /* Center the logo and remove old overlapping transforms */
+      /* Center the logo and move it slightly upper */
       .card-hero .hero-logo-outer {
-        transform: none !important; 
+        transform: translateY(-25px) !important; 
         margin: 0 auto;
         width: 200px;
         height: 200px;
@@ -621,7 +626,8 @@
   </div>
 
   <!-- ===== VISION BEHIND SDS & FULL TEAM SECTION ===== -->
-  <div id="scroll-container" class="relative h-[400vh] sm:h-[420vh] lg:h-[420vh] w-full bg-[#fcfcfc]">
+  <!-- Increased height here slightly slows down the team slide section on mobile -->
+  <div id="scroll-container" class="relative h-[500vh] sm:h-[420vh] lg:h-[420vh] w-full bg-[#fcfcfc]">
     <main class="sticky top-0 h-screen h-[100dvh] w-full flex items-center overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full h-full flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-12 pt-16 lg:pt-0 pb-12 lg:pb-0">
 
