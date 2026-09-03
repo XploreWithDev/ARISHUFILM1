@@ -512,6 +512,21 @@
         scroll-behavior: auto !important;
       }
     }
+
+    /* ---------- MOBILE BALANCE FOR ABOUT SECTION ---------- */
+    @media (max-width: 767px) {
+      /* Balance the text column: Move the text + black line group 20px toward the center */
+      .card-hero .hero-accent {
+        transform: translateX(20px);
+      }
+
+      /* Adjust circle graphic: 
+         Desktop has transform: translateX(-20px). 
+         We shift it an additional 15px left (to -35px) and 65px down to balance the visual weight. */
+      .card-hero .hero-logo-outer {
+        transform: translate(-35px, 65px);
+      }
+    }
   </style>
 </head>
 <body class="antialiased flex flex-col relative overflow-x-hidden w-full selection:bg-black/10">
@@ -848,6 +863,7 @@
           <div class="card-left"><div class="card-num">06</div><div class="card-chapter">The Studio</div></div>
           <div class="card-right">
             <p class="card-desc">
+              <span class="block font-semibold text-black mb-1">Collaborative Approach</span>
               SDS is built around close collaboration. Every person involved in a project has a role in thinking, creating, refining, and moving the brand forward. 12 team members. 35+ brands built. 2,000+ videos published. 200M+ organic reach generated for clients.
               <span class="block mt-3 font-medium text-white text-[1.1em]">Still Building Brands That Matter.</span>
             </p>
