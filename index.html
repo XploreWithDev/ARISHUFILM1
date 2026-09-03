@@ -407,6 +407,42 @@
       }
     }
 
+    /* Mobile Optimization for Team Layout & Spacing */
+    @media (max-width: 767px) {
+      .team-card-inner.team-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        column-gap: 20px !important;
+        row-gap: 32px !important;
+        width: 100% !important;
+        justify-content: center !important;
+        align-items: start !important;
+      }
+      .team-card-inner.team-grid .team-card-item {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+      }
+      /* If an odd number of cards exists (e.g., 5th member), center it natively */
+      .team-card-inner.team-grid > .team-card-item:last-child:nth-child(odd) {
+        grid-column: 1 / -1 !important;
+        justify-self: center !important;
+        width: calc(50% - 10px) !important;
+      }
+      
+      /* Exact 16px gap between image and name block */
+      .team-card-item .member-img-wrapper {
+        margin-bottom: 16px !important;
+      }
+      .team-card-item .team-card-name {
+        margin-top: 0 !important;
+        margin-bottom: 2px !important;
+      }
+      .team-card-item .team-card-role {
+        margin-top: 0 !important;
+      }
+    }
+
     .member-img-wrapper {
       width: 200px;
       height: 280px;
@@ -433,7 +469,7 @@
         height: auto !important;
         aspect-ratio: 3/4 !important;
         max-width: 260px !important;
-        margin: 0 auto;
+        margin: 0 auto 16px auto !important; /* Preserves sizing while ensuring gap applies */
       }
       .team-card-inner .w-\[46\%\] .member-img-wrapper {
         aspect-ratio: 4/5 !important;
@@ -598,74 +634,74 @@
 
           <!-- SLIDE 1: Social Media Team -->
           <div id="slide-1" class="slide-card">
-            <div class="team-card-inner !flex-row !gap-3 sm:!gap-8 justify-center">
-              <div class="flex flex-col items-center">
+            <div class="team-card-inner team-grid !flex-row !gap-3 sm:!gap-8 justify-center">
+              <div class="flex flex-col items-center team-card-item">
                 <div class="member-img-wrapper !w-[130px] sm:!w-[220px] lg:!w-[240px] !h-[180px] sm:!h-[320px] lg:!h-[360px]">
                   <img src="https://png.pngtree.com/png-vector/20231018/ourmid/pngtree-the-business-man-transparent-background-png-image_10309695.png" alt="Arjun Raj" class="w-full h-full object-cover object-center"/>
                 </div>
-                <h3 class="text-xs sm:text-lg font-bold text-gray-900 mt-2">Arjun Raj</h3>
-                <p class="text-blue-custom text-[9px] sm:text-xs uppercase tracking-wider font-semibold">Project Manager</p>
+                <h3 class="team-card-name text-xs sm:text-lg font-bold text-gray-900 mt-2">Arjun Raj</h3>
+                <p class="team-card-role text-blue-custom text-[9px] sm:text-xs uppercase tracking-wider font-semibold">Project Manager</p>
               </div>
-              <div class="flex flex-col items-center">
+              <div class="flex flex-col items-center team-card-item">
                 <div class="member-img-wrapper !w-[130px] sm:!w-[220px] lg:!w-[240px] !h-[180px] sm:!h-[320px] lg:!h-[360px]">
                   <img src="https://png.pngtree.com/png-vector/20231018/ourmid/pngtree-the-business-man-transparent-background-png-image_10309695.png" alt="Keerthana R" class="w-full h-full object-cover object-center"/>
                 </div>
-                <h3 class="text-xs sm:text-lg font-bold text-gray-900 mt-2">Keerthana R</h3>
-                <p class="text-blue-custom text-[9px] sm:text-xs uppercase tracking-wider font-semibold">Social Media Manager</p>
+                <h3 class="team-card-name text-xs sm:text-lg font-bold text-gray-900 mt-2">Keerthana R</h3>
+                <p class="team-card-role text-blue-custom text-[9px] sm:text-xs uppercase tracking-wider font-semibold">Social Media Manager</p>
               </div>
             </div>
           </div>
 
           <!-- SLIDE 2: Creative Team -->
           <div id="slide-2" class="slide-card">
-            <div class="team-card-inner !flex-row !flex-wrap !gap-3 sm:!gap-6 justify-center items-center max-w-[560px] mx-auto">
-              <div class="flex flex-col items-center w-[46%] sm:w-[46%]">
+            <div class="team-card-inner team-grid !flex-row !flex-wrap !gap-3 sm:!gap-6 justify-center items-center max-w-[560px] mx-auto">
+              <div class="flex flex-col items-center w-[46%] sm:w-[46%] team-card-item">
                 <div class="member-img-wrapper !w-[105px] sm:!w-[150px] lg:!w-[190px] !h-[130px] sm:!h-[190px] lg:!h-[230px]">
                   <img src="https://png.pngtree.com/png-vector/20231018/ourmid/pngtree-the-business-man-transparent-background-png-image_10309695.png" alt="Vasanth V" class="w-full h-full object-cover object-center"/>
                 </div>
-                <h3 class="text-[11px] sm:text-sm font-bold text-gray-900 mt-1.5">Vasanth V</h3>
-                <p class="text-blue-custom text-[8px] sm:text-[11px] uppercase tracking-wider font-semibold">Graphic Designer</p>
+                <h3 class="team-card-name text-[11px] sm:text-sm font-bold text-gray-900 mt-1.5">Vasanth V</h3>
+                <p class="team-card-role text-blue-custom text-[8px] sm:text-[11px] uppercase tracking-wider font-semibold">Graphic Designer</p>
               </div>
-              <div class="flex flex-col items-center w-[46%] sm:w-[46%]">
+              <div class="flex flex-col items-center w-[46%] sm:w-[46%] team-card-item">
                 <div class="member-img-wrapper !w-[105px] sm:!w-[150px] lg:!w-[190px] !h-[130px] sm:!h-[190px] lg:!h-[230px]">
                   <img src="https://png.pngtree.com/png-vector/20231018/ourmid/pngtree-the-business-man-transparent-background-png-image_10309695.png" alt="Praveen P" class="w-full h-full object-cover object-center"/>
                 </div>
-                <h3 class="text-[11px] sm:text-sm font-bold text-gray-900 mt-1.5">Praveen P</h3>
-                <p class="text-blue-custom text-[8px] sm:text-[11px] uppercase tracking-wider font-semibold">UI/UX Designer</p>
+                <h3 class="team-card-name text-[11px] sm:text-sm font-bold text-gray-900 mt-1.5">Praveen P</h3>
+                <p class="team-card-role text-blue-custom text-[8px] sm:text-[11px] uppercase tracking-wider font-semibold">UI/UX Designer</p>
               </div>
-              <div class="flex flex-col items-center w-[46%] sm:w-[46%]">
+              <div class="flex flex-col items-center w-[46%] sm:w-[46%] team-card-item">
                 <div class="member-img-wrapper !w-[105px] sm:!w-[150px] lg:!w-[190px] !h-[130px] sm:!h-[190px] lg:!h-[230px]">
                   <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=600&q=80" alt="Vignesh S" class="w-full h-full object-cover object-center"/>
                 </div>
-                <h3 class="text-[11px] sm:text-sm font-bold text-gray-900 mt-1.5">Vignesh S</h3>
-                <p class="text-blue-custom text-[8px] sm:text-[11px] uppercase tracking-wider font-semibold">Video Editor</p>
+                <h3 class="team-card-name text-[11px] sm:text-sm font-bold text-gray-900 mt-1.5">Vignesh S</h3>
+                <p class="team-card-role text-blue-custom text-[8px] sm:text-[11px] uppercase tracking-wider font-semibold">Video Editor</p>
               </div>
-              <div class="flex flex-col items-center w-[46%] sm:w-[46%]">
+              <div class="flex flex-col items-center w-[46%] sm:w-[46%] team-card-item">
                 <div class="member-img-wrapper !w-[105px] sm:!w-[150px] lg:!w-[190px] !h-[130px] sm:!h-[190px] lg:!h-[230px]">
                   <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80" alt="Logesh K" class="w-full h-full object-cover object-center"/>
                 </div>
-                <h3 class="text-[11px] sm:text-sm font-bold text-gray-900 mt-1.5">Logesh K</h3>
-                <p class="text-blue-custom text-[8px] sm:text-[11px] uppercase tracking-wider font-semibold">Video Editor</p>
+                <h3 class="team-card-name text-[11px] sm:text-sm font-bold text-gray-900 mt-1.5">Logesh K</h3>
+                <p class="team-card-role text-blue-custom text-[8px] sm:text-[11px] uppercase tracking-wider font-semibold">Video Editor</p>
               </div>
             </div>
           </div>
 
           <!-- SLIDE 3: Production Team -->
           <div id="slide-3" class="slide-card">
-            <div class="team-card-inner !flex-row !gap-3 sm:!gap-8 justify-center">
-              <div class="flex flex-col items-center">
+            <div class="team-card-inner team-grid !flex-row !gap-3 sm:!gap-8 justify-center">
+              <div class="flex flex-col items-center team-card-item">
                 <div class="member-img-wrapper !w-[130px] sm:!w-[220px] lg:!w-[240px] !h-[180px] sm:!h-[320px] lg:!h-[360px]">
                   <img src="https://png.pngtree.com/png-vector/20231018/ourmid/pngtree-the-business-man-transparent-background-png-image_10309695.png" alt="Dinesh K" class="w-full h-full object-cover object-center"/>
                 </div>
-                <h3 class="text-xs sm:text-lg font-bold text-gray-900 mt-2">Dinesh K</h3>
-                <p class="text-blue-custom text-[9px] sm:text-xs uppercase tracking-wider font-semibold">Cinematographer</p>
+                <h3 class="team-card-name text-xs sm:text-lg font-bold text-gray-900 mt-2">Dinesh K</h3>
+                <p class="team-card-role text-blue-custom text-[9px] sm:text-xs uppercase tracking-wider font-semibold">Cinematographer</p>
               </div>
-              <div class="flex flex-col items-center">
+              <div class="flex flex-col items-center team-card-item">
                 <div class="member-img-wrapper !w-[130px] sm:!w-[220px] lg:!w-[240px] !h-[180px] sm:!h-[320px] lg:!h-[360px]">
                   <img src="https://png.pngtree.com/png-vector/20231018/ourmid/pngtree-the-business-man-transparent-background-png-image_10309695.png" alt="Siva Prakash" class="w-full h-full object-cover object-center"/>
                 </div>
-                <h3 class="text-xs sm:text-lg font-bold text-gray-900 mt-2">Siva Prakash</h3>
-                <p class="text-blue-custom text-[9px] sm:text-xs uppercase tracking-wider font-semibold">Creative Director</p>
+                <h3 class="team-card-name text-xs sm:text-lg font-bold text-gray-900 mt-2">Siva Prakash</h3>
+                <p class="team-card-role text-blue-custom text-[9px] sm:text-xs uppercase tracking-wider font-semibold">Creative Director</p>
               </div>
             </div>
           </div>
