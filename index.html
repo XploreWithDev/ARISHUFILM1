@@ -57,11 +57,6 @@
       -webkit-text-size-adjust: 100%;
     }
 
-    /* [RESPONSIVE OPTIMIZATION: Ensure balanced text wrapping on all headings to prevent awkward widows/orphans on narrow screens] */
-    h1, h2, h3, .card-chapter, .main-headline {
-      text-wrap: balance;
-    }
-
     .nav-offset { padding-top: clamp(80px, 14vw, 110px); }
 
     /* ---------- CHAPTER CARDS (STACKING / UPWARD-SLIDE ANIMATION) ---------- */
@@ -216,10 +211,7 @@
     .process-step:nth-child(3) { margin-top: 8%; }
     .process-step:nth-child(4) { margin-top: 12%; }
     .step-number { font-size: 1.75rem; font-weight: 300; color: #ffffff; line-height: 1; min-width: 2.5rem; }
-    
-    /* [RESPONSIVE OPTIMIZATION: Changed from fixed max-width: 20rem to flex:1 to prevent text overflow breaking layout on < 375px screens] */
-    .step-content { flex: 1; min-width: 0; max-width: 100%; }
-    
+    .step-content { max-width: 20rem; }
     .step-title { font-size: 0.95rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.4rem; color: #ffffff; }
     .step-desc { font-size: 0.85rem; color: #cccccc; line-height: 1.5; }
 
@@ -401,10 +393,10 @@
     }
 
     /* ============================================================
-       RESPONSIVE OPTIMIZATION FIXES (Mobile & Tablet)
-       ============================================================ */
+        RESPONSIVE OPTIMIZATION FIXES (Mobile & Tablet)
+        ============================================================ */
     @media (max-width: 1024px) {
-      /* Fix 1: Remove fixed heights on pinned scroll containers to prevent massive empty spaces */
+      /* Responsive Fix 1: Remove fixed heights on pinned scroll containers to prevent massive empty spaces on mobile */
       .cards-wrapper {
         height: auto !important;
         min-height: auto !important;
@@ -416,7 +408,7 @@
         overflow: visible !important;
       }
 
-      /* Fix 2: Un-stack the cards for natural scroll without overlaps */
+      /* Responsive Fix 2: Un-stack chapter cards for smooth vertical mobile scrolling without overlaps */
       .card {
         position: relative !important;
         transform: none !important;
@@ -424,8 +416,6 @@
         height: auto !important;
         min-height: auto !important;
         margin-bottom: 2rem;
-        /* [RESPONSIVE OPTIMIZATION: Added overflow:hidden to ensure the absolutely positioned .bg-year doesn't cause horizontal scrollbars on mobile] */
-        overflow: hidden !important;
       }
       .card-body {
         grid-template-columns: 1fr !important;
@@ -447,12 +437,12 @@
         height: clamp(180px, 50vw, 220px) !important;
       }
 
-      /* Fix 3: Hide scroll hint as pinning is disabled */
+      /* Responsive Fix 3: Hide scroll hint when pinning is disabled on mobile */
       .scroll-hint {
         display: none !important;
       }
 
-      /* Fix 4: Process section layout */
+      /* Responsive Fix 4: Stack process section properly on mobile */
       .process-container {
         grid-template-columns: 1fr !important;
         padding: 3rem 1.25rem !important;
@@ -471,10 +461,10 @@
         margin-bottom: 1.5rem !important;
       }
       .process-center-space {
-        display: none !important; /* Hide empty column to prevent massive gap */
+        display: none !important;
       }
 
-      /* Fix 5: Team section un-stacking & perfect mobile interleaving */
+      /* Responsive Fix 5: Team section un-stacking & mobile interleaving order */
       #scroll-container {
         height: auto !important;
         min-height: auto !important;
@@ -486,19 +476,15 @@
         min-height: auto !important;
       }
       
-      /* Magic CSS Interleave: Instead of showing all text then all images, we flatten the grid 
-         and use flex `order` to naturally stack them (Text 1, Image 1, Text 2, Image 2, etc.) 
-         WITHOUT changing the HTML structure. */
       #scroll-container .w-full.lg\:w-\[35\%\],
       #scroll-container .w-full.lg\:w-\[65\%\] {
-        display: contents !important; /* Drops children out of wrapper for ordering */
+        display: contents !important;
       }
       #scroll-container .max-w-7xl {
         display: flex !important;
         flex-direction: column !important;
       }
 
-      /* Reset absolute positioning on the individual team items */
       #scroll-container .slide-card,
       #scroll-container .text-group {
         position: relative !important;
@@ -507,7 +493,6 @@
         pointer-events: auto !important;
       }
 
-      /* Apply correct order and spacing */
       #text-group-0 { order: 1; margin: 1rem 0 1.5rem !important; }
       #slide-0 { order: 2; margin-bottom: 4rem !important; }
 
@@ -523,21 +508,16 @@
 
     /* Small Mobile constraints */
     @media (max-width: 480px) {
-      /* [RESPONSIVE OPTIMIZATION: Replaced brittle fixed-width overrides with robust aspect-ratio rules to ensure the 2x2 grid scales flawlessly without overlap] */
       .team-card-inner .member-img-wrapper {
         width: 100% !important;
+        max-width: 280px !important;
         height: auto !important;
         aspect-ratio: 3/4 !important;
       }
-      
-      /* Ensure single/two column items max out gracefully */
-      .team-card-inner.justify-center > div:first-child:last-child .member-img-wrapper,
-      .team-card-inner > div:not(.w-\[46\%\]) .member-img-wrapper {
-        max-width: 280px !important;
-      }
-      
-      /* Scale the 2x2 grid properly based on parent width percentage */
-      .team-card-inner .w-\[46\%\] .member-img-wrapper {
+      .team-card-inner.\!w-\[140px\] {
+        width: 100% !important;
+        max-width: 160px !important;
+        height: auto !important;
         aspect-ratio: 4/5 !important;
       }
     }
@@ -552,7 +532,7 @@
     }
   </style>
 </head>
-<body class="antialiased flex flex-col relative overflow-x-hidden w-full selection:bg-black/10">
+<body class="antialiased flex flex-col relative overflow-x-hidden selection:bg-black/10">
 
   <!-- DYNAMIC COLLAPSIBLE NAVIGATION (TOP LEFT) -->
   <div id="nav-container" class="smooth-transition fixed top-3 left-3 sm:top-6 sm:left-6 z-[1000] flex items-center bg-black/60 backdrop-blur-xl border border-white/10 shadow-2xl rounded-full p-2 max-w-[95vw]">
@@ -944,8 +924,7 @@
       </p>
       
       <div class="inline-block group">
-        <!-- [RESPONSIVE OPTIMIZATION: Reduced horizontal padding from px-8 to px-6 on ultra-small screens to prevent horizontal scroll push on 320px displays] -->
-        <a class="inline-flex items-center justify-center px-6 sm:px-10 py-3.5 sm:py-5 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] hover:brightness-110 text-white text-xs sm:text-sm font-semibold tracking-[0.18em] uppercase rounded-full transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 shadow-xl shadow-[#0c1334]/20" data-purpose="cta-button" href="connect.html">
+        <a class="inline-flex items-center justify-center px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] hover:brightness-110 text-white text-xs sm:text-sm font-semibold tracking-[0.18em] uppercase rounded-full transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 shadow-xl shadow-[#0c1334]/20" data-purpose="cta-button" href="connect.html">
           Start a Conversation
           <svg class="w-4 h-4 ml-2.5 transition-transform duration-300 group-hover:translate-x-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
