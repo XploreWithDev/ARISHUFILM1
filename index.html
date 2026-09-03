@@ -53,17 +53,17 @@
     .fc-wrapper {
       height: 300vh;
       position: relative;
-      margin: 0 clamp(0.75rem, 3vw, 6rem);
+      margin: 2.2rem clamp(0.75rem, 3vw, 6rem) 0 clamp(0.75rem, 3vw, 6rem); /* Moved slightly downward */
     }
     .fc-sticky {
       position: sticky;
-      top: 70px;
-      height: calc(100vh - 70px);
+      top: 75px;
+      height: calc(100vh - 75px);
       display: flex;
       align-items: flex-start;
       justify-content: center;
       overflow: hidden;
-      padding-top: 8px;
+      padding-top: 18px; 
     }
     .fc-card {
       position: absolute;
@@ -417,7 +417,7 @@
 
     @media (max-width: 1024px) {
       .fc-wrapper {
-        margin: 0 0.5rem;
+        margin: 2rem 0.5rem 0 0.5rem;
       }
       .panel-inner, .cta-panel {
         flex-direction: column;
@@ -547,7 +547,7 @@
       </div>
     </section>
 
-    <!-- Tabs Section (Zero bottom margin to remove gap with cards) -->
+    <!-- Tabs Section -->
     <section class="mb-0 border-b border-gray-200 overflow-x-auto no-scrollbar scroll-reveal">
       <div class="flex items-center gap-6 sm:gap-8 md:gap-12 pb-3 whitespace-nowrap min-w-max" id="filterTabs">
         <button class="filter-btn active text-xs sm:text-sm md:text-base font-medium text-gray-900 border-b-2 border-gray-900 pb-3 -mb-3" data-filter="all">All</button>
@@ -558,9 +558,9 @@
       </div>
     </section>
 
-    <!-- FLASHCARD SCROLL SECTION (Zero top spacing / tight lock) -->
+    <!-- FLASHCARD SCROLL SECTION (Slightly moved downward with comfortable top margin) -->
     <div class="fc-wrapper scroll-reveal" id="flashcardWrapper">
-      <div class="fc-sticky" style="top: 50px;">
+      <div class="fc-sticky" style="top: 75px;">
 
         <div class="fc-card" data-index="0" data-category="strategy" data-service="brand-strategy">
           <div class="fc-left">
