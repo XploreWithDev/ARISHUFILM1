@@ -49,11 +49,11 @@
     .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
     #logo-container-wrap { transition: width 500ms cubic-bezier(0.22, 1, 0.36, 1), background-color 400ms ease, border 400ms ease, border-radius 400ms ease, padding 400ms ease; }
 
-    /* FULLY OPTIMIZED STACKED SERVICE CARDS WITH MOBILE IMAGE SUPPORT */
+    /* REFINED STACKED SERVICE CARDS WITH PERFECT SPACING & ROUNDED CORNERS */
     .fc-wrapper {
       height: 300vh;
       position: relative;
-      margin: 0 clamp(0.75rem, 3vw, 6rem);
+      margin: 0 clamp(1rem, 3.5vw, 6rem);
     }
     .fc-sticky {
       position: sticky;
@@ -68,10 +68,10 @@
       position: absolute;
       width: min(1040px, 94vw);
       height: min(580px, 75vh);
-      border-radius: 26px;
+      border-radius: 32px;
       overflow: hidden;
       background: white;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.12);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.12);
       display: flex;
       flex-direction: row;
       opacity: 0;
@@ -84,26 +84,26 @@
     
     .fc-left {
       flex: 1.1; 
-      padding: clamp(20px, 3.5vw, 48px) clamp(20px, 3.5vw, 56px);
+      padding: clamp(24px, 4vw, 52px) clamp(24px, 4vw, 60px);
       display: flex; 
       flex-direction: column; 
       justify-content: center; 
-      gap: 8px;
+      gap: 10px;
       background: #ffffff; 
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
     }
     .fc-num { font-size: 11px; font-weight: 600; letter-spacing: 2.5px; color: #888; text-transform: uppercase; margin-bottom: 0; }
-    .fc-service-title { font-size: clamp(22px, 3vw, 40px); font-weight: 500; line-height: 1.1; color: #111; letter-spacing: -0.025em; margin: 0; }
-    .fc-tagline { font-size: clamp(12px, 1.1vw, 15px); color: #666; font-weight: 300; line-height: 1.35; margin-top: 0; margin-bottom: 2px; }
+    .fc-service-title { font-size: clamp(22px, 3.2vw, 40px); font-weight: 500; line-height: 1.1; color: #111; letter-spacing: -0.025em; margin: 0; }
+    .fc-tagline { font-size: clamp(12.5px, 1.2vw, 15px); color: #666; font-weight: 300; line-height: 1.4; margin-top: 0; margin-bottom: 4px; }
     .fc-italic { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: #222; }
-    .fc-list { list-style: none; display: flex; flex-wrap: wrap; gap: 5px 6px; padding: 0; margin: 2px 0; }
+    .fc-list { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 8px; padding: 0; margin: 4px 0; }
     .fc-list li a {
-      font-size: clamp(11px, 1vw, 12px); 
+      font-size: clamp(11.5px, 1.05vw, 12.5px); 
       color: #333; 
       background: #f4f4f2; 
       border: 1px solid rgba(0, 0, 0, 0.04); 
-      padding: 4px 10px; 
+      padding: 5px 12px; 
       border-radius: 50px; 
       font-weight: 500; 
       text-decoration: none; 
@@ -120,16 +120,16 @@
     }
 
     .fc-btn {
-      margin-top: 4px;
+      margin-top: 6px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 8px 18px;
+      padding: 10px 22px;
       background: linear-gradient(135deg, #0c1334 0%, #27397f 100%);
       color: #fff;
       border-radius: 50px;
-      font-size: 12px;
+      font-size: 12.5px;
       font-weight: 500;
       text-decoration: none;
       width: fit-content;
@@ -176,7 +176,7 @@
     .approach-grid { display: flex; flex-direction: row; gap: 2rem; width: 100%; max-width: 1300px; justify-content: center; }
     .zone-card { flex: 1; position: relative; display: flex; justify-content: center; align-items: center; min-height: 580px; cursor: pointer; }
     .default-title { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: clamp(1.6rem, 2.5vw, 2.6rem); font-weight: 600; color: #0c0c0c; text-align: center; width: 100%; padding: 0 1rem; line-height: 1.15; z-index: 1; transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1); margin: 0; }
-    .image-wrapper { position: relative; width: 100%; max-width: 360px; aspect-ratio: 3 / 4.8; overflow: hidden; opacity: 0; transform: scale(0.95); transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1); z-index: 2; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+    .image-wrapper { position: relative; width: 100%; max-width: 360px; aspect-ratio: 3 / 4.8; overflow: hidden; opacity: 0; transform: scale(0.95); transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1); z-index: 2; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
     .image-wrapper img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
     .overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.35); transition: background 0.5s ease; }
     .hover-content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: clamp(20px, 3.5vw, 40px); opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s; z-index: 3; }
@@ -431,36 +431,36 @@
       .cta-panel.visible-panel .cta-text { transform: translateY(0); transition-delay: 0.35s; }
       .cta-action-row { justify-content: center; width: 100%; }
 
-      /* Optimized Mobile Service Cards with Compact Top Image & Balanced Spacing */
+      /* Perfectly proportioned mobile service cards with rounded corners and balanced spacing */
       .fc-card { 
         flex-direction: column; 
         height: auto; 
-        max-height: 85vh; 
+        max-height: 84vh; 
         width: 92vw; 
-        border-radius: 20px;
+        border-radius: 28px;
       }
       .fc-right { 
         display: block !important;
-        flex: 0 0 130px;
+        flex: 0 0 160px;
         width: 100%;
         position: relative;
       }
       .fc-left { 
-        padding: 14px 16px; 
-        gap: 4px;
+        padding: 20px 22px; 
+        gap: 8px;
         overflow-y: auto;
-        max-height: calc(85vh - 130px);
+        max-height: calc(84vh - 160px);
       }
-      .fc-num { font-size: 10px; letter-spacing: 2px; }
-      .fc-service-title { font-size: clamp(18px, 4.5vw, 22px); line-height: 1.15; }
-      .fc-tagline { font-size: clamp(11px, 2.6vw, 13px); margin-bottom: 2px; }
-      .fc-list { gap: 3px 4px; margin: 2px 0; }
-      .fc-list li a { font-size: 10.5px; padding: 3px 8px; }
-      .fc-btn { margin-top: 3px; padding: 6px 14px; font-size: 11px; }
+      .fc-num { font-size: 10.5px; letter-spacing: 2.5px; }
+      .fc-service-title { font-size: clamp(20px, 5vw, 24px); line-height: 1.15; }
+      .fc-tagline { font-size: clamp(12px, 3vw, 14px); margin-bottom: 2px; }
+      .fc-list { gap: 5px 6px; margin: 4px 0; }
+      .fc-list li a { font-size: 11px; padding: 4px 10px; }
+      .fc-btn { margin-top: 6px; padding: 8px 18px; font-size: 11.5px; }
     }
     @media (max-width: 768px) {
       .approach-grid { flex-direction: column; gap: 2rem; }
-      .image-wrapper { max-width: 340px; aspect-ratio: 4 / 5; }
+      .image-wrapper { max-width: 340px; aspect-ratio: 4 / 5; border-radius: 24px; }
       .zone-card { min-height: 380px; padding: 0.5rem 0; }
     }
     @media (max-width: 540px) {
