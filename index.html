@@ -407,7 +407,34 @@
       }
     }
 
-    /* Mobile Optimization for Team Layout & Spacing */
+    /* Mobile/Tablet Optimization for Team Section Vertical Spacing */
+    @media (max-width: 1023px) {
+      /* Prevent massive vertical gap on scroll section */
+      #scroll-container .max-w-7xl {
+        justify-content: flex-start !important;
+        padding-top: 100px !important; /* Nav clearance */
+        gap: 0 !important;
+      }
+      
+      /* Text Column */
+      #scroll-container .max-w-7xl > div:nth-child(1) {
+        height: 180px !important;
+      }
+      
+      /* Images Column */
+      #scroll-container .max-w-7xl > div:nth-child(2) {
+        height: auto !important;
+        flex: 1 !important;
+        margin-top: 40px !important; /* Combined with text container yields exactly 60-80px whitespace */
+      }
+      
+      /* Anchor slides to top to lock in the precise gap */
+      .slide-card {
+        align-items: flex-start !important;
+      }
+    }
+
+    /* Mobile Optimization for Team Layout & Image Spacing */
     @media (max-width: 767px) {
       .team-card-inner.team-grid {
         display: grid !important;
