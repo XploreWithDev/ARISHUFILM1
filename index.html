@@ -346,98 +346,6 @@
       .member-img-wrapper { width: 450px; height: 620px; }
     }
 
-    /* ============================================================
-       RESPONSIVE MOBILE OVERRIDES (< 1024px) - SCROLL ANIMATED SECTIONS
-       ============================================================ */
-    @media (max-width: 1024px) {
-      .cards-wrapper {
-        height: auto !important;
-        min-height: auto !important;
-      }
-      .sticky-stage {
-        position: relative !important;
-        height: auto !important;
-        min-height: auto !important;
-        display: flex !important;
-        flex-direction: column !important;
-        overflow: visible !important;
-      }
-      .card {
-        position: relative !important;
-        transform: none !important;
-        opacity: 1 !important;
-        width: 100% !important;
-        height: auto !important;
-        min-height: auto !important;
-        margin-bottom: 2rem !important;
-        overflow: hidden !important;
-        border-radius: 1rem;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      }
-      .card-body {
-        grid-template-columns: 1fr !important;
-        gap: 1.2rem !important;
-        padding: 2rem 1.25rem !important;
-        overflow-y: visible !important;
-      }
-      .card-hero .card-body {
-        grid-template-columns: 1fr !important;
-        gap: 1.2rem !important;
-      }
-      .card-hero .card-right { align-items: flex-start !important; }
-      .hero-logo-outer {
-        transform: translateX(0) !important;
-        margin: 0 auto;
-        width: clamp(160px, 45vw, 200px) !important;
-        height: clamp(160px, 45vw, 200px) !important;
-      }
-      .scroll-hint { display: none !important; }
-
-      .process-container {
-        grid-template-columns: 1fr !important;
-        padding: 2.5rem 1.1rem !important;
-        height: auto !important;
-        min-height: auto !important;
-      }
-      .left-column { padding-right: 0 !important; }
-      .right-content-area { padding-top: 1rem !important; padding-bottom: 1.5rem !important; }
-      .process-step { margin-top: 1rem !important; margin-bottom: 1.2rem !important; }
-      .process-center-space { display: none !important; }
-
-      #scroll-container { height: auto !important; min-height: auto !important; padding-bottom: 2rem; }
-      #scroll-container main.sticky { position: relative !important; height: auto !important; min-height: auto !important; }
-      
-      #scroll-container .w-full.lg\:w-\[35\%\],
-      #scroll-container .w-full.lg\:w-\[65\%\] {
-        display: contents !important;
-      }
-      #scroll-container .max-w-7xl {
-        display: flex !important;
-        flex-direction: column !important;
-        padding-top: 3rem !important;
-        padding-bottom: 3rem !important;
-      }
-      #scroll-container .slide-card,
-      #scroll-container .text-group {
-        position: relative !important;
-        opacity: 1 !important;
-        transform: none !important;
-        pointer-events: auto !important;
-      }
-
-      #text-group-0 { order: 1; margin: 0.5rem 0 1rem !important; }
-      #slide-0 { order: 2; margin-bottom: 2.5rem !important; }
-
-      #text-group-1 { order: 3; margin: 0.5rem 0 1rem !important; }
-      #slide-1 { order: 4; margin-bottom: 2.5rem !important; }
-
-      #text-group-2 { order: 5; margin: 0.5rem 0 1rem !important; }
-      #slide-2 { order: 6; margin-bottom: 2.5rem !important; }
-
-      #text-group-3 { order: 7; margin: 0.5rem 0 1rem !important; }
-      #slide-3 { order: 8; margin-bottom: 1.5rem !important; }
-    }
-
     @media (max-width: 480px) {
       .team-card-inner .member-img-wrapper {
         width: 100% !important;
@@ -530,7 +438,7 @@
 
         <!-- LEFT COLUMN -->
         <div class="w-full lg:w-[35%] relative h-[210px] sm:h-[250px] lg:h-[500px] flex items-center shrink-0">
-          <div id="text-group-0" class="text-group scroll-reveal">
+          <div id="text-group-0" class="text-group">
             <h1 class="text-2xl sm:text-4xl lg:text-7xl font-bold tracking-tight mb-3 lg:mb-8 leading-none">
               The vision behind <br class="hidden sm:block"/>
               SDS<span class="text-brand-blue">.</span>
@@ -599,7 +507,7 @@
         <!-- RIGHT COLUMN (GROUPED TEAM MEMBERS) -->
         <div class="w-full lg:w-[65%] relative h-[40vh] sm:h-[550px] lg:h-[850px] flex items-center justify-center shrink-0">
           <!-- SLIDE 0: Founder -->
-          <div id="slide-0" class="slide-card scroll-reveal">
+          <div id="slide-0" class="slide-card">
             <div class="team-card-inner !justify-center">
               <div class="member-img-wrapper">
                 <img alt="Founder sitting on a chair" class="w-full h-full object-cover object-center drop-shadow-xl" src="https://png.pngtree.com/png-vector/20231018/ourmid/pngtree-smart-business-man-transparent-background-png-image_10309671.png"/>
@@ -608,7 +516,7 @@
           </div>
 
           <!-- SLIDE 1: Social Media Team -->
-          <div id="slide-1" class="slide-card scroll-reveal">
+          <div id="slide-1" class="slide-card">
             <div class="team-card-inner !flex-row !gap-3 sm:!gap-8 justify-center">
               <div class="flex flex-col items-center">
                 <div class="member-img-wrapper !w-[130px] sm:!w-[220px] lg:!w-[240px] !h-[180px] sm:!h-[320px] lg:!h-[360px]">
@@ -628,7 +536,7 @@
           </div>
 
           <!-- SLIDE 2: Creative Team -->
-          <div id="slide-2" class="slide-card scroll-reveal">
+          <div id="slide-2" class="slide-card">
             <div class="team-card-inner !flex-row !flex-wrap !gap-3 sm:!gap-6 justify-center items-center max-w-[560px] mx-auto">
               <div class="flex flex-col items-center w-[46%] sm:w-[46%]">
                 <div class="member-img-wrapper !w-[105px] sm:!w-[150px] lg:!w-[190px] !h-[130px] sm:!h-[190px] lg:!h-[230px]">
@@ -662,7 +570,7 @@
           </div>
 
           <!-- SLIDE 3: Production Team -->
-          <div id="slide-3" class="slide-card scroll-reveal">
+          <div id="slide-3" class="slide-card">
             <div class="team-card-inner !flex-row !gap-3 sm:!gap-8 justify-center">
               <div class="flex flex-col items-center">
                 <div class="member-img-wrapper !w-[130px] sm:!w-[220px] lg:!w-[240px] !h-[180px] sm:!h-[320px] lg:!h-[360px]">
@@ -685,11 +593,11 @@
     </main>
   </div>
 
-  <!-- ===== CHAPTERS ===== -->
+  <!-- ===== CHAPTERS (ACCELERATED SCROLL: 380vh) ===== -->
   <div class="cards-wrapper">
     <div class="sticky-stage">
       <!-- HERO CARD -->
-      <div class="card card-hero visible scroll-reveal" data-index="0" style="transform: translateY(0);">
+      <div class="card card-hero visible" data-index="0" style="transform: translateY(0);">
         <div class="card-body">
           <div class="card-left">
             <div class="card-chapter"><span class="sds">SDS</span><br/><span class="story">ABOUT</span></div>
@@ -718,7 +626,7 @@
       </div>
 
       <!-- CHAPTER 1 -->
-      <div class="card card-light scroll-reveal" data-index="1">
+      <div class="card card-light" data-index="1">
         <div class="card-bar"><span class="card-bar-text">Good Businesses Deserve Brands That Show It.</span></div>
         <div class="card-body">
           <div class="card-left"><div class="card-num">01</div><div class="card-chapter">What We Believe</div></div>
@@ -729,18 +637,18 @@
       </div>
 
       <!-- CHAPTER 2 -->
-      <div class="card card-dark scroll-reveal" data-index="2">
+      <div class="card card-dark" data-index="2">
         <div class="card-bar"><span class="card-bar-text">Clear. Creative. Communication.</span></div>
         <div class="card-body">
           <div class="card-left"><div class="card-num">02</div><div class="card-chapter">Our Philosophy</div></div>
           <div class="card-right">
             <p class="card-desc">
               <span class="block font-semibold text-white mb-1">Clear</span>
-              <span class="block mb-2">We understand your business completely before we create anything.</span>
+              <span class="block mb-2 sm:mb-3">We understand your business completely before we create anything.</span>
               <span class="block font-semibold text-white mb-1">Creative</span>
-              <span class="block mb-2">We turn that understanding into purposeful, distinctive work that feels true to your business.</span>
+              <span class="block mb-2 sm:mb-3">We turn that understanding into purposeful, distinctive work that feels true to your business.</span>
               <span class="block font-semibold text-white mb-1">Communication</span>
-              <span class="block mb-2">We put your story where your audience is and make sure it connects.</span>
+              <span class="block mb-2 sm:mb-3">We put your story where your audience is and make sure it connects.</span>
               <span class="block font-medium text-white/90">Together, these principles shape everything we do at SDS.</span>
             </p>
           </div>
@@ -750,7 +658,7 @@
       </div>
 
       <!-- CHAPTER 3 -->
-      <div class="card card-light scroll-reveal" data-index="3">
+      <div class="card card-light" data-index="3">
         <div class="card-bar"><span class="card-bar-text">Strategy to Growth. One Connected System.</span></div>
         <div class="card-body">
           <div class="card-left"><div class="card-num">03</div><div class="card-chapter">What We Do</div></div>
@@ -761,7 +669,7 @@
       </div>
 
       <!-- CHAPTER 4 -->
-      <div class="card card-dark scroll-reveal" data-index="4">
+      <div class="card card-dark" data-index="4">
         <div class="card-bar"><span class="card-bar-text">Businesses With Something Worth Building.</span></div>
         <div class="card-body">
           <div class="card-left"><div class="card-num">04</div><div class="card-chapter">Who We Work With</div></div>
@@ -772,15 +680,15 @@
       </div>
 
       <!-- CHAPTER 5 -->
-      <div class="card card-light scroll-reveal" data-index="5">
+      <div class="card card-light" data-index="5">
         <div class="card-bar"><span class="card-bar-text">About the Maker</span></div>
         <div class="card-body">
           <div class="card-left"><div class="card-num">05</div><div class="card-chapter">Santhosh S</div></div>
           <div class="card-right">
             <p class="card-desc">
               <span class="block font-semibold text-black mb-1">Founder & Brand Strategist</span>
-              <span class="block mb-2">Santhosh S is a Chennai-based brand and growth strategist working at the intersection of brand strategy, product marketing, and go-to-market thinking.</span>
-              <span class="block mb-2">His background began in tech development before moving into brand and product marketing, giving him a combination of technical understanding and strategic brand thinking.</span>
+              <span class="block mb-2 sm:mb-3">Santhosh S is a Chennai-based brand and growth strategist working at the intersection of brand strategy, product marketing, and go-to-market thinking.</span>
+              <span class="block mb-2 sm:mb-3">His background began in tech development before moving into brand and product marketing, giving him a combination of technical understanding and strategic brand thinking.</span>
               <span class="block font-medium text-black">A clear brand position helps businesses win better clients, command better value, and compete beyond price.</span>
             </p>
           </div>
@@ -790,7 +698,7 @@
       </div>
 
       <!-- CHAPTER 6 -->
-      <div class="card card-dark scroll-reveal" data-index="6">
+      <div class="card card-dark" data-index="6">
         <div class="card-bar"><span class="card-bar-text">A Small Team. A Lot of Ownership.</span></div>
         <div class="card-body">
           <div class="card-left"><div class="card-num">06</div><div class="card-chapter">The Studio</div></div>
@@ -833,19 +741,19 @@
   </section>
 
   <!-- ===== PROFESSIONAL CTA SECTION ===== -->
-  <section id="cta-section" class="bg-white text-black border-t border-b border-black/10 w-full flex items-center justify-center py-16 md:py-28 px-4 sm:px-6 relative overflow-hidden scroll-reveal">
-    <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[300px] md:w-[600px] h-[200px] md:h-[300px] bg-gradient-to-r from-[#0c1334]/5 via-[#27397f]/10 to-[#5ea7db]/10 blur-3xl pointer-events-none rounded-full"></div>
+  <section id="cta-section" class="bg-white text-black border-t border-b border-black/10 w-full flex items-center justify-center py-20 md:py-28 px-4 sm:px-6 relative overflow-hidden scroll-reveal" data-purpose="cta-section">
+    <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[400px] md:w-[600px] h-[250px] md:h-[300px] bg-gradient-to-r from-[#0c1334]/5 via-[#27397f]/10 to-[#5ea7db]/10 blur-3xl pointer-events-none rounded-full"></div>
 
     <div class="text-center max-w-3xl mx-auto relative z-10 cta-content-wrapper">
       <h2 class="text-2xl sm:text-4xl md:text-6xl font-medium tracking-tight mb-4 md:mb-6 leading-tight">
         Think your brand can <span class="bg-gradient-to-r from-[#0c1334] via-[#27397f] to-[#5ea7db] bg-clip-text text-transparent font-semibold">do more?</span>
       </h2>
-      <p class="text-sm sm:text-lg md:text-xl text-gray-600 mb-6 md:mb-10 max-w-2xl mx-auto leading-relaxed font-normal">
+      <p class="text-base sm:text-lg md:text-xl text-gray-600 mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed font-normal">
         Tell us where your business is today. We'll help you figure out where it can go next.
       </p>
       
       <div class="inline-block group">
-        <a class="inline-flex items-center justify-center px-6 sm:px-10 py-3.5 sm:py-5 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] hover:brightness-110 text-white text-xs sm:text-sm font-semibold tracking-[0.18em] uppercase rounded-full transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 shadow-xl shadow-[#0c1334]/20" href="connect.html">
+        <a class="inline-flex items-center justify-center px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] hover:brightness-110 text-white text-xs sm:text-sm font-semibold tracking-[0.18em] uppercase rounded-full transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 shadow-xl shadow-[#0c1334]/20" data-purpose="cta-button" href="connect.html">
           Start a Conversation
           <svg class="w-4 h-4 ml-2.5 transition-transform duration-300 group-hover:translate-x-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
@@ -853,14 +761,14 @@
         </a>
       </div>
 
-      <p class="text-[10px] sm:text-xs text-gray-400 uppercase tracking-[0.2em] sm:tracking-[0.25em] mt-6 sm:mt-8 font-medium">
+      <p class="text-[11px] sm:text-xs text-gray-400 uppercase tracking-[0.2em] sm:tracking-[0.25em] mt-6 sm:mt-8 font-medium">
         One conversation. <span class="bg-gradient-to-r from-[#27397f] to-[#5ea7db] bg-clip-text text-transparent font-semibold">A clearer direction.</span>
       </p>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="w-full bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] text-white pt-12 md:pt-16 pb-10 md:pb-12 px-4 sm:px-8 md:px-12 lg:px-20 border-t border-white/10">
+  <footer class="w-full bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] text-white pt-12 md:pt-16 pb-10 md:pb-12 px-5 sm:px-8 md:px-12 lg:px-20 border-t border-white/10">
       <div class="max-w-7xl mx-auto flex flex-col gap-6 md:gap-8">
           <div class="flex flex-col md:flex-row justify-between text-[13px] md:text-[14px] leading-relaxed font-normal tracking-wide gap-8 md:gap-0">
               <div class="flex flex-wrap gap-8 sm:gap-12 md:gap-16 lg:gap-24">
@@ -888,10 +796,10 @@
           </div>
 
           <div class="flex gap-3.5 mt-2">
-              <a aria-label="LinkedIn" class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] border border-white/20 rounded-full flex items-center justify-center text-white hover:brightness-110 transition-all micro-hover" href="https://www.linkedin.com/company/sandydesignstudio"><i class="fa-brands fa-linkedin-in text-base"></i></a>
-              <a aria-label="Instagram" class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] border border-white/20 rounded-full flex items-center justify-center text-white hover:brightness-110 transition-all micro-hover" href="https://www.instagram.com/sandydesignstudio_"><i class="fa-brands fa-instagram text-base"></i></a>
-              <a aria-label="Facebook" class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] border border-white/20 rounded-full flex items-center justify-center text-white hover:brightness-110 transition-all micro-hover" href="#"><i class="fa-brands fa-facebook-f text-base"></i></a>
-              <a aria-label="YouTube" class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] border border-white/20 rounded-full flex items-center justify-center text-white hover:brightness-110 transition-all micro-hover" href="#"><i class="fa-brands fa-youtube text-base"></i></a>
+              <a aria-label="LinkedIn" class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] border border-white/20 rounded-full flex items-center justify-center text-white hover:brightness-110 transition-all micro-hover" href="https://www.linkedin.com/company/sandydesignstudio"><i class="fa-brands fa-linkedin-in text-base sm:text-lg"></i></a>
+              <a aria-label="Instagram" class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] border border-white/20 rounded-full flex items-center justify-center text-white hover:brightness-110 transition-all micro-hover" href="https://www.instagram.com/sandydesignstudio_"><i class="fa-brands fa-instagram text-base sm:text-lg"></i></a>
+              <a aria-label="Facebook" class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] border border-white/20 rounded-full flex items-center justify-center text-white hover:brightness-110 transition-all micro-hover" href="#"><i class="fa-brands fa-facebook-f text-base sm:text-lg"></i></a>
+              <a aria-label="YouTube" class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] border border-white/20 rounded-full flex items-center justify-center text-white hover:brightness-110 transition-all micro-hover" href="#"><i class="fa-brands fa-youtube text-base sm:text-lg"></i></a>
           </div>
 
           <hr class="border-t border-white/20 w-full mt-2 mb-4" />
@@ -910,20 +818,22 @@
   </footer>
 
   <script>
+    // Initialize Lucide Icons
     lucide.createIcons();
 
     (function() {
-      const cards = document.querySelectorAll('.cards-wrapper .card');
-      const hint = document.getElementById('hint');
-      const total = cards.length;
-      let current = -1;
+      // ---------- CHAPTERS + PIN LOCK ----------
+      const cards  = document.querySelectorAll('.cards-wrapper .card');
+      const hint   = document.getElementById('hint');
+      const total  = cards.length;
+      let current  = -1;
       const body = document.body;
       let pinLockActive = false;
       let scrollLocked = false;
+
       const navContainer = document.getElementById('nav-container');
 
       function show(index) {
-        if (window.innerWidth <= 1024) return;
         if (index === current) return;
         current = index;
         cards.forEach((c, i) => {
@@ -965,7 +875,7 @@
       }
 
       function onScroll() {
-        if (window.innerWidth <= 1024 || scrollLocked) return;
+        if (scrollLocked) return;
         const wrapper = document.querySelector('.cards-wrapper');
         if (!wrapper) return;
         const rect = wrapper.getBoundingClientRect();
@@ -977,11 +887,13 @@
       }
 
       if (cards.length > 0) {
-        if (window.innerWidth > 1024) show(0);
+        show(0);
         window.addEventListener('scroll', onScroll, { passive: true });
       }
 
+      // ---------- NAVIGATION & LOGO MORPHING ----------
       let isNavExpanded = false;
+
       const navItemsList = [
           { label: 'Built', href: 'built.html' },
           { label: 'Create', href: 'create.html' },
@@ -1011,8 +923,13 @@
               const dotStateClass = isActive ? 'active' : 'inactive';
 
               const linkHTML = `
-                  <a href="${item.href}" class="relative group text-sm sm:text-base font-medium transition-colors duration-300 focus:outline-none whitespace-nowrap py-2 px-1 no-underline">
-                      <span class="transition-colors duration-300 ${textColorClass}">${item.label}</span>
+                  <a
+                      href="${item.href}"
+                      class="relative group text-sm sm:text-base font-medium transition-colors duration-300 focus:outline-none whitespace-nowrap py-2 px-1 no-underline"
+                  >
+                      <span class="transition-colors duration-300 ${textColorClass}">
+                          ${item.label}
+                      </span>
                       <span class="active-dot ${dotStateClass} absolute -bottom-1 left-1/2 w-1.5 h-1.5 rounded-full bg-white shadow-lg"></span>
                   </a>
               `;
@@ -1026,7 +943,7 @@
           if (isNavExpanded) {
               navWrapper.classList.remove('max-w-0', 'opacity-0', 'px-0');
               navWrapper.classList.add('max-w-[800px]', 'opacity-100', 'px-3', 'sm:px-6');
-              logoContainerWrap.style.width = '120px';
+              logoContainerWrap.style.width = '130px';
               logoContainerWrap.style.backgroundColor = 'transparent';
               logoContainerWrap.style.border = '0';
               logoContainerWrap.style.borderRadius = '0';
@@ -1077,16 +994,27 @@
 
               navOverlay.classList.remove('opacity-100');
               navOverlay.classList.add('opacity-0');
-              setTimeout(() => { navOverlay.classList.add('hidden'); }, 500);
+              setTimeout(() => {
+                  navOverlay.classList.add('hidden');
+              }, 500); 
           }
       }
 
       toggleBtn.addEventListener('click', toggleNav);
-      navOverlay.addEventListener('click', () => { if (isNavExpanded) toggleNav(); });
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isNavExpanded) toggleNav(); });
+      navOverlay.addEventListener('click', () => {
+          if (isNavExpanded) toggleNav();
+      });
+
+      document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && isNavExpanded) {
+              toggleNav();
+          }
+      });
+
       renderNavLinks();
     })();
 
+    // ---------- TEAM & VISION SCROLL SECTION LOGIC (4 GROUPED SLIDES) ----------
     document.addEventListener("DOMContentLoaded", () => {
       const totalSlides = 4;
       let currentIndex = -1;
@@ -1101,32 +1029,46 @@
       ];
 
       function updateTeamUI(targetIndex) {
-        if (window.innerWidth <= 1024 || targetIndex === currentIndex) return;
+        if (targetIndex === currentIndex) return;
         currentIndex = targetIndex;
 
         for (let i = 0; i < totalSlides; i++) {
           const slide = document.getElementById(`slide-${i}`);
           if (!slide) continue;
+
           slide.classList.remove('slide-past', 'slide-active', 'slide-future');
-          if (i < targetIndex) slide.classList.add('slide-past');
-          else if (i === targetIndex) slide.classList.add('slide-active');
-          else slide.classList.add('slide-future');
+
+          if (i < targetIndex) {
+            slide.classList.add('slide-past');
+          } else if (i === targetIndex) {
+            slide.classList.add('slide-active');
+          } else {
+            slide.classList.add('slide-future');
+          }
         }
 
         const config = slideConfig[targetIndex];
+
         for (let g = 0; g <= 3; g++) {
           const groupEl = document.getElementById(`text-group-${g}`);
           if (!groupEl) continue;
+
           groupEl.classList.remove('text-past', 'text-active', 'text-future');
-          if (g < config.group) groupEl.classList.add('text-past');
-          else if (g === config.group) groupEl.classList.add('text-active');
-          else groupEl.classList.add('text-future');
+
+          if (g < config.group) {
+            groupEl.classList.add('text-past');
+          } else if (g === config.group) {
+            groupEl.classList.add('text-active');
+          } else {
+            groupEl.classList.add('text-future');
+          }
         }
 
         if (config.counter) {
           const counterEl = document.getElementById(`counter-group-${config.group}`);
           if (counterEl) counterEl.innerText = config.counter;
         }
+
         if (config.badge) {
           const badgeEl = document.getElementById(`badge-group-${config.group}`);
           if (badgeEl) badgeEl.innerText = config.badge;
@@ -1134,24 +1076,30 @@
       }
 
       window.addEventListener('scroll', () => {
-        if (window.innerWidth <= 1024) return;
         const rect = container.getBoundingClientRect();
         const scrollableDistance = rect.height - window.innerHeight;
+
         let progress = -rect.top / scrollableDistance;
         progress = Math.max(0, Math.min(1, progress));
+
         let activeIndex = Math.floor(progress * totalSlides);
         if (activeIndex >= totalSlides) activeIndex = totalSlides - 1;
+
         updateTeamUI(activeIndex);
       }, { passive: true });
 
-      if (window.innerWidth > 1024) updateTeamUI(0);
+      updateTeamUI(0);
 
+      // ---------- GSAP GLOBAL SCROLL REVEAL ANIMATIONS ----------
       gsap.registerPlugin(ScrollTrigger);
+
+      // Hero video entrance slide from right to left with pop effect
       gsap.fromTo(".hero-video-wrapper",
-        { x: 50, opacity: 0, scale: 0.94 },
-        { x: 0, opacity: 1, scale: 1, duration: 1.1, ease: "power3.out" }
+        { x: 80, opacity: 0, scale: 0.92 },
+        { x: 0, opacity: 1, scale: 1, duration: 1.2, ease: "power3.out" }
       );
 
+      // General scroll reveal elements (excluding footer)
       gsap.utils.toArray('.scroll-reveal').forEach(el => {
         gsap.fromTo(el, 
           { opacity: 0, y: 50, scale: 0.96 },
@@ -1159,7 +1107,7 @@
             opacity: 1, 
             y: 0, 
             scale: 1,
-            duration: 1,
+            duration: 1.1,
             ease: "power3.out",
             scrollTrigger: {
               trigger: el,
