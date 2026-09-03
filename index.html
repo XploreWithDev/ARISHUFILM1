@@ -515,14 +515,17 @@
 
     /* ---------- MOBILE BALANCE FOR ABOUT SECTION ---------- */
     @media (max-width: 767px) {
+      /* Stack elements vertically and center the whole block */
       .card-hero .card-body {
-        display: block; 
-        position: relative;
+        display: flex; 
+        flex-direction: column;
+        justify-content: center;
+        gap: 3rem; /* Space between text block and logo */
       }
       
       .card-hero .card-left {
         width: 100%;
-        max-width: 280px; 
+        max-width: 100%; 
         position: relative;
         z-index: 2; 
       }
@@ -531,22 +534,27 @@
         transform: none !important;
       }
 
-      /* Place text mid-top: move paragraph slightly higher */
+      /* Reset previous vertical offsets */
       .card-hero .hero-desc {
-        transform: translateY(-40px);
+        transform: none !important;
       }
 
+      /* Flow right column (the logo) below the text natively */
       .card-hero .card-right {
-        position: absolute;
-        right: 0;
-        top: 25%; 
+        position: relative;
+        right: auto;
+        top: auto;
+        width: 100%;
+        align-items: center; 
         z-index: 1; 
-        width: auto;
       }
 
-      /* Move logo slightly upward from its previous bottom placement */
+      /* Center the logo and remove old overlapping transforms */
       .card-hero .hero-logo-outer {
-        transform: translate(15px, 65px); 
+        transform: none !important; 
+        margin: 0 auto;
+        width: 200px;
+        height: 200px;
       }
     }
   </style>
