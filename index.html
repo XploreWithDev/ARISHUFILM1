@@ -132,7 +132,7 @@
     .card-left { display: flex; flex-direction: column; justify-content: flex-start; gap: 0.4rem; padding-top: 0.4rem; }
     .card-num { font-family: 'Satoshi', sans-serif; font-weight: 500; font-size: clamp(0.8rem, 1.1vw, 1.2rem); letter-spacing: 1.4px; margin-bottom: 0.2rem; }
     .card-chapter { font-family: 'Satoshi', sans-serif; font-weight: 700; font-size: clamp(1.4rem, 3.5vw, 3.8rem); letter-spacing: -0.03em; line-height: 1.1; word-break: break-word; }
-    .card-right { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; text-align: left; padding-top: 0.6rem; }
+    .card-right { display: flex; flex-direction: column; justify-content: center; align-items: flex-end; padding-top: 0.6rem; }
     .card-desc { font-family: 'Neue Montreal', sans-serif; font-weight: 300; font-size: clamp(0.85rem, 1.2vw, 1.3rem); line-height: 1.7; letter-spacing: 0.02em; max-width: 38rem; }
     .bg-year { position: absolute; bottom: -1.2rem; left: -1.6rem; font-family: 'Satoshi', sans-serif; font-weight: 700; font-size: clamp(6rem, 36vw, 34rem); line-height: 1; letter-spacing: -0.04em; pointer-events: none; user-select: none; z-index: 1; white-space: nowrap; }
     .logo-bottom { position: absolute; bottom: clamp(1rem, 3vw, 2.8rem); left: clamp(1rem, 3.5vw, 3.6rem); z-index: 10; display: flex; align-items: center; }
@@ -182,6 +182,18 @@
     @keyframes slowRotate {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
+    }
+
+    /* PC Desktop Adjustments for Hero Logo & Spacing */
+    @media (min-width: 1024px) {
+      .card-hero .card-right {
+        align-items: center !important; /* Centers logo between text boundary and right margin */
+      }
+      .hero-logo-outer {
+        width: 330px !important;
+        height: 330px !important;
+        transform: none !important;
+      }
     }
 
     .card-hero .logo-bottom { display: none; }
@@ -1159,7 +1171,7 @@
 
           menuIconWrapper.classList.remove('expanded');
           menuIconWrapper.classList.add('collapsed');
-          closeIconWrapper.classList.remove('expanded');
+          closeIconWrapper.classList.remove('collapsed');
           closeIconWrapper.classList.add('collapsed');
           toggleBtn.setAttribute('aria-label', 'Open menu');
 
