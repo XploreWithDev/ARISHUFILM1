@@ -515,38 +515,39 @@
 
     /* ---------- MOBILE BALANCE FOR ABOUT SECTION ---------- */
     @media (max-width: 767px) {
-      /* 1. Break the strict 50/50 grid layout to let the text column widen */
       .card-hero .card-body {
         display: block; 
         position: relative;
       }
       
-      /* Widen the text container to ~280px so the paragraph has fewer lines */
       .card-hero .card-left {
         width: 100%;
         max-width: 280px; 
         position: relative;
-        z-index: 2; /* Keep text above in case of bounding box overlaps */
+        z-index: 2; 
       }
       
-      /* 2 & 5. Undo the previous right-shift so the black line stays in its natural place */
       .card-hero .hero-accent {
         transform: none !important;
       }
 
-      /* 4. Position the right column absolutely so it doesn't squish the text */
+      /* 1. Move ONLY the paragraph text slightly UP (~25px) */
+      .card-hero .hero-desc {
+        transform: translateY(-25px);
+      }
+
       .card-hero .card-right {
         position: absolute;
         right: 0;
-        top: 25%; /* Start lowering it toward the paragraph */
-        z-index: 1; /* Sit behind the text */
+        top: 25%; 
+        z-index: 1; 
         width: auto;
       }
 
-      /* 3. Move circle graphic down ~50px and nudge it right to maintain a clean gap */
+      /* 2. Move the three-circle logo further DOWN (~50px) 
+         (Y goes from 50px to 100px. X stays at 15px) */
       .card-hero .hero-logo-outer {
-        /* Overrides desktop's translateX(-20px) */
-        transform: translate(15px, 50px); 
+        transform: translate(15px, 100px); 
       }
     }
   </style>
