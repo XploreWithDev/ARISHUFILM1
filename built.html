@@ -97,6 +97,13 @@
       100% { background-position: 0% 50%; }
     }
 
+    /* ===== FOOTER GRADIENT ===== */
+    .footer-gradient {
+      background: linear-gradient(135deg, #0c1334 0%, #27397f 100%);
+      background-size: 200% 200%;
+      animation: gradientShift 8s ease infinite;
+    }
+
     /* ===== HERO + SEAMLESS INFINITE CARDS (RESPONSIVE OPTIMIZATION) ===== */
     @-webkit-keyframes scrollUpContinuous {
       0% { -webkit-transform: translateY(0); transform: translateY(0); }
@@ -434,8 +441,8 @@
     }
 
     /* ============================================================
-       RESPONSIVE OPTIMIZATIONS (MOBILE / TABLET VIEWPORT & FAQ FIXES)
-       ============================================================ */
+        RESPONSIVE OPTIMIZATIONS (MOBILE / TABLET VIEWPORT & FAQ FIXES)
+        ============================================================ */
     @media (max-width: 1024px) {
       /* Stack Featured Works grid on tablet/mobile */
       .portfolio-container {
@@ -837,7 +844,7 @@
   </div>
 
   <!-- ===== FOOTER ===== -->
-  <footer class="bg-black text-white pt-10 md:pt-12 pb-12 px-6 sm:px-10 md:px-16 lg:px-24 rounded-t-[40px] mt-12">
+  <footer class="footer-gradient text-white pt-10 md:pt-12 pb-12 px-6 sm:px-10 md:px-16 lg:px-24 rounded-t-[40px] mt-12">
     <div class="w-full max-w-7xl mx-auto flex flex-col gap-8">
       <div class="flex flex-col md:flex-row justify-between text-[14px] leading-relaxed font-normal tracking-wide">
         <div class="flex flex-wrap gap-12 md:gap-16 lg:gap-24">
