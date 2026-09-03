@@ -392,92 +392,139 @@
       }
     }
 
-    /* RESPONSIVE OPTIMIZATION: Fine-tuned sizing for mobile slides and images so they are fully showable and scrollable */
+    /* ============================================================
+       RESPONSIVE OPTIMIZATION FIXES (Mobile & Tablet)
+       ============================================================ */
     @media (max-width: 1024px) {
+      /* Fix 1: Remove fixed heights on pinned scroll containers to prevent massive empty spaces */
       .cards-wrapper {
-        height: auto;
-        min-height: 380vh;
+        height: auto !important;
+        min-height: auto !important;
       }
       .sticky-stage {
-        position: relative;
-        height: auto;
-        min-height: 100vh;
-        min-height: 100dvh;
+        position: relative !important;
+        height: auto !important;
+        min-height: auto !important;
+        overflow: visible !important;
       }
+
+      /* Fix 2: Un-stack the cards for natural scroll without overlaps */
       .card {
-        position: relative;
+        position: relative !important;
         transform: none !important;
         opacity: 1 !important;
-        height: auto;
-        min-height: 100vh;
-        min-height: 100dvh;
+        height: auto !important;
+        min-height: auto !important;
         margin-bottom: 2rem;
       }
       .card-body {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-        padding: 2rem 1.25rem;
-        overflow-y: visible;
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+        padding: 2rem 1.25rem !important;
+        overflow-y: visible !important;
       }
       .card-hero .card-body {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
       }
       .card-hero .card-right {
-        align-items: flex-start;
+        align-items: flex-start !important;
       }
       .hero-logo-outer {
-        transform: translateX(0);
+        transform: translateX(0) !important;
         margin: 0 auto;
-        width: 220px;
-        height: 220px;
+        width: clamp(180px, 50vw, 220px) !important;
+        height: clamp(180px, 50vw, 220px) !important;
       }
+
+      /* Fix 3: Hide scroll hint as pinning is disabled */
+      .scroll-hint {
+        display: none !important;
+      }
+
+      /* Fix 4: Process section layout */
       .process-container {
-        grid-template-columns: 1fr;
-        padding: 3rem 1.25rem;
+        grid-template-columns: 1fr !important;
+        padding: 3rem 1.25rem !important;
+        height: auto !important;
+        min-height: auto !important;
       }
       .left-column {
-        padding-right: 0;
+        padding-right: 0 !important;
       }
       .right-content-area {
-        padding-top: 1.5rem;
-        padding-bottom: 2rem;
+        padding-top: 1.5rem !important;
+        padding-bottom: 2rem !important;
       }
       .process-step {
         margin-top: 1.25rem !important;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.5rem !important;
       }
-      /* Team slide mobile fixes for full image visibility */
+      .process-center-space {
+        display: none !important; /* Hide empty column to prevent massive gap */
+      }
+
+      /* Fix 5: Team section un-stacking & perfect mobile interleaving */
       #scroll-container {
         height: auto !important;
-        min-height: 400vh;
+        min-height: auto !important;
+        padding-bottom: 3rem;
       }
       #scroll-container main.sticky {
         position: relative !important;
         height: auto !important;
-        min-height: 100vh;
+        min-height: auto !important;
       }
-      #scroll-container .slide-card {
-        position: relative !important;
-        opacity: 1 !important;
-        transform: none !important;
-        pointer-events: auto !important;
-        margin: 3rem 0;
+      
+      /* Magic CSS Interleave: Instead of showing all text then all images, we flatten the grid 
+         and use flex `order` to naturally stack them (Text 1, Image 1, Text 2, Image 2, etc.) 
+         WITHOUT changing the HTML structure. */
+      #scroll-container .w-full.lg\:w-\[35\%\],
+      #scroll-container .w-full.lg\:w-\[65\%\] {
+        display: contents !important; /* Drops children out of wrapper for ordering */
       }
+      #scroll-container .max-w-7xl {
+        display: flex !important;
+        flex-direction: column !important;
+      }
+
+      /* Reset absolute positioning on the individual team items */
+      #scroll-container .slide-card,
       #scroll-container .text-group {
         position: relative !important;
         opacity: 1 !important;
         transform: none !important;
         pointer-events: auto !important;
-        margin: 2rem 0;
       }
+
+      /* Apply correct order and spacing */
+      #text-group-0 { order: 1; margin: 1rem 0 1.5rem !important; }
+      #slide-0 { order: 2; margin-bottom: 4rem !important; }
+
+      #text-group-1 { order: 3; margin: 1rem 0 1.5rem !important;}
+      #slide-1 { order: 4; margin-bottom: 4rem !important; }
+
+      #text-group-2 { order: 5; margin: 1rem 0 1.5rem !important;}
+      #slide-2 { order: 6; margin-bottom: 4rem !important; }
+
+      #text-group-3 { order: 7; margin: 1rem 0 1.5rem !important;}
+      #slide-3 { order: 8; margin-bottom: 3rem !important; }
     }
 
+    /* Small Mobile constraints */
     @media (max-width: 480px) {
       .team-card-inner .member-img-wrapper {
-        width: 100%;
-        max-width: 280px;
-        height: 380px;
+        width: 100% !important;
+        max-width: 280px !important;
+        height: auto !important;
+        aspect-ratio: 3/4 !important;
+      }
+      /* Prevent grid items from overflowing viewport horizontally */
+      .team-card-inner.\!w-\[140px\] {
+        width: 100% !important;
+        max-width: 160px !important;
+        height: auto !important;
+        aspect-ratio: 4/5 !important;
       }
     }
 
