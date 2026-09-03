@@ -49,6 +49,7 @@
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', sans-serif;
       background: #ffffff;
@@ -57,7 +58,11 @@
       -webkit-text-size-adjust: 100%;
     }
 
-    .nav-offset { padding-top: clamp(80px, 14vw, 110px); }
+    h1, h2, h3, .card-chapter, .main-headline {
+      text-wrap: balance;
+    }
+
+    .nav-offset { padding-top: clamp(76px, 12vw, 110px); }
 
     /* ---------- CHAPTER CARDS (STACKING / UPWARD-SLIDE ANIMATION) ---------- */
     .cards-wrapper {
@@ -121,18 +126,17 @@
     .card-dark .bg-year { color: rgba(255, 255, 255, 0.06); }
     .card-dark .logo-bottom img { filter: invert(1) !important; opacity: 0.85; }
 
-    .card-bar { padding: clamp(1rem, 2vw, 1.6rem) clamp(1.5rem, 4vw, 4rem); flex-shrink: 0; width: 100%; }
-    .card-bar-text { font-family: 'Satoshi', sans-serif; font-weight: 500; font-size: clamp(0.95rem, 2.4vw, 2.8rem); letter-spacing: -0.02em; }
-    .card-body { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 4vw, 4rem); padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1.5rem, 4vw, 4rem); align-items: stretch; position: relative; z-index: 3; min-height: 0; }
+    .card-bar { padding: clamp(0.8rem, 2vw, 1.6rem) clamp(1rem, 4vw, 4rem); flex-shrink: 0; width: 100%; }
+    .card-bar-text { font-family: 'Satoshi', sans-serif; font-weight: 500; font-size: clamp(0.85rem, 2.2vw, 2.8rem); letter-spacing: -0.02em; }
+    .card-body { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 4vw, 4rem); padding: clamp(1.2rem, 4vw, 3.5rem) clamp(1rem, 4vw, 4rem); align-items: stretch; position: relative; z-index: 3; min-height: 0; }
     .card-left { display: flex; flex-direction: column; justify-content: flex-start; gap: 0.4rem; padding-top: 0.4rem; }
-    .card-num { font-family: 'Satoshi', sans-serif; font-weight: 500; font-size: clamp(0.85rem, 1.1vw, 1.2rem); letter-spacing: 1.4px; margin-bottom: 0.2rem; }
-    .card-chapter { font-family: 'Satoshi', sans-serif; font-weight: 700; font-size: clamp(1.6rem, 3.5vw, 3.8rem); letter-spacing: -0.03em; line-height: 1.1; word-break: break-word; }
+    .card-num { font-family: 'Satoshi', sans-serif; font-weight: 500; font-size: clamp(0.8rem, 1.1vw, 1.2rem); letter-spacing: 1.4px; margin-bottom: 0.2rem; }
+    .card-chapter { font-family: 'Satoshi', sans-serif; font-weight: 700; font-size: clamp(1.4rem, 3.5vw, 3.8rem); letter-spacing: -0.03em; line-height: 1.1; word-break: break-word; }
     .card-right { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; text-align: left; padding-top: 0.6rem; }
-    .card-desc { font-family: 'Neue Montreal', sans-serif; font-weight: 300; font-size: clamp(0.875rem, 1.2vw, 1.3rem); line-height: 1.7; letter-spacing: 0.02em; max-width: 38rem; }
-    .bg-year { position: absolute; bottom: -1.2rem; left: -1.6rem; font-family: 'Satoshi', sans-serif; font-weight: 700; font-size: clamp(8rem, 36vw, 34rem); line-height: 1; letter-spacing: -0.04em; pointer-events: none; user-select: none; z-index: 1; white-space: nowrap; }
+    .card-desc { font-family: 'Neue Montreal', sans-serif; font-weight: 300; font-size: clamp(0.85rem, 1.2vw, 1.3rem); line-height: 1.7; letter-spacing: 0.02em; max-width: 38rem; }
+    .bg-year { position: absolute; bottom: -1.2rem; left: -1.6rem; font-family: 'Satoshi', sans-serif; font-weight: 700; font-size: clamp(6rem, 36vw, 34rem); line-height: 1; letter-spacing: -0.04em; pointer-events: none; user-select: none; z-index: 1; white-space: nowrap; }
     .logo-bottom { position: absolute; bottom: clamp(1rem, 3vw, 2.8rem); left: clamp(1rem, 3.5vw, 3.6rem); z-index: 10; display: flex; align-items: center; }
-    .logo-bottom img { height: clamp(2.5rem, 4.2vw, 4.2rem); width: auto; display: block; transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
-    .logo-bottom img:hover { opacity: 1 !important; }
+    .logo-bottom img { height: clamp(2rem, 4.2vw, 4.2rem); width: auto; display: block; }
 
     .scroll-hint { position: fixed; bottom: 20px; right: 24px; font-family: 'Neue Montreal', sans-serif; font-weight: 300; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: rgba(0, 0, 0, 0.4); display: flex; align-items: center; gap: 10px; transition: opacity 0.4s; z-index: 20; }
     .scroll-hint::before { content: ''; width: 1px; height: 28px; background: rgba(0, 0, 0, 0.2); }
@@ -141,28 +145,28 @@
 
     .card-hero { background: #ffffff; color: #000000; display: flex; flex-direction: column; }
     .card-hero .card-bar { display: none; }
-    .card-hero .card-body { flex: 1; padding: clamp(1.5rem, 4vw, 4rem) clamp(1.5rem, 4vw, 4rem) clamp(1rem, 2vw, 2rem); display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 4vw, 4rem); align-items: center; }
+    .card-hero .card-body { flex: 1; padding: clamp(1rem, 4vw, 4rem) clamp(1rem, 4vw, 4rem) clamp(1rem, 2vw, 2rem); display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 4vw, 4rem); align-items: center; }
     .card-hero .card-left { padding-top: 0; height: 100%; justify-content: center; }
     .card-hero .card-num { display: none; }
-    .card-hero .card-chapter { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 7vw, 8.5rem); font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; color: #000000; margin-bottom: 1.2rem; }
+    .card-hero .card-chapter { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 6.5vw, 8.5rem); font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; color: #000000; margin-bottom: 1rem; }
     .card-hero .card-chapter .sds { font-weight: 600; }
     .card-hero .card-chapter .story { font-weight: 400; }
-    .card-hero .card-right { display: flex; flex-direction: column; justify-content: center; align-items: flex-end; padding-top: 0; transform: translateX(0); }
-    .hero-accent { display: flex; gap: 1.2rem; align-items: stretch; margin-bottom: 0; }
-    .hero-black-line { width: 3px; background: #000000; flex-shrink: 0; border-radius: 2px; min-height: 90px; }
+    .card-hero .card-right { display: flex; flex-direction: column; justify-content: center; align-items: flex-end; padding-top: 0; }
+    .hero-accent { display: flex; gap: 1rem; align-items: stretch; margin-bottom: 0; }
+    .hero-black-line { width: 3px; background: #000000; flex-shrink: 0; border-radius: 2px; min-height: 80px; }
     .hero-text-content { display: flex; flex-direction: column; justify-content: center; gap: 0.4rem; }
-    .hero-tagline { font-family: 'Inter', sans-serif; font-size: clamp(0.7rem, 0.9vw, 1rem); font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #000000; }
-    .hero-desc { font-family: 'Inter', sans-serif; font-size: clamp(0.85rem, 1.2vw, 1.3rem); font-weight: 400; line-height: 1.7; color: rgba(0, 0, 0, 0.8); max-width: 32rem; }
+    .hero-tagline { font-family: 'Inter', sans-serif; font-size: clamp(0.65rem, 0.9vw, 1rem); font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #000000; }
+    .hero-desc { font-family: 'Inter', sans-serif; font-size: clamp(0.8rem, 1.2vw, 1.3rem); font-weight: 400; line-height: 1.6; color: rgba(0, 0, 0, 0.8); max-width: 32rem; }
 
     .hero-logo-outer {
-      width: 280px;
-      height: 280px;
+      width: 240px;
+      height: 240px;
       max-width: 100%;
       aspect-ratio: 1 / 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      transform: translateX(-40px);
+      transform: translateX(-20px);
       flex-shrink: 0;
     }
     .hero-logo-spinner {
@@ -184,49 +188,44 @@
     }
 
     .card-hero .logo-bottom { display: none; }
-    .hero-marquee { width: 100%; background: #000000; padding: 1rem 0; overflow: hidden; flex-shrink: 0; }
+    .hero-marquee { width: 100%; background: #000000; padding: 0.8rem 0; overflow: hidden; flex-shrink: 0; }
     .marquee-track-chapter { display: flex; white-space: nowrap; animation: marqueeScrollChapter 25s linear infinite; width: max-content; }
-    .marquee-track-chapter span { font-family: 'Inter', sans-serif; font-size: clamp(0.6rem, 0.8vw, 0.9rem); font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: #ffffff; padding: 0 2rem; display: inline-block; }
+    .marquee-track-chapter span { font-family: 'Inter', sans-serif; font-size: clamp(0.55rem, 0.8vw, 0.9rem); font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: #ffffff; padding: 0 1.5rem; display: inline-block; }
     @keyframes marqueeScrollChapter { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
     /* ---------- PROCESS SECTION ---------- */
     .process-section { position: relative; width: 100%; min-height: 100vh; overflow: hidden; background: #000000; color: #ffffff; }
     .process-background { position: absolute; inset: 0; width: 100%; height: 100%; background-image: url("https://i.postimg.cc/C5QF5QFj/image.png"); background-repeat: no-repeat; background-position: center center; background-size: contain; pointer-events: none; z-index: 0; opacity: 0.6; }
     .process-overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.5); pointer-events: none; z-index: 1; }
-    .process-container { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr 1.5fr; gap: 2rem; width: 100%; max-width: 1400px; min-height: 100vh; margin: 0 auto; padding: 4rem clamp(1rem, 4vw, 2rem); background: transparent; color: #ffffff; }
+    .process-container { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr 1.5fr; gap: 2rem; width: 100%; max-width: 1400px; min-height: 100vh; margin: 0 auto; padding: 4rem clamp(1rem, 4vw, 2rem); }
     .left-column { position: relative; z-index: 5; display: flex; flex-direction: column; justify-content: center; padding-right: clamp(0.5rem, 2vw, 2rem); }
-    .section-label { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #cccccc; display: flex; align-items: center; gap: 1rem; margin-bottom: 3rem; }
+    .section-label { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #cccccc; display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
     .section-label::after { content: ''; display: block; width: 40px; height: 1px; background-color: #666666; }
-    .main-headline { font-size: clamp(2rem, 3.8vw, 4.5rem); line-height: 1.1; font-weight: 400; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .main-headline { font-size: clamp(2rem, 3.8vw, 4.5rem); line-height: 1.1; font-weight: 400; letter-spacing: -0.02em; margin-bottom: 1.2rem; }
     .main-headline .dot { color: #ffffff; }
-    .supporting-copy { font-size: 1rem; color: #cccccc; line-height: 1.6; max-width: 24rem; margin-bottom: 3rem; }
-    .bottom-copy-block { margin-top: auto; padding-top: 3rem; border-top: 1px solid #333333; }
-    .bottom-copy-block p { font-size: 0.875rem; color: #999999; line-height: 1.6; }
+    .supporting-copy { font-size: 0.95rem; color: #cccccc; line-height: 1.6; max-width: 24rem; margin-bottom: 2rem; }
+    .bottom-copy-block { margin-top: auto; padding-top: 2rem; border-top: 1px solid #333333; }
+    .bottom-copy-block p { font-size: 0.85rem; color: #999999; line-height: 1.6; }
     .process-center-space { position: relative; z-index: 3; min-height: 100%; }
     .right-content-area { position: relative; z-index: 5; display: flex; flex-direction: column; justify-content: space-between; padding-top: 4%; padding-bottom: 8%; }
-    .process-step { display: flex; align-items: flex-start; gap: 1.5rem; position: relative; margin-bottom: 3vh; transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
-    .process-step:hover { transform: translateX(6px); }
-    .process-step:nth-child(1) { margin-top: 2%; }
-    .process-step:nth-child(2) { margin-top: 4%; }
-    .process-step:nth-child(3) { margin-top: 8%; }
-    .process-step:nth-child(4) { margin-top: 12%; }
-    .step-number { font-size: 1.75rem; font-weight: 300; color: #ffffff; line-height: 1; min-width: 2.5rem; }
-    .step-content { max-width: 20rem; }
-    .step-title { font-size: 0.95rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.4rem; color: #ffffff; }
-    .step-desc { font-size: 0.85rem; color: #cccccc; line-height: 1.5; }
+    .process-step { display: flex; align-items: flex-start; gap: 1.2rem; position: relative; margin-bottom: 2.5vh; transition: transform 0.3s ease; }
+    .process-step:hover { transform: translateX(4px); }
+    .step-number { font-size: 1.5rem; font-weight: 300; color: #ffffff; line-height: 1; min-width: 2.2rem; }
+    .step-content { flex: 1; min-width: 0; }
+    .step-title { font-size: 0.9rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.3rem; color: #ffffff; }
+    .step-desc { font-size: 0.8rem; color: #cccccc; line-height: 1.5; }
 
     /* ---------- HERO VIDEO SHAPE ---------- */
     .hero-video-shape {
       position: relative;
       width: 100%;
-      height: clamp(300px, 45vw, 520px);
-      border-top-left-radius: clamp(30px, 6vw, 100px);
-      border-bottom-left-radius: clamp(30px, 6vw, 100px);
+      height: clamp(280px, 45vw, 520px);
+      border-top-left-radius: clamp(24px, 6vw, 100px);
+      border-bottom-left-radius: clamp(24px, 6vw, 100px);
       overflow: hidden;
       isolation: isolate;
       background: #000;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .hero-video-shape video {
       position: absolute;
@@ -234,12 +233,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-top-left-radius: clamp(30px, 6vw, 100px);
-      border-bottom-left-radius: clamp(30px, 6vw, 100px);
       display: block;
-    }
-    .hero-video-shape:hover {
-      transform: scale(1.01);
     }
     @media (min-width: 1024px) {
       .hero-video-shape {
@@ -255,24 +249,16 @@
     body.pin-lock { overflow: hidden !important; }
 
     /* ----- FOOTER STYLES ----- */
-    .hero-sans { font-family: 'Inter', sans-serif; font-weight: 400; letter-spacing: -0.03em; font-size: clamp(0.9rem, 3.2vw, 4.2rem); }
-    .hero-serif { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; letter-spacing: -0.02em; font-size: clamp(1rem, 3.5vw, 4.6rem); }
+    .hero-sans { font-family: 'Inter', sans-serif; font-weight: 400; letter-spacing: -0.03em; font-size: clamp(0.85rem, 3vw, 4.2rem); }
+    .hero-serif { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; letter-spacing: -0.02em; font-size: clamp(0.95rem, 3.2vw, 4.6rem); }
     .hero-line { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 0.25em; width: 100%; text-align: center; }
-
-    footer .hero-line .hero-sans,
-    footer .hero-line .hero-serif {
-        letter-spacing: 0;
-    }
-    footer .hero-line .hero-serif:first-of-type {
-        margin-left: 0.25em;
-    }
 
     /* ============================================================
         DYNAMIC COLLAPSIBLE NAVIGATION (TOP LEFT)
         ============================================================ */
-    .smooth-transition { transition: all 600ms cubic-bezier(0.25, 1, 0.5, 1); }
+    .smooth-transition { transition: all 500ms cubic-bezier(0.25, 1, 0.5, 1); }
     .active-dot { transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1); }
-    .active-dot.active { opacity: 1; transform: scale(1) translateX(-50%); box-shadow: 0 0 10px rgba(255, 255, 255, 0.6); }
+    .active-dot.active { opacity: 1; transform: scale(1) translateX(-50%); box-shadow: 0 0 8px rgba(255, 255, 255, 0.6); }
     .active-dot.inactive { opacity: 0; transform: scale(0) translateX(-50%); }
     #menu-icon-wrapper.expanded { transform: rotate(90deg) scale(0); opacity: 0; }
     #menu-icon-wrapper.collapsed { transform: rotate(0) scale(1); opacity: 1; }
@@ -282,11 +268,11 @@
     .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
     #logo-container-wrap {
-      transition: width 500ms cubic-bezier(0.22, 1, 0.36, 1), background-color 400ms ease, border 400ms ease, border-radius 400ms ease, padding 400ms ease;
+      transition: width 400ms cubic-bezier(0.22, 1, 0.36, 1), background-color 300ms ease, border 300ms ease, border-radius 300ms ease, padding 300ms ease;
     }
 
     /* ============================================================
-        TEAM & VISION SCROLL SECTION (POP & REVEAL ANIMATIONS)
+        TEAM & VISION SCROLL SECTION
         ============================================================ */
     .slide-card {
       transition: opacity 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -300,25 +286,12 @@
       will-change: transform, opacity;
     }
     @media (min-width: 1024px) {
-      .slide-card {
-        justify-content: flex-end;
-      }
+      .slide-card { justify-content: flex-end; }
     }
 
-    .slide-past {
-      opacity: 0;
-      transform: translateY(-40px) scale(0.9);
-    }
-    .slide-active {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      pointer-events: auto;
-      z-index: 20;
-    }
-    .slide-future {
-      opacity: 0;
-      transform: translateY(40px) scale(0.9);
-    }
+    .slide-past { opacity: 0; transform: translateY(-30px) scale(0.92); }
+    .slide-active { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; z-index: 20; }
+    .slide-future { opacity: 0; transform: translateY(30px) scale(0.92); }
 
     .text-group {
       transition: opacity 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -332,26 +305,15 @@
       will-change: transform, opacity;
     }
 
-    .text-past {
-      opacity: 0;
-      transform: translateY(-25px) scale(0.95);
-    }
-    .text-active {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      pointer-events: auto;
-      z-index: 20;
-    }
-    .text-future {
-      opacity: 0;
-      transform: translateY(25px) scale(0.95);
-    }
+    .text-past { opacity: 0; transform: translateY(-20px) scale(0.95); }
+    .text-active { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; z-index: 20; }
+    .text-future { opacity: 0; transform: translateY(20px) scale(0.95); }
 
     .team-card-inner {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1.5rem;
+      gap: 1.2rem;
       width: 100%;
       padding: 0 1rem;
     }
@@ -359,16 +321,16 @@
       .team-card-inner {
         flex-direction: row;
         justify-content: center;
-        gap: 3rem;
+        gap: 2.5rem;
         padding: 0;
       }
     }
 
     .member-img-wrapper {
-      width: 220px;
-      height: 310px;
+      width: 200px;
+      height: 280px;
       flex-shrink: 0;
-      border-radius: 1rem;
+      border-radius: 0.85rem;
       overflow: hidden;
       display: flex;
       align-items: center;
@@ -376,27 +338,18 @@
       background-color: transparent;
       transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     }
-    .member-img-wrapper:hover {
-      transform: scale(1.02);
-    }
+    .member-img-wrapper:hover { transform: scale(1.02); }
     @media (min-width: 640px) {
-      .member-img-wrapper {
-        width: 320px;
-        height: 440px;
-      }
+      .member-img-wrapper { width: 280px; height: 380px; }
     }
     @media (min-width: 1024px) {
-      .member-img-wrapper {
-        width: 500px;
-        height: 700px;
-      }
+      .member-img-wrapper { width: 450px; height: 620px; }
     }
 
     /* ============================================================
-        RESPONSIVE OPTIMIZATION FIXES (Mobile & Tablet)
-        ============================================================ */
+       RESPONSIVE MOBILE OVERRIDES (< 1024px) - SCROLL ANIMATED SECTIONS
+       ============================================================ */
     @media (max-width: 1024px) {
-      /* Responsive Fix 1: Remove fixed heights on pinned scroll containers to prevent massive empty spaces on mobile */
       .cards-wrapper {
         height: auto !important;
         min-height: auto !important;
@@ -405,76 +358,54 @@
         position: relative !important;
         height: auto !important;
         min-height: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
         overflow: visible !important;
       }
-
-      /* Responsive Fix 2: Un-stack chapter cards for smooth vertical mobile scrolling without overlaps */
       .card {
         position: relative !important;
         transform: none !important;
         opacity: 1 !important;
+        width: 100% !important;
         height: auto !important;
         min-height: auto !important;
-        margin-bottom: 2rem;
+        margin-bottom: 2rem !important;
+        overflow: hidden !important;
+        border-radius: 1rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
       }
       .card-body {
         grid-template-columns: 1fr !important;
-        gap: 1.5rem !important;
+        gap: 1.2rem !important;
         padding: 2rem 1.25rem !important;
         overflow-y: visible !important;
       }
       .card-hero .card-body {
         grid-template-columns: 1fr !important;
-        gap: 1.5rem !important;
+        gap: 1.2rem !important;
       }
-      .card-hero .card-right {
-        align-items: flex-start !important;
-      }
+      .card-hero .card-right { align-items: flex-start !important; }
       .hero-logo-outer {
         transform: translateX(0) !important;
         margin: 0 auto;
-        width: clamp(180px, 50vw, 220px) !important;
-        height: clamp(180px, 50vw, 220px) !important;
+        width: clamp(160px, 45vw, 200px) !important;
+        height: clamp(160px, 45vw, 200px) !important;
       }
+      .scroll-hint { display: none !important; }
 
-      /* Responsive Fix 3: Hide scroll hint when pinning is disabled on mobile */
-      .scroll-hint {
-        display: none !important;
-      }
-
-      /* Responsive Fix 4: Stack process section properly on mobile */
       .process-container {
         grid-template-columns: 1fr !important;
-        padding: 3rem 1.25rem !important;
+        padding: 2.5rem 1.1rem !important;
         height: auto !important;
         min-height: auto !important;
       }
-      .left-column {
-        padding-right: 0 !important;
-      }
-      .right-content-area {
-        padding-top: 1.5rem !important;
-        padding-bottom: 2rem !important;
-      }
-      .process-step {
-        margin-top: 1.25rem !important;
-        margin-bottom: 1.5rem !important;
-      }
-      .process-center-space {
-        display: none !important;
-      }
+      .left-column { padding-right: 0 !important; }
+      .right-content-area { padding-top: 1rem !important; padding-bottom: 1.5rem !important; }
+      .process-step { margin-top: 1rem !important; margin-bottom: 1.2rem !important; }
+      .process-center-space { display: none !important; }
 
-      /* Responsive Fix 5: Team section un-stacking & mobile interleaving order */
-      #scroll-container {
-        height: auto !important;
-        min-height: auto !important;
-        padding-bottom: 3rem;
-      }
-      #scroll-container main.sticky {
-        position: relative !important;
-        height: auto !important;
-        min-height: auto !important;
-      }
+      #scroll-container { height: auto !important; min-height: auto !important; padding-bottom: 2rem; }
+      #scroll-container main.sticky { position: relative !important; height: auto !important; min-height: auto !important; }
       
       #scroll-container .w-full.lg\:w-\[35\%\],
       #scroll-container .w-full.lg\:w-\[65\%\] {
@@ -483,8 +414,9 @@
       #scroll-container .max-w-7xl {
         display: flex !important;
         flex-direction: column !important;
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
       }
-
       #scroll-container .slide-card,
       #scroll-container .text-group {
         position: relative !important;
@@ -493,32 +425,30 @@
         pointer-events: auto !important;
       }
 
-      #text-group-0 { order: 1; margin: 1rem 0 1.5rem !important; }
-      #slide-0 { order: 2; margin-bottom: 4rem !important; }
+      #text-group-0 { order: 1; margin: 0.5rem 0 1rem !important; }
+      #slide-0 { order: 2; margin-bottom: 2.5rem !important; }
 
-      #text-group-1 { order: 3; margin: 1rem 0 1.5rem !important;}
-      #slide-1 { order: 4; margin-bottom: 4rem !important; }
+      #text-group-1 { order: 3; margin: 0.5rem 0 1rem !important; }
+      #slide-1 { order: 4; margin-bottom: 2.5rem !important; }
 
-      #text-group-2 { order: 5; margin: 1rem 0 1.5rem !important;}
-      #slide-2 { order: 6; margin-bottom: 4rem !important; }
+      #text-group-2 { order: 5; margin: 0.5rem 0 1rem !important; }
+      #slide-2 { order: 6; margin-bottom: 2.5rem !important; }
 
-      #text-group-3 { order: 7; margin: 1rem 0 1.5rem !important;}
-      #slide-3 { order: 8; margin-bottom: 3rem !important; }
+      #text-group-3 { order: 7; margin: 0.5rem 0 1rem !important; }
+      #slide-3 { order: 8; margin-bottom: 1.5rem !important; }
     }
 
-    /* Small Mobile constraints */
     @media (max-width: 480px) {
       .team-card-inner .member-img-wrapper {
         width: 100% !important;
-        max-width: 280px !important;
         height: auto !important;
         aspect-ratio: 3/4 !important;
+        max-width: 260px !important;
+        margin: 0 auto;
       }
-      .team-card-inner.\!w-\[140px\] {
-        width: 100% !important;
-        max-width: 160px !important;
-        height: auto !important;
+      .team-card-inner .w-\[46\%\] .member-img-wrapper {
         aspect-ratio: 4/5 !important;
+        max-width: 140px !important;
       }
     }
 
@@ -532,11 +462,10 @@
     }
   </style>
 </head>
-<body class="antialiased flex flex-col relative overflow-x-hidden selection:bg-black/10">
+<body class="antialiased flex flex-col relative overflow-x-hidden w-full selection:bg-black/10">
 
   <!-- DYNAMIC COLLAPSIBLE NAVIGATION (TOP LEFT) -->
-  <div id="nav-container" class="smooth-transition fixed top-3 left-3 sm:top-6 sm:left-6 z-[1000] flex items-center bg-black/60 backdrop-blur-xl border border-white/10 shadow-2xl rounded-full p-2 max-w-[95vw]">
-
+  <div id="nav-container" class="smooth-transition fixed top-3 left-3 sm:top-6 sm:left-6 z-[1000] flex items-center bg-black/70 backdrop-blur-xl border border-white/15 shadow-2xl rounded-full p-2 max-w-[94vw]">
       <!-- Logo Container -->
       <div id="logo-container-wrap" class="z-10 shrink-0 relative flex items-center justify-center h-9 w-9 sm:h-12 sm:w-12 overflow-hidden rounded-full border border-white/10 bg-white/5 cursor-pointer p-1.5" onclick="window.location.href='index.html'">
           <img id="logo-collapsed" src="https://i.postimg.cc/K892XdFR/sds-white-logo-01-(1).png" alt="Collapsed Logo" class="absolute inset-0 w-full h-full object-cover smooth-transition opacity-100 scale-100 p-1" />
@@ -553,7 +482,7 @@
       <!-- Right side actions -->
       <div class="z-10 flex items-center shrink-0">
           <div id="divider" class="smooth-transition h-5 sm:h-6 w-px bg-white/20 mx-0 scale-y-0 opacity-0"></div>
-          <button id="toggle-btn" class="text-white hover:text-gray-300 transition-colors focus:outline-none p-2 sm:p-2.5 rounded-full hover:bg-white/10 active:scale-95 duration-200 shrink-0 ml-1" aria-label="Open menu">
+          <button id="toggle-btn" class="text-white hover:text-gray-300 transition-colors focus:outline-none p-2.5 sm:p-3 rounded-full hover:bg-white/10 active:scale-95 duration-200 shrink-0 ml-1" aria-label="Open menu">
               <div class="relative w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center">
                   <span id="menu-icon-wrapper" class="absolute collapsed smooth-transition">
                       <i data-lucide="menu" class="w-4 h-4 sm:w-5 sm:h-5 stroke-[1.5]"></i>
@@ -571,14 +500,14 @@
 
   <!-- ===== ABOUT SECTION ===== -->
   <div class="nav-offset">
-    <main class="min-h-screen flex flex-col justify-between py-8 md:py-16 max-w-[1600px] mx-auto">
-      <div class="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-0 flex-grow mb-12 pl-4 pr-4 sm:pl-8 sm:pr-8 md:pl-12 md:pr-12 lg:pl-24 lg:pr-0">
+    <main class="min-h-screen flex flex-col justify-between py-6 md:py-16 max-w-[1600px] mx-auto">
+      <div class="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-0 flex-grow mb-12 px-4 sm:px-8 md:px-12 lg:pl-24 lg:pr-0">
         <div class="lg:w-1/2 flex flex-col gap-4 lg:pr-12 w-full">
           <p class="text-xs sm:text-sm font-medium tracking-[0.2em] uppercase text-gray-500 mb-1 scroll-reveal">About SDS</p>
           <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-[5.5rem] font-medium leading-[1.08] tracking-tight scroll-reveal">
             Brands that<br/>make business<br/>value clear.
           </h1>
-          <div class="mt-2 sm:mt-4 flex flex-col gap-3 text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 leading-relaxed max-w-xl scroll-reveal">
+          <div class="mt-2 sm:mt-4 flex flex-col gap-3 text-sm sm:text-base md:text-lg text-gray-700 leading-relaxed max-w-xl scroll-reveal">
             <p>SandyDesignStudio is a Chennai-based creative branding studio working with businesses that are ready to grow. We help founders and companies turn what they are good at into a brand people can understand, trust, and remember — through strategy, identity, content, digital presence, and growth.</p>
           </div>
         </div>
@@ -601,8 +530,7 @@
 
         <!-- LEFT COLUMN -->
         <div class="w-full lg:w-[35%] relative h-[210px] sm:h-[250px] lg:h-[500px] flex items-center shrink-0">
-
-          <div id="text-group-0" class="text-group">
+          <div id="text-group-0" class="text-group scroll-reveal">
             <h1 class="text-2xl sm:text-4xl lg:text-7xl font-bold tracking-tight mb-3 lg:mb-8 leading-none">
               The vision behind <br class="hidden sm:block"/>
               SDS<span class="text-brand-blue">.</span>
@@ -669,10 +597,9 @@
         </div>
 
         <!-- RIGHT COLUMN (GROUPED TEAM MEMBERS) -->
-        <div class="w-full lg:w-[65%] relative h-[42vh] sm:h-[550px] lg:h-[850px] flex items-center justify-center shrink-0">
-
+        <div class="w-full lg:w-[65%] relative h-[40vh] sm:h-[550px] lg:h-[850px] flex items-center justify-center shrink-0">
           <!-- SLIDE 0: Founder -->
-          <div id="slide-0" class="slide-card">
+          <div id="slide-0" class="slide-card scroll-reveal">
             <div class="team-card-inner !justify-center">
               <div class="member-img-wrapper">
                 <img alt="Founder sitting on a chair" class="w-full h-full object-cover object-center drop-shadow-xl" src="https://png.pngtree.com/png-vector/20231018/ourmid/pngtree-smart-business-man-transparent-background-png-image_10309671.png"/>
@@ -680,94 +607,89 @@
             </div>
           </div>
 
-          <!-- SLIDE 1: Social Media Team (2 members) -->
-          <div id="slide-1" class="slide-card">
+          <!-- SLIDE 1: Social Media Team -->
+          <div id="slide-1" class="slide-card scroll-reveal">
             <div class="team-card-inner !flex-row !gap-3 sm:!gap-8 justify-center">
               <div class="flex flex-col items-center">
-                <div class="member-img-wrapper !w-[140px] sm:!w-[220px] lg:!w-[240px] !h-[200px] sm:!h-[320px] lg:!h-[360px]">
+                <div class="member-img-wrapper !w-[130px] sm:!w-[220px] lg:!w-[240px] !h-[180px] sm:!h-[320px] lg:!h-[360px]">
                   <img src="https://png.pngtree.com/png-vector/20231018/ourmid/pngtree-the-business-man-transparent-background-png-image_10309695.png" alt="Arjun Raj" class="w-full h-full object-cover object-center"/>
                 </div>
-                <h3 class="text-sm sm:text-lg font-bold text-gray-900 mt-2">Arjun Raj</h3>
-                <p class="text-blue-custom text-[10px] sm:text-xs uppercase tracking-wider font-semibold">Project Manager</p>
+                <h3 class="text-xs sm:text-lg font-bold text-gray-900 mt-2">Arjun Raj</h3>
+                <p class="text-blue-custom text-[9px] sm:text-xs uppercase tracking-wider font-semibold">Project Manager</p>
               </div>
               <div class="flex flex-col items-center">
-                <div class="member-img-wrapper !w-[140px] sm:!w-[220px] lg:!w-[240px] !h-[200px] sm:!h-[320px] lg:!h-[360px]">
+                <div class="member-img-wrapper !w-[130px] sm:!w-[220px] lg:!w-[240px] !h-[180px] sm:!h-[320px] lg:!h-[360px]">
                   <img src="https://png.pngtree.com/png-vector/20231018/ourmid/pngtree-the-business-man-transparent-background-png-image_10309695.png" alt="Keerthana R" class="w-full h-full object-cover object-center"/>
                 </div>
-                <h3 class="text-sm sm:text-lg font-bold text-gray-900 mt-2">Keerthana R</h3>
-                <p class="text-blue-custom text-[10px] sm:text-xs uppercase tracking-wider font-semibold">Social Media Manager</p>
+                <h3 class="text-xs sm:text-lg font-bold text-gray-900 mt-2">Keerthana R</h3>
+                <p class="text-blue-custom text-[9px] sm:text-xs uppercase tracking-wider font-semibold">Social Media Manager</p>
               </div>
             </div>
           </div>
 
-          <!-- SLIDE 2: Creative Team (4 members in a 2x2 grid layout) -->
-          <div id="slide-2" class="slide-card">
+          <!-- SLIDE 2: Creative Team -->
+          <div id="slide-2" class="slide-card scroll-reveal">
             <div class="team-card-inner !flex-row !flex-wrap !gap-3 sm:!gap-6 justify-center items-center max-w-[560px] mx-auto">
-              <!-- Member 1 -->
               <div class="flex flex-col items-center w-[46%] sm:w-[46%]">
-                <div class="member-img-wrapper !w-[110px] sm:!w-[150px] lg:!w-[190px] !h-[140px] sm:!h-[190px] lg:!h-[230px]">
+                <div class="member-img-wrapper !w-[105px] sm:!w-[150px] lg:!w-[190px] !h-[130px] sm:!h-[190px] lg:!h-[230px]">
                   <img src="https://png.pngtree.com/png-vector/20231018/ourmid/pngtree-the-business-man-transparent-background-png-image_10309695.png" alt="Vasanth V" class="w-full h-full object-cover object-center"/>
                 </div>
-                <h3 class="text-xs sm:text-sm font-bold text-gray-900 mt-1.5">Vasanth V</h3>
-                <p class="text-blue-custom text-[9px] sm:text-[11px] uppercase tracking-wider font-semibold">Graphic Designer</p>
+                <h3 class="text-[11px] sm:text-sm font-bold text-gray-900 mt-1.5">Vasanth V</h3>
+                <p class="text-blue-custom text-[8px] sm:text-[11px] uppercase tracking-wider font-semibold">Graphic Designer</p>
               </div>
-              <!-- Member 2 -->
               <div class="flex flex-col items-center w-[46%] sm:w-[46%]">
-                <div class="member-img-wrapper !w-[110px] sm:!w-[150px] lg:!w-[190px] !h-[140px] sm:!h-[190px] lg:!h-[230px]">
+                <div class="member-img-wrapper !w-[105px] sm:!w-[150px] lg:!w-[190px] !h-[130px] sm:!h-[190px] lg:!h-[230px]">
                   <img src="https://png.pngtree.com/png-vector/20231018/ourmid/pngtree-the-business-man-transparent-background-png-image_10309695.png" alt="Praveen P" class="w-full h-full object-cover object-center"/>
                 </div>
-                <h3 class="text-xs sm:text-sm font-bold text-gray-900 mt-1.5">Praveen P</h3>
-                <p class="text-blue-custom text-[9px] sm:text-[11px] uppercase tracking-wider font-semibold">UI/UX Designer</p>
+                <h3 class="text-[11px] sm:text-sm font-bold text-gray-900 mt-1.5">Praveen P</h3>
+                <p class="text-blue-custom text-[8px] sm:text-[11px] uppercase tracking-wider font-semibold">UI/UX Designer</p>
               </div>
-              <!-- Member 3 -->
               <div class="flex flex-col items-center w-[46%] sm:w-[46%]">
-                <div class="member-img-wrapper !w-[110px] sm:!w-[150px] lg:!w-[190px] !h-[140px] sm:!h-[190px] lg:!h-[230px]">
+                <div class="member-img-wrapper !w-[105px] sm:!w-[150px] lg:!w-[190px] !h-[130px] sm:!h-[190px] lg:!h-[230px]">
                   <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=600&q=80" alt="Vignesh S" class="w-full h-full object-cover object-center"/>
                 </div>
-                <h3 class="text-xs sm:text-sm font-bold text-gray-900 mt-1.5">Vignesh S</h3>
-                <p class="text-blue-custom text-[9px] sm:text-[11px] uppercase tracking-wider font-semibold">Video Editor</p>
+                <h3 class="text-[11px] sm:text-sm font-bold text-gray-900 mt-1.5">Vignesh S</h3>
+                <p class="text-blue-custom text-[8px] sm:text-[11px] uppercase tracking-wider font-semibold">Video Editor</p>
               </div>
-              <!-- Member 4 -->
               <div class="flex flex-col items-center w-[46%] sm:w-[46%]">
-                <div class="member-img-wrapper !w-[110px] sm:!w-[150px] lg:!w-[190px] !h-[140px] sm:!h-[190px] lg:!h-[230px]">
+                <div class="member-img-wrapper !w-[105px] sm:!w-[150px] lg:!w-[190px] !h-[130px] sm:!h-[190px] lg:!h-[230px]">
                   <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80" alt="Logesh K" class="w-full h-full object-cover object-center"/>
                 </div>
-                <h3 class="text-xs sm:text-sm font-bold text-gray-900 mt-1.5">Logesh K</h3>
-                <p class="text-blue-custom text-[9px] sm:text-[11px] uppercase tracking-wider font-semibold">Video Editor</p>
+                <h3 class="text-[11px] sm:text-sm font-bold text-gray-900 mt-1.5">Logesh K</h3>
+                <p class="text-blue-custom text-[8px] sm:text-[11px] uppercase tracking-wider font-semibold">Video Editor</p>
               </div>
             </div>
           </div>
 
-          <!-- SLIDE 3: Production Team (2 members) -->
-          <div id="slide-3" class="slide-card">
+          <!-- SLIDE 3: Production Team -->
+          <div id="slide-3" class="slide-card scroll-reveal">
             <div class="team-card-inner !flex-row !gap-3 sm:!gap-8 justify-center">
               <div class="flex flex-col items-center">
-                <div class="member-img-wrapper !w-[140px] sm:!w-[220px] lg:!w-[240px] !h-[200px] sm:!h-[320px] lg:!h-[360px]">
+                <div class="member-img-wrapper !w-[130px] sm:!w-[220px] lg:!w-[240px] !h-[180px] sm:!h-[320px] lg:!h-[360px]">
                   <img src="https://png.pngtree.com/png-vector/20231018/ourmid/pngtree-the-business-man-transparent-background-png-image_10309695.png" alt="Dinesh K" class="w-full h-full object-cover object-center"/>
                 </div>
-                <h3 class="text-sm sm:text-lg font-bold text-gray-900 mt-2">Dinesh K</h3>
-                <p class="text-blue-custom text-[10px] sm:text-xs uppercase tracking-wider font-semibold">Cinematographer</p>
+                <h3 class="text-xs sm:text-lg font-bold text-gray-900 mt-2">Dinesh K</h3>
+                <p class="text-blue-custom text-[9px] sm:text-xs uppercase tracking-wider font-semibold">Cinematographer</p>
               </div>
               <div class="flex flex-col items-center">
-                <div class="member-img-wrapper !w-[140px] sm:!w-[220px] lg:!w-[240px] !h-[200px] sm:!h-[320px] lg:!h-[360px]">
+                <div class="member-img-wrapper !w-[130px] sm:!w-[220px] lg:!w-[240px] !h-[180px] sm:!h-[320px] lg:!h-[360px]">
                   <img src="https://png.pngtree.com/png-vector/20231018/ourmid/pngtree-the-business-man-transparent-background-png-image_10309695.png" alt="Siva Prakash" class="w-full h-full object-cover object-center"/>
                 </div>
-                <h3 class="text-sm sm:text-lg font-bold text-gray-900 mt-2">Siva Prakash</h3>
-                <p class="text-blue-custom text-[10px] sm:text-xs uppercase tracking-wider font-semibold">Creative Director</p>
+                <h3 class="text-xs sm:text-lg font-bold text-gray-900 mt-2">Siva Prakash</h3>
+                <p class="text-blue-custom text-[9px] sm:text-xs uppercase tracking-wider font-semibold">Creative Director</p>
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </main>
   </div>
 
-  <!-- ===== CHAPTERS (ACCELERATED SCROLL: 380vh) ===== -->
+  <!-- ===== CHAPTERS ===== -->
   <div class="cards-wrapper">
     <div class="sticky-stage">
       <!-- HERO CARD -->
-      <div class="card card-hero visible" data-index="0" style="transform: translateY(0);">
+      <div class="card card-hero visible scroll-reveal" data-index="0" style="transform: translateY(0);">
         <div class="card-body">
           <div class="card-left">
             <div class="card-chapter"><span class="sds">SDS</span><br/><span class="story">ABOUT</span></div>
@@ -796,7 +718,7 @@
       </div>
 
       <!-- CHAPTER 1 -->
-      <div class="card card-light" data-index="1">
+      <div class="card card-light scroll-reveal" data-index="1">
         <div class="card-bar"><span class="card-bar-text">Good Businesses Deserve Brands That Show It.</span></div>
         <div class="card-body">
           <div class="card-left"><div class="card-num">01</div><div class="card-chapter">What We Believe</div></div>
@@ -807,18 +729,18 @@
       </div>
 
       <!-- CHAPTER 2 -->
-      <div class="card card-dark" data-index="2">
+      <div class="card card-dark scroll-reveal" data-index="2">
         <div class="card-bar"><span class="card-bar-text">Clear. Creative. Communication.</span></div>
         <div class="card-body">
           <div class="card-left"><div class="card-num">02</div><div class="card-chapter">Our Philosophy</div></div>
           <div class="card-right">
             <p class="card-desc">
               <span class="block font-semibold text-white mb-1">Clear</span>
-              <span class="block mb-2 sm:mb-3">We understand your business completely before we create anything.</span>
+              <span class="block mb-2">We understand your business completely before we create anything.</span>
               <span class="block font-semibold text-white mb-1">Creative</span>
-              <span class="block mb-2 sm:mb-3">We turn that understanding into purposeful, distinctive work that feels true to your business.</span>
+              <span class="block mb-2">We turn that understanding into purposeful, distinctive work that feels true to your business.</span>
               <span class="block font-semibold text-white mb-1">Communication</span>
-              <span class="block mb-2 sm:mb-3">We put your story where your audience is and make sure it connects.</span>
+              <span class="block mb-2">We put your story where your audience is and make sure it connects.</span>
               <span class="block font-medium text-white/90">Together, these principles shape everything we do at SDS.</span>
             </p>
           </div>
@@ -828,7 +750,7 @@
       </div>
 
       <!-- CHAPTER 3 -->
-      <div class="card card-light" data-index="3">
+      <div class="card card-light scroll-reveal" data-index="3">
         <div class="card-bar"><span class="card-bar-text">Strategy to Growth. One Connected System.</span></div>
         <div class="card-body">
           <div class="card-left"><div class="card-num">03</div><div class="card-chapter">What We Do</div></div>
@@ -839,7 +761,7 @@
       </div>
 
       <!-- CHAPTER 4 -->
-      <div class="card card-dark" data-index="4">
+      <div class="card card-dark scroll-reveal" data-index="4">
         <div class="card-bar"><span class="card-bar-text">Businesses With Something Worth Building.</span></div>
         <div class="card-body">
           <div class="card-left"><div class="card-num">04</div><div class="card-chapter">Who We Work With</div></div>
@@ -850,15 +772,15 @@
       </div>
 
       <!-- CHAPTER 5 -->
-      <div class="card card-light" data-index="5">
+      <div class="card card-light scroll-reveal" data-index="5">
         <div class="card-bar"><span class="card-bar-text">About the Maker</span></div>
         <div class="card-body">
           <div class="card-left"><div class="card-num">05</div><div class="card-chapter">Santhosh S</div></div>
           <div class="card-right">
             <p class="card-desc">
               <span class="block font-semibold text-black mb-1">Founder & Brand Strategist</span>
-              <span class="block mb-2 sm:mb-3">Santhosh S is a Chennai-based brand and growth strategist working at the intersection of brand strategy, product marketing, and go-to-market thinking.</span>
-              <span class="block mb-2 sm:mb-3">His background began in tech development before moving into brand and product marketing, giving him a combination of technical understanding and strategic brand thinking.</span>
+              <span class="block mb-2">Santhosh S is a Chennai-based brand and growth strategist working at the intersection of brand strategy, product marketing, and go-to-market thinking.</span>
+              <span class="block mb-2">His background began in tech development before moving into brand and product marketing, giving him a combination of technical understanding and strategic brand thinking.</span>
               <span class="block font-medium text-black">A clear brand position helps businesses win better clients, command better value, and compete beyond price.</span>
             </p>
           </div>
@@ -868,7 +790,7 @@
       </div>
 
       <!-- CHAPTER 6 -->
-      <div class="card card-dark" data-index="6">
+      <div class="card card-dark scroll-reveal" data-index="6">
         <div class="card-bar"><span class="card-bar-text">A Small Team. A Lot of Ownership.</span></div>
         <div class="card-body">
           <div class="card-left"><div class="card-num">06</div><div class="card-chapter">The Studio</div></div>
@@ -911,20 +833,19 @@
   </section>
 
   <!-- ===== PROFESSIONAL CTA SECTION ===== -->
-  <section id="cta-section" class="bg-white text-black border-t border-b border-black/10 w-full flex items-center justify-center py-20 md:py-28 px-4 sm:px-6 relative overflow-hidden scroll-reveal" data-purpose="cta-section">
-    <!-- Subtle decorative ambient gradient blob -->
-    <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[400px] md:w-[600px] h-[250px] md:h-[300px] bg-gradient-to-r from-[#0c1334]/5 via-[#27397f]/10 to-[#5ea7db]/10 blur-3xl pointer-events-none rounded-full"></div>
+  <section id="cta-section" class="bg-white text-black border-t border-b border-black/10 w-full flex items-center justify-center py-16 md:py-28 px-4 sm:px-6 relative overflow-hidden scroll-reveal">
+    <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[300px] md:w-[600px] h-[200px] md:h-[300px] bg-gradient-to-r from-[#0c1334]/5 via-[#27397f]/10 to-[#5ea7db]/10 blur-3xl pointer-events-none rounded-full"></div>
 
     <div class="text-center max-w-3xl mx-auto relative z-10 cta-content-wrapper">
       <h2 class="text-2xl sm:text-4xl md:text-6xl font-medium tracking-tight mb-4 md:mb-6 leading-tight">
         Think your brand can <span class="bg-gradient-to-r from-[#0c1334] via-[#27397f] to-[#5ea7db] bg-clip-text text-transparent font-semibold">do more?</span>
       </h2>
-      <p class="text-base sm:text-lg md:text-xl text-gray-600 mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed font-normal">
+      <p class="text-sm sm:text-lg md:text-xl text-gray-600 mb-6 md:mb-10 max-w-2xl mx-auto leading-relaxed font-normal">
         Tell us where your business is today. We'll help you figure out where it can go next.
       </p>
       
       <div class="inline-block group">
-        <a class="inline-flex items-center justify-center px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] hover:brightness-110 text-white text-xs sm:text-sm font-semibold tracking-[0.18em] uppercase rounded-full transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 shadow-xl shadow-[#0c1334]/20" data-purpose="cta-button" href="connect.html">
+        <a class="inline-flex items-center justify-center px-6 sm:px-10 py-3.5 sm:py-5 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] hover:brightness-110 text-white text-xs sm:text-sm font-semibold tracking-[0.18em] uppercase rounded-full transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 shadow-xl shadow-[#0c1334]/20" href="connect.html">
           Start a Conversation
           <svg class="w-4 h-4 ml-2.5 transition-transform duration-300 group-hover:translate-x-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
@@ -932,14 +853,14 @@
         </a>
       </div>
 
-      <p class="text-[11px] sm:text-xs text-gray-400 uppercase tracking-[0.2em] sm:tracking-[0.25em] mt-6 sm:mt-8 font-medium">
+      <p class="text-[10px] sm:text-xs text-gray-400 uppercase tracking-[0.2em] sm:tracking-[0.25em] mt-6 sm:mt-8 font-medium">
         One conversation. <span class="bg-gradient-to-r from-[#27397f] to-[#5ea7db] bg-clip-text text-transparent font-semibold">A clearer direction.</span>
       </p>
     </div>
   </section>
 
-  <!-- FOOTER (No Animation) -->
-  <footer class="w-full bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] text-white pt-12 md:pt-16 pb-10 md:pb-12 px-5 sm:px-8 md:px-12 lg:px-20 border-t border-white/10">
+  <!-- FOOTER -->
+  <footer class="w-full bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] text-white pt-12 md:pt-16 pb-10 md:pb-12 px-4 sm:px-8 md:px-12 lg:px-20 border-t border-white/10">
       <div class="max-w-7xl mx-auto flex flex-col gap-6 md:gap-8">
           <div class="flex flex-col md:flex-row justify-between text-[13px] md:text-[14px] leading-relaxed font-normal tracking-wide gap-8 md:gap-0">
               <div class="flex flex-wrap gap-8 sm:gap-12 md:gap-16 lg:gap-24">
@@ -967,10 +888,10 @@
           </div>
 
           <div class="flex gap-3.5 mt-2">
-              <a aria-label="LinkedIn" class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] border border-white/20 rounded-full flex items-center justify-center text-white hover:brightness-110 transition-all micro-hover" href="https://www.linkedin.com/company/sandydesignstudio"><i class="fa-brands fa-linkedin-in text-base sm:text-lg"></i></a>
-              <a aria-label="Instagram" class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] border border-white/20 rounded-full flex items-center justify-center text-white hover:brightness-110 transition-all micro-hover" href="https://www.instagram.com/sandydesignstudio_"><i class="fa-brands fa-instagram text-base sm:text-lg"></i></a>
-              <a aria-label="Facebook" class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] border border-white/20 rounded-full flex items-center justify-center text-white hover:brightness-110 transition-all micro-hover" href="#"><i class="fa-brands fa-facebook-f text-base sm:text-lg"></i></a>
-              <a aria-label="YouTube" class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] border border-white/20 rounded-full flex items-center justify-center text-white hover:brightness-110 transition-all micro-hover" href="#"><i class="fa-brands fa-youtube text-base sm:text-lg"></i></a>
+              <a aria-label="LinkedIn" class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] border border-white/20 rounded-full flex items-center justify-center text-white hover:brightness-110 transition-all micro-hover" href="https://www.linkedin.com/company/sandydesignstudio"><i class="fa-brands fa-linkedin-in text-base"></i></a>
+              <a aria-label="Instagram" class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] border border-white/20 rounded-full flex items-center justify-center text-white hover:brightness-110 transition-all micro-hover" href="https://www.instagram.com/sandydesignstudio_"><i class="fa-brands fa-instagram text-base"></i></a>
+              <a aria-label="Facebook" class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] border border-white/20 rounded-full flex items-center justify-center text-white hover:brightness-110 transition-all micro-hover" href="#"><i class="fa-brands fa-facebook-f text-base"></i></a>
+              <a aria-label="YouTube" class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-[#0c1334] via-[#152259] to-[#27397f] border border-white/20 rounded-full flex items-center justify-center text-white hover:brightness-110 transition-all micro-hover" href="#"><i class="fa-brands fa-youtube text-base"></i></a>
           </div>
 
           <hr class="border-t border-white/20 w-full mt-2 mb-4" />
@@ -989,23 +910,20 @@
   </footer>
 
   <script>
-    // Initialize Lucide Icons
     lucide.createIcons();
 
     (function() {
-      // ---------- CHAPTERS + PIN LOCK ----------
-      const cards  = document.querySelectorAll('.cards-wrapper .card');
-      const hint   = document.getElementById('hint');
-      const total  = cards.length;
-      let current  = -1;
+      const cards = document.querySelectorAll('.cards-wrapper .card');
+      const hint = document.getElementById('hint');
+      const total = cards.length;
+      let current = -1;
       const body = document.body;
       let pinLockActive = false;
       let scrollLocked = false;
-
       const navContainer = document.getElementById('nav-container');
 
       function show(index) {
-        if (window.innerWidth <= 1024) return; // Allow natural stacking/scrolling on mobile
+        if (window.innerWidth <= 1024) return;
         if (index === current) return;
         current = index;
         cards.forEach((c, i) => {
@@ -1047,8 +965,7 @@
       }
 
       function onScroll() {
-        if (window.innerWidth <= 1024) return;
-        if (scrollLocked) return;
+        if (window.innerWidth <= 1024 || scrollLocked) return;
         const wrapper = document.querySelector('.cards-wrapper');
         if (!wrapper) return;
         const rect = wrapper.getBoundingClientRect();
@@ -1064,9 +981,7 @@
         window.addEventListener('scroll', onScroll, { passive: true });
       }
 
-      // ---------- NAVIGATION & LOGO MORPHING ----------
       let isNavExpanded = false;
-
       const navItemsList = [
           { label: 'Built', href: 'built.html' },
           { label: 'Create', href: 'create.html' },
@@ -1096,13 +1011,8 @@
               const dotStateClass = isActive ? 'active' : 'inactive';
 
               const linkHTML = `
-                  <a
-                      href="${item.href}"
-                      class="relative group text-sm sm:text-base font-medium transition-colors duration-300 focus:outline-none whitespace-nowrap py-2 px-1 no-underline"
-                  >
-                      <span class="transition-colors duration-300 ${textColorClass}">
-                          ${item.label}
-                      </span>
+                  <a href="${item.href}" class="relative group text-sm sm:text-base font-medium transition-colors duration-300 focus:outline-none whitespace-nowrap py-2 px-1 no-underline">
+                      <span class="transition-colors duration-300 ${textColorClass}">${item.label}</span>
                       <span class="active-dot ${dotStateClass} absolute -bottom-1 left-1/2 w-1.5 h-1.5 rounded-full bg-white shadow-lg"></span>
                   </a>
               `;
@@ -1116,13 +1026,7 @@
           if (isNavExpanded) {
               navWrapper.classList.remove('max-w-0', 'opacity-0', 'px-0');
               navWrapper.classList.add('max-w-[800px]', 'opacity-100', 'px-3', 'sm:px-6');
-          } else {
-              navWrapper.classList.remove('max-w-[800px]', 'opacity-100', 'px-3', 'sm:px-6');
-              navWrapper.classList.add('max-w-0', 'opacity-0', 'px-0');
-          }
-
-          if (isNavExpanded) {
-              logoContainerWrap.style.width = '130px';
+              logoContainerWrap.style.width = '120px';
               logoContainerWrap.style.backgroundColor = 'transparent';
               logoContainerWrap.style.border = '0';
               logoContainerWrap.style.borderRadius = '0';
@@ -1132,10 +1036,27 @@
               logoCollapsed.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
               logoExpanded.classList.remove('opacity-0', 'scale-90', 'pointer-events-none');
               logoExpanded.classList.add('opacity-100', 'scale-100');
+
+              divider.classList.remove('scale-y-0', 'mx-0', 'opacity-0');
+              divider.classList.add('scale-y-100', 'mx-2', 'sm:mx-4', 'opacity-100');
+
+              menuIconWrapper.classList.remove('collapsed');
+              menuIconWrapper.classList.add('expanded');
+              closeIconWrapper.classList.remove('collapsed');
+              closeIconWrapper.classList.add('expanded');
+              toggleBtn.setAttribute('aria-label', 'Close menu');
+
+              navOverlay.classList.remove('hidden');
+              setTimeout(() => {
+                  navOverlay.classList.remove('opacity-0');
+                  navOverlay.classList.add('opacity-100');
+              }, 10);
           } else {
+              navWrapper.classList.remove('max-w-[800px]', 'opacity-100', 'px-3', 'sm:px-6');
+              navWrapper.classList.add('max-w-0', 'opacity-0', 'px-0');
+
               logoExpanded.classList.remove('opacity-100', 'scale-100');
               logoExpanded.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
-
               logoContainerWrap.style.width = '';
               logoContainerWrap.style.backgroundColor = '';
               logoContainerWrap.style.border = '';
@@ -1144,60 +1065,28 @@
 
               logoCollapsed.classList.remove('opacity-0', 'scale-90', 'pointer-events-none');
               logoCollapsed.classList.add('opacity-100', 'scale-100');
-          }
 
-          if (isNavExpanded) {
-              divider.classList.remove('scale-y-0', 'mx-0', 'opacity-0');
-              divider.classList.add('scale-y-100', 'mx-2', 'sm:mx-4', 'opacity-100');
-          } else {
               divider.classList.remove('scale-y-100', 'mx-2', 'sm:mx-4', 'opacity-100');
               divider.classList.add('scale-y-0', 'mx-0', 'opacity-0');
-          }
 
-          if (isNavExpanded) {
-              menuIconWrapper.classList.remove('collapsed');
-              menuIconWrapper.classList.add('expanded');
-              closeIconWrapper.classList.remove('collapsed');
-              closeIconWrapper.classList.add('expanded');
-              toggleBtn.setAttribute('aria-label', 'Close menu');
-          } else {
               menuIconWrapper.classList.remove('expanded');
               menuIconWrapper.classList.add('collapsed');
               closeIconWrapper.classList.remove('expanded');
               closeIconWrapper.classList.add('collapsed');
               toggleBtn.setAttribute('aria-label', 'Open menu');
-          }
 
-          if (isNavExpanded) {
-              navOverlay.classList.remove('hidden');
-              setTimeout(() => {
-                  navOverlay.classList.remove('opacity-0');
-                  navOverlay.classList.add('opacity-100');
-              }, 10);
-          } else {
               navOverlay.classList.remove('opacity-100');
               navOverlay.classList.add('opacity-0');
-              setTimeout(() => {
-                  navOverlay.classList.add('hidden');
-              }, 500); 
+              setTimeout(() => { navOverlay.classList.add('hidden'); }, 500);
           }
       }
 
       toggleBtn.addEventListener('click', toggleNav);
-      navOverlay.addEventListener('click', () => {
-          if (isNavExpanded) toggleNav();
-      });
-
-      document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape' && isNavExpanded) {
-              toggleNav();
-          }
-      });
-
+      navOverlay.addEventListener('click', () => { if (isNavExpanded) toggleNav(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isNavExpanded) toggleNav(); });
       renderNavLinks();
     })();
 
-    // ---------- TEAM & VISION SCROLL SECTION LOGIC (4 GROUPED SLIDES) ----------
     document.addEventListener("DOMContentLoaded", () => {
       const totalSlides = 4;
       let currentIndex = -1;
@@ -1212,47 +1101,32 @@
       ];
 
       function updateTeamUI(targetIndex) {
-        if (window.innerWidth <= 1024) return; // Skip absolute layering on mobile
-        if (targetIndex === currentIndex) return;
+        if (window.innerWidth <= 1024 || targetIndex === currentIndex) return;
         currentIndex = targetIndex;
 
         for (let i = 0; i < totalSlides; i++) {
           const slide = document.getElementById(`slide-${i}`);
           if (!slide) continue;
-
           slide.classList.remove('slide-past', 'slide-active', 'slide-future');
-
-          if (i < targetIndex) {
-            slide.classList.add('slide-past');
-          } else if (i === targetIndex) {
-            slide.classList.add('slide-active');
-          } else {
-            slide.classList.add('slide-future');
-          }
+          if (i < targetIndex) slide.classList.add('slide-past');
+          else if (i === targetIndex) slide.classList.add('slide-active');
+          else slide.classList.add('slide-future');
         }
 
         const config = slideConfig[targetIndex];
-
         for (let g = 0; g <= 3; g++) {
           const groupEl = document.getElementById(`text-group-${g}`);
           if (!groupEl) continue;
-
           groupEl.classList.remove('text-past', 'text-active', 'text-future');
-
-          if (g < config.group) {
-            groupEl.classList.add('text-past');
-          } else if (g === config.group) {
-            groupEl.classList.add('text-active');
-          } else {
-            groupEl.classList.add('text-future');
-          }
+          if (g < config.group) groupEl.classList.add('text-past');
+          else if (g === config.group) groupEl.classList.add('text-active');
+          else groupEl.classList.add('text-future');
         }
 
         if (config.counter) {
           const counterEl = document.getElementById(`counter-group-${config.group}`);
           if (counterEl) counterEl.innerText = config.counter;
         }
-
         if (config.badge) {
           const badgeEl = document.getElementById(`badge-group-${config.group}`);
           if (badgeEl) badgeEl.innerText = config.badge;
@@ -1263,30 +1137,21 @@
         if (window.innerWidth <= 1024) return;
         const rect = container.getBoundingClientRect();
         const scrollableDistance = rect.height - window.innerHeight;
-
         let progress = -rect.top / scrollableDistance;
         progress = Math.max(0, Math.min(1, progress));
-
         let activeIndex = Math.floor(progress * totalSlides);
         if (activeIndex >= totalSlides) activeIndex = totalSlides - 1;
-
         updateTeamUI(activeIndex);
       }, { passive: true });
 
-      if (window.innerWidth > 1024) {
-        updateTeamUI(0);
-      }
+      if (window.innerWidth > 1024) updateTeamUI(0);
 
-      // ---------- GSAP GLOBAL SCROLL REVEAL ANIMATIONS ----------
       gsap.registerPlugin(ScrollTrigger);
-
-      // Hero video entrance slide from right to left with pop effect
       gsap.fromTo(".hero-video-wrapper",
-        { x: 80, opacity: 0, scale: 0.92 },
-        { x: 0, opacity: 1, scale: 1, duration: 1.2, ease: "power3.out" }
+        { x: 50, opacity: 0, scale: 0.94 },
+        { x: 0, opacity: 1, scale: 1, duration: 1.1, ease: "power3.out" }
       );
 
-      // General scroll reveal elements (excluding footer)
       gsap.utils.toArray('.scroll-reveal').forEach(el => {
         gsap.fromTo(el, 
           { opacity: 0, y: 50, scale: 0.96 },
@@ -1294,7 +1159,7 @@
             opacity: 1, 
             y: 0, 
             scale: 1,
-            duration: 1.1,
+            duration: 1,
             ease: "power3.out",
             scrollTrigger: {
               trigger: el,
